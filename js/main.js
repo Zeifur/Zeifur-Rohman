@@ -92,6 +92,17 @@ window.addEventListener('load', () => {
                     { y: 0, opacity: 1, duration: 1.0 }, 
                     '-=0.6'
                 );
+
+                // 9. Mobile: animate sub-nav entrance from below
+                if (window.innerWidth <= 1024) {
+                    gsap.to('.sub-nav', {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.8,
+                        ease: 'power3.out',
+                        delay: 0.6
+                    });
+                }
                 
                 // Allow scrolling after preloader is gone
                 document.body.style.overflow = 'auto';
@@ -103,9 +114,33 @@ window.addEventListener('load', () => {
 // Disable scroll during preloader
 document.body.style.overflow = 'hidden';
 
+// Mobile Sub-nav Sticky Logic: switch from absolute (bottom of hero) to fixed (below top navbar)
+const subNav = document.querySelector('.hero-split .sub-nav');
+const heroSection = document.querySelector('.hero-split');
+
+function updateSubNavSticky() {
+    if (window.innerWidth > 1024) return; // desktop uses CSS sticky, not this logic
+    if (!subNav || !heroSection) return;
+    
+    // The sub-nav should become sticky after the user scrolls past the hero
+    const heroBottom = heroSection.getBoundingClientRect().bottom;
+    // Threshold: when hero bottom reaches 70px (top navbar height) + sub-nav height (~45px)
+    if (heroBottom <= 115) {
+        subNav.classList.add('is-sticky');
+    } else {
+        subNav.classList.remove('is-sticky');
+    }
+}
+
+// Use Lenis scroll event for accuracy
+lenis.on('scroll', updateSubNavSticky);
+// Also fire on first paint
+window.addEventListener('resize', updateSubNavSticky);
+
 // Fixed Panel & Layer Switching Logic
 const contentSections = document.querySelectorAll('.content-section');
 const bgLayers = document.querySelectorAll('.bg-layer');
+// Select sub-links from BOTH nav variants (mobile inside hero + desktop sticky)
 const subLinks = document.querySelectorAll('.sub-links a');
 
 contentSections.forEach((section) => {
@@ -276,14 +311,14 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Up/Down Navigation Arrows Logic (Minimalist ⌃/⌄)
-const prevBtn = document.querySelector('.nav-controls-minimal .prev');
-const nextBtn = document.querySelector('.nav-controls-minimal .next');
+// Up/Down Navigation Arrows Logic – works for BOTH desktop and mobile controls
+const prevBtns = document.querySelectorAll('.nav-controls-minimal .prev');
+const nextBtns = document.querySelectorAll('.nav-controls-minimal .next');
 
-if (prevBtn && nextBtn) {
+if (prevBtns.length && nextBtns.length) {
     const sections = Array.from(contentSections);
     
-    nextBtn.addEventListener('click', () => {
+    nextBtns.forEach(btn => btn.addEventListener('click', () => {
         const currentActive = document.querySelector('.sub-links a.active');
         if (currentActive) {
             const currentId = currentActive.getAttribute('href').substring(1);
@@ -292,9 +327,9 @@ if (prevBtn && nextBtn) {
                 lenis.scrollTo(sections[currentIndex + 1], { offset: getScrollOffset() });
             }
         }
-    });
+    }));
 
-    prevBtn.addEventListener('click', () => {
+    prevBtns.forEach(btn => btn.addEventListener('click', () => {
         const currentActive = document.querySelector('.sub-links a.active');
         if (currentActive) {
             const currentId = currentActive.getAttribute('href').substring(1);
@@ -302,11 +337,10 @@ if (prevBtn && nextBtn) {
             if (currentIndex > 0) {
                 lenis.scrollTo(sections[currentIndex - 1], { offset: getScrollOffset() });
             } else {
-                // If on first section, scroll to top
                 lenis.scrollTo(0);
             }
         }
-    });
+    }));
 }
 
 // Lucide Icons Initialization

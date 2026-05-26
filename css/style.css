@@ -621,6 +621,17 @@ body.menu-open .menu-toggle:hover .close-icon {
     padding: 20px 0;
 }
 
+/* Desktop: only show the .sub-nav--desktop version (outside hero, sticky works correctly) */
+/* Mobile: hide the --desktop variant, show only the one inside hero */
+.sub-nav--desktop {
+    display: block; /* visible on desktop by default */
+}
+
+/* The mobile sub-nav (inside hero-split) is hidden on desktop */
+.hero-split .sub-nav {
+    display: none;
+}
+
 .sub-links-wrapper {
     display: flex;
     justify-content: space-between;
@@ -1589,19 +1600,42 @@ main[data-scroll-container] {
         margin: 15px 0;
     }
 
-    /* Permanently locked sub-navigation beneath 70px top bar */
+    /* On mobile: hide the desktop sticky sub-nav, show only the one inside hero */
+    .sub-nav--desktop {
+        display: none !important;
+    }
+    .hero-split .sub-nav {
+        display: block !important;
+    }
+
+    /* Sub-nav: initial state absolute at bottom of hero, fixed when scrolled */
     .sub-nav { 
-        position: fixed !important; 
-        top: 70px !important; 
+        position: absolute !important;
+        top: auto !important;
+        bottom: 0 !important; /* flush to bottom of hero section */
         left: 0 !important;
         width: 100% !important; 
         margin-left: 0 !important; 
         padding: 0 !important; 
         z-index: 999 !important; 
-        background: rgba(6, 8, 8, 0.95) !important;
-        backdrop-filter: blur(10px) !important;
-        -webkit-backdrop-filter: blur(10px) !important;
+        background: rgba(6, 8, 8, 0.97) !important;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
         border-bottom: 1px solid var(--border-color) !important;
+        /* Start invisible for entrance animation */
+        opacity: 0;
+        transform: translateY(10px);
+        /* Smooth transition for sticky snap */
+        transition: opacity 0.4s ease, transform 0.4s ease !important;
+    }
+
+    /* Sticky state – JS adds this class when user scrolls past hero */
+    .sub-nav.is-sticky {
+        position: fixed !important;
+        top: 70px !important;
+        bottom: auto !important;
+        opacity: 1 !important;
+        transform: translateY(0) !important;
     }
     
     .sub-links-wrapper {
@@ -1643,8 +1677,34 @@ main[data-scroll-container] {
         display: none !important;
     }
     
+    /* Show arrow controls on mobile, inside sub-nav on the right */
     .nav-controls-minimal {
-        display: none !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 1px !important;
+        margin-right: 6px !important;
+        flex-shrink: 0 !important;
+    }
+
+    .nav-controls-minimal .nav-arrow {
+        font-size: 0.7rem !important;
+        padding: 8px 5px !important;
+        color: var(--accent-color) !important;
+    }
+
+    .nav-controls-minimal .nav-sep {
+        font-size: 0.65rem !important;
+    }
+
+    /* Adjust sub-links to fill remaining space beside arrow controls */
+    .sub-links {
+        flex: 1 !important;
+        display: flex !important;
+        justify-content: space-evenly !important;
+        overflow-x: visible !important;
+        white-space: nowrap !important;
+        gap: 0 !important;
+        padding: 0 !important;
     }
     
     .hero-split { 
@@ -1653,7 +1713,8 @@ main[data-scroll-container] {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding-top: 115px; /* Elegantly cleared top header + fixed sub-nav area */
+        padding-top: 70px; /* Only clear the top navbar; sub-nav is below hero initially */
+        position: relative; /* needed so absolute sub-nav is positioned relative to hero */
     }
     .hero-content-wrapper { 
         padding-left: var(--mobile-gutter); 
