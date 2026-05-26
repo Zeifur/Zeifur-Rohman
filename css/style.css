@@ -1589,7 +1589,62 @@ main[data-scroll-container] {
         margin: 15px 0;
     }
 
-    .sub-nav { width: 100%; margin-left: 0; top: 70px; padding: 10px 0; }
+    /* Sticky sub-navigation exactly beneath 70px top bar */
+    .sub-nav { 
+        position: sticky !important; 
+        top: 70px !important; 
+        width: 100% !important; 
+        margin-left: 0 !important; 
+        padding: 0 !important; 
+        z-index: 999 !important; 
+        background: rgba(6, 8, 8, 0.95) !important;
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+        border-bottom: 1px solid var(--border-color) !important;
+    }
+    
+    .sub-links-wrapper {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+    }
+    
+    /* Non-scrolling single-row segmented control bar */
+    .sub-links {
+        display: flex !important;
+        width: 100% !important;
+        justify-content: space-between !important;
+        overflow-x: visible !important;
+        white-space: nowrap !important;
+        gap: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Segmented Cells with Divider Lines */
+    .sub-links a {
+        flex: 1 1 0 !important;
+        text-align: center !important;
+        justify-content: center !important;
+        font-size: clamp(0.48rem, 1.8vw, 0.58rem) !important; /* Compact, fluid readable scale */
+        letter-spacing: 0.04em !important;
+        padding: 12px 2px !important; /* Perfect visual tap target vertical breathing room */
+        white-space: nowrap !important;
+        border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+        transition: var(--transition-smooth) !important;
+    }
+    
+    .sub-links a:last-child {
+        border-right: none !important;
+    }
+    
+    .sub-links a > span:first-child {
+        display: none !important;
+    }
+    
+    .nav-controls-minimal {
+        display: none !important;
+    }
     
     .hero-split { 
         padding-left: 0; 
@@ -1661,37 +1716,6 @@ main[data-scroll-container] {
 
 @media (max-width: 768px) {
     .social-sidebar .social-box { display: none !important; }
-    
-    /* Premium Swipable Sub-navigation Gutter Sync */
-    .sub-links-wrapper {
-        justify-content: flex-start;
-        overflow: hidden;
-        width: 100%;
-    }
-    .sub-links {
-        justify-content: flex-start !important;
-        overflow-x: auto !important;
-        white-space: nowrap !important;
-        gap: 24px !important;
-        padding: 5px var(--mobile-gutter) !important;
-        scroll-behavior: smooth;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-    }
-    .sub-links::-webkit-scrollbar {
-        display: none;
-    }
-    .sub-links a {
-        flex: 0 0 auto !important;
-        font-size: 0.65rem !important;
-        letter-spacing: 0.12em !important;
-    }
-    .sub-links a > span:first-child {
-        display: none !important;
-    }
-    .nav-controls-minimal {
-        display: none !important;
-    }
 }
 
 @media (max-width: 600px) {
