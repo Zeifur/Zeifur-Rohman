@@ -263,8 +263,16 @@
 
         /* Mobile Adjustments */
         @media (max-width: 768px) {
+            body {
+                height: auto;
+                min-height: 100vh;
+                overflow-y: auto !important;
+            }
+
             .cs-container {
                 padding: 30px 20px;
+                height: auto;
+                min-height: 100vh;
             }
 
             .cs-header {

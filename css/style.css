@@ -1406,30 +1406,36 @@ main[data-scroll-container] {
 }
 
 @media (max-width: 1024px) {
+    :root {
+        --mobile-gutter: 30px;
+    }
+
     .hero-bg-image {
         background-position: 80% center; /* Focus the image on narrow screens to show the face */
     }
     
+    /* Modular Symmetrical Top Sidebar Header */
     .sidebar {
         width: 100%;
         height: 70px;
         flex-direction: row;
         border-right: none;
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        padding: 0 0 0 30px; /* 30px left padding, flush right for modular look */
+        padding: 0 var(--mobile-gutter);
         display: flex;
         align-items: center;
         justify-content: space-between;
+        background: var(--secondary-bg);
     }
     
-    .sidebar-top, .sidebar-middle, .sidebar-bottom {
-        width: auto;
-        height: 100%;
-        flex-direction: row;
-        padding: 0;
-        flex: none;
+    .sidebar-top {
         display: flex;
         align-items: center;
+        order: 1;
+        padding: 0;
+        height: 100%;
+        width: auto;
+        flex: none;
     }
     
     .logo-box-link { 
@@ -1439,19 +1445,38 @@ main[data-scroll-container] {
         align-items: center; 
     }
     
+    .sidebar-bottom {
+        display: flex;
+        align-items: center;
+        order: 2;
+        padding: 0;
+        height: 100%;
+        margin: 0;
+        flex: none;
+        width: auto;
+        flex-direction: row;
+    }
+    
     .sidebar-middle {
-        margin-right: auto;
-        margin-left: 20px;
+        display: flex;
+        align-items: center;
+        order: 3;
+        padding: 0;
+        height: 100%;
+        margin: 0;
+        flex: none;
+        width: auto;
+        flex-direction: row;
     }
     
     .menu-toggle { 
         height: 100%; 
-        width: 60px; 
+        width: 70px; 
         display: flex;
         justify-content: center;
         align-items: center;
         border-left: 1px solid rgba(255, 255, 255, 0.05);
-        border-right: 1px solid rgba(255, 255, 255, 0.05);
+        border-right: none;
         transition: var(--transition-smooth);
     }
     .menu-toggle:hover {
@@ -1463,7 +1488,7 @@ main[data-scroll-container] {
         display: flex; 
         flex-direction: row; 
         border-top: none; 
-        border-left: 1px solid rgba(255, 255, 255, 0.05); 
+        border-left: none; 
         width: auto; 
         height: 100%;
     }
@@ -1471,15 +1496,20 @@ main[data-scroll-container] {
     .lang-social-box {
         height: 100%;
         width: 80px;
+        border-left: 1px solid rgba(255, 255, 255, 0.05);
         border-bottom: none;
-        border-right: 1px solid rgba(255, 255, 255, 0.05);
+        border-right: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     
     .social-box {
         width: 55px;
         height: 100%;
+        border-left: 1px solid rgba(255, 255, 255, 0.05);
         border-bottom: none;
-        border-right: 1px solid rgba(255, 255, 255, 0.05);
+        border-right: none;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -1491,6 +1521,7 @@ main[data-scroll-container] {
         align-items: center;
         justify-content: center;
         padding: 0 25px; 
+        border-left: 1px solid rgba(255, 255, 255, 0.05);
         margin-left: 0; 
         transition: var(--transition-smooth);
     }
@@ -1512,7 +1543,7 @@ main[data-scroll-container] {
     }
     
     .menu-panel-inner {
-        padding: 40px 30px;
+        padding: 40px var(--mobile-gutter);
     }
     
     .menu-panel-link {
@@ -1535,14 +1566,15 @@ main[data-scroll-container] {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding-top: 60px; 
+        padding-top: 70px; /* Aligned with sidebar height */
     }
     .hero-content-wrapper { 
-        padding-left: 30px; 
-        padding-right: 30px; 
+        padding-left: var(--mobile-gutter); 
+        padding-right: var(--mobile-gutter); 
         text-align: left; /* Left aligned as requested */
         align-items: flex-start;
         width: 100%;
+        max-width: 100%;
         display: flex;
         flex-direction: column;
     }
@@ -1559,7 +1591,7 @@ main[data-scroll-container] {
         bottom: 30px; 
         left: 0; 
         width: 100%;
-        padding: 0 30px; 
+        padding: 0 var(--mobile-gutter); 
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -1569,31 +1601,37 @@ main[data-scroll-container] {
     .fixed-left-panel { display: none !important; }
     .scrolling-right-panel { width: 100%; }
     
-    .content-section { padding: 80px 20px; min-height: auto; } /* Minimized side padding */
+    /* Gutter Consistency across Sections */
+    .content-section { padding: 80px var(--mobile-gutter); min-height: auto; }
     .about-body { flex-direction: column; gap: 40px; }
+    
+    /* Editorial Alignment Updates */
     .profile-frame { 
         width: 100%; 
         max-width: 260px; 
-        margin: 0 auto; 
-        align-self: center; /* Center horizontally in column layout on mobile */
+        margin: 0 0 10px 0; /* Left-aligned */
+        align-self: flex-start; /* Unified Left Alignment */
     }
+    
     .resume-wrapper { grid-template-columns: 1fr; }
     
     .footer-section { padding-left: 0; position: relative; z-index: 10; }
-    .footer-box { padding: 40px 20px; border-radius: 16px; }
-    .footer-columns { grid-template-columns: 1fr; gap: 40px; text-align: center; }
-    .footer-tagline { font-size: 1.8rem; }
+    .footer-box { padding: 40px var(--mobile-gutter); border-radius: 16px; }
+    
+    /* Editorial Left-Alignment for Footer */
+    .footer-columns { grid-template-columns: 1fr; gap: 40px; text-align: left; }
+    .footer-tagline { font-size: clamp(1.6rem, 5vw, 2.2rem); text-align: left; }
     .footer-contact-details a { font-size: 1.2rem; }
-    .footer-social-wrap { justify-content: center; }
-    .footer-bottom { flex-direction: column; gap: 15px; text-align: center; padding: 30px 20px; }
+    .footer-social-wrap { justify-content: flex-start; }
+    .footer-bottom { flex-direction: column; gap: 20px; text-align: left; align-items: flex-start; padding: 30px var(--mobile-gutter); }
     .map-container iframe { height: 150px; }
-    .footer-location-box { text-align: center; }
+    .footer-location-box { text-align: left; }
 }
 
 @media (max-width: 768px) {
     .social-sidebar .social-box { display: none !important; }
     
-    /* Premium Swipable Sub-navigation */
+    /* Premium Swipable Sub-navigation Gutter Sync */
     .sub-links-wrapper {
         justify-content: flex-start;
         overflow: hidden;
@@ -1604,7 +1642,7 @@ main[data-scroll-container] {
         overflow-x: auto !important;
         white-space: nowrap !important;
         gap: 24px !important;
-        padding: 5px 25px !important;
+        padding: 5px var(--mobile-gutter) !important;
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
@@ -1628,10 +1666,10 @@ main[data-scroll-container] {
 @media (max-width: 600px) {
     /* Compress hero text and position with balanced left margin to clear background image */
     .hero-content-wrapper {
-        padding-left: 25px; /* Shifted slightly right to provide elegant breathing room from the edge */
-        padding-right: 20px;
-        max-width: 80%; /* Keeps text constrained to the left, leaving the right clear */
-        align-self: flex-start; /* Forces content left inside flex layout */
+        padding-left: var(--mobile-gutter);
+        padding-right: var(--mobile-gutter);
+        max-width: 100%; /* Wider width for neat wrapping on compact viewports */
+        align-self: flex-start;
         width: 100%;
     }
     
@@ -1672,24 +1710,33 @@ main[data-scroll-container] {
     }
     
     /* Optimized portfolio filters for mobile */
-    .portfolio-filter-container { gap: 10px; margin-bottom: 30px; justify-content: center; }
+    .portfolio-filter-container { gap: 8px 12px; margin-bottom: 35px; justify-content: flex-start; }
     .filter-btn { padding: 8px 15px; font-size: 0.6rem; letter-spacing: 0.05em; }
     
-    .main-title { font-size: 2.2rem; }
+    /* Editorial Left-Aligned Section Layouts */
+    .main-title { font-size: clamp(2.2rem, 8vw, 3rem); line-height: 1.1; }
+    .subtitle { font-size: 0.65rem; letter-spacing: 0.15em; line-height: 1.4; margin-bottom: 35px; }
+    .description { font-size: 0.85rem; line-height: 1.6; }
     .portfolio-grid-new { grid-template-columns: 1fr; }
     .footer-bottom { padding: 25px 20px; }
     .copyright { font-size: 0.6rem; }
+    
+    /* Resume details typography spacing */
+    .resume-block h4 { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; margin: 5px 0; color: var(--text-color); }
+    .resume-block p { font-size: 0.85rem; color: var(--muted-text); margin: 0; }
     
     /* Similar labels */
     .stat-label { font-size: 0.5rem; }
     .service-num { font-size: 0.7rem; }
 
-    /* Optimized client logos and statistics for mobile to prevent overflow */
+    /* Left-Aligned client logos and statistics for mobile */
     .clients-list {
+        display: flex;
         flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px;
-        margin-top: 30px;
+        justify-content: flex-start;
+        gap: 30px;
+        margin-top: 35px;
+        opacity: 0.5;
     }
     
     .client-logo {
@@ -1698,14 +1745,27 @@ main[data-scroll-container] {
     }
     
     .inner-stats {
+        display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        gap: 25px;
-        justify-content: center;
+        gap: 25px 40px;
+        justify-content: flex-start;
         margin-top: 35px;
     }
     
     .stat-number {
         font-size: 2.2rem;
+    }
+    
+    .section-number {
+        right: var(--mobile-gutter);
+        top: 30px;
+        font-size: clamp(4rem, 15vw, 8rem);
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --mobile-gutter: 20px; /* Refined gutter to maximize text space on tight displays */
     }
 }

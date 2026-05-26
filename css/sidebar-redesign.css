@@ -147,7 +147,7 @@
 }
 
 /* Mobile Adjustments for Sidebar */
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
     .sidebar {
         width: 100%;
         height: 70px;
