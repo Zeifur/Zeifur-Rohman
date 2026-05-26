@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeifur Rohman | Web Developer & Visual Branding</title>
+    <meta name="description" content="Zeifur Rohman is a professional web developer and visual branding designer from Indonesia.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/my favicon.png">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-content">
+            <img src="assets/images/my personal logo.png" alt="Logo" class="preloader-logo">
+            <div class="preloader-bar"><span></span></div>
+        </div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Slide-out Menu Panel -->
+    <div class="menu-panel">
+        <div class="menu-panel-inner">
+            <div class="menu-panel-header">
+                <span class="menu-panel-subtitle" data-translate="menu_subtitle">NAVIGASI MENU</span>
+            </div>
+            
+            <nav class="menu-panel-nav">
+                <!-- Core Section Navigation -->
+                <div class="menu-nav-group">
+                    <a href="#about" class="menu-panel-link"><span>01</span> <span data-translate="menu_link_about">TENTANG SAYA</span></a>
+                    <a href="#services" class="menu-panel-link"><span>02</span> <span data-translate="menu_link_services">LAYANAN</span></a>
+                    <a href="#skills" class="menu-panel-link"><span>03</span> <span data-translate="menu_link_skills">KEAHLIAN</span></a>
+                    <a href="#resume" class="menu-panel-link"><span>04</span> <span data-translate="menu_link_resume">RIWAYAT</span></a>
+                    <a href="#portofolio" class="menu-panel-link"><span>05</span> <span data-translate="menu_link_portfolio">PORTOFOLIO</span></a>
+                </div>
+                
+                <!-- Elegant Separator Line -->
+                <div class="menu-nav-divider"></div>
+                
+                <!-- Secondary Platforms Navigation -->
+                <div class="menu-nav-group sub-group">
+                    <a href="blog.html" class="menu-panel-link highlight">
+                        <span data-translate="menu_link_blog">BLOG KREATIF</span> <span class="badge">NEW</span>
+                    </a>
+                    <a href="shop.html" class="menu-panel-link highlight">
+                        <span data-translate="menu_link_shop">TOKO KREATIF</span> <span class="badge">STORE</span>
+                    </a>
+                </div>
+            </nav>
+            
+            <div class="menu-panel-footer">
+                <div class="menu-panel-contact">
+                    <span class="footer-title" data-translate="menu_contact_subtitle">HUBUNGI SAYA</span>
+                    <a href="mailto:zeifurrohman@gmail.com">zeifurrohman@gmail.com</a>
+                    <a href="https://wa.me/6287860009497" target="_blank">+62 878 6000 9497</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="menu-panel-overlay"></div>
+
+    <!-- Sidebar Navigation (Left) -->
+    <aside class="sidebar">
+        <div class="sidebar-top">
+            <a href="#" class="logo-box-link">
+                <img src="assets/images/my personal logo.png" alt="Logo" class="main-logo">
+            </a>
+        </div>
+        
+        <div class="sidebar-middle">
+            <div class="menu-toggle">
+                <div class="menu-icon-wrapper">
+                    <div class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="menu-text">MENU</div>
+                    <div class="close-icon">
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sidebar-bottom">
+            <div class="social-sidebar">
+                <!-- Sleek Integrated Language Switcher -->
+                <div class="lang-social-box">
+                    <button class="lang-btn active" data-lang="id">ID</button>
+                    <span class="lang-sep">/</span>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+                
+                <a href="https://www.instagram.com/zeifurrhmn/" target="_blank" class="social-box" title="Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                </a>
+                <a href="https://www.facebook.com/zeifur.zeifur24/directory_links?locale=id_ID" target="_blank" class="social-box" title="Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                </a>
+                <a href="https://x.com/zeifurrhmn" target="_blank" class="social-box" title="X">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932L18.901 1.153zM17.61 20.644h2.039L6.486 3.24H4.298l13.311 17.404z"/></svg>
+                </a>
+                <a href="https://www.tiktok.com/@zeifurrhmn" target="_blank" class="social-box" title="TikTok">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+                </a>
+                <a href="https://wa.me/6287860009497" target="_blank" class="social-box" title="WhatsApp">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </a>
+            </div>
+            <a href="#portofolio" class="grid-dots-link">
+                <div class="grid-dots">
+                    <span></span><span></span><span></span>
+                    <span></span><span></span><span></span>
+                    <span></span><span></span><span></span>
+                </div>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main data-scroll-container>
+        
+        <!-- SECTION: HERO -->
+        <section id="hero" class="hero-split" data-scroll-section>
+            <div class="hero-bg-wrapper">
+                <div class="hero-bg-image" style="background-image: url('assets/images/my foto hero web.jpg');"></div>
+                <div class="hero-bg-shutter"></div>
+                <div class="hero-bg-overlay"></div>
+            </div>
+            <div class="hero-content-wrapper">
+                <div class="vertical-tag" data-translate="hero_welcome">SELAMAT DATANG</div>
+                <div class="hero-main-text">
+                    <span class="hero-accent-line"></span>
+                    <h1 class="hero-display-title" data-translate="hero_title">
+                        ZEIFUR ROHMAN<br>
+                        WEB <span class="accent">DEVELOPER</span> & VISUAL BRANDING <span class="accent">DESIGNER</span><br>
+                        DARI <span class="accent-gradient-indo">INDONESIA</span>
+                    </h1>
+                    <p class="hero-desc" data-translate="hero_desc">Saya adalah seorang Freelance Web Developer dan Desainer Visual Branding yang berbasis di Indonesia. Menyediakan layanan pengembangan website kustom profesional dan berkinerja tinggi.</p>
+                    <a href="#about" class="cta-btn">
+                        <span data-translate="hero_cta">PELAJARI LEBIH LANJUT</span>
+                        <span class="cta-arrow">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="hero-bottom">
+                <div class="progress-indicator"><div class="bar"></div><span class="progress-text">01 — 06</span></div>
+                <div class="scroll-discover"><div class="mouse-icon"></div><span data-translate="hero_scroll">GULIR KE BAWAH UNTUK MENJELAJAHI</span></div>
+            </div>
+        </section>
+
+        <!-- SUB NAVIGATION (Sticky for all content) -->
+        <nav class="sub-nav">
+            <div class="container">
+                <div class="sub-links-wrapper">
+                    <div class="sub-links">
+                        <a href="#about" class="active"><span></span> <span data-translate="sub_about">TENTANG SAYA</span></a>
+                        <a href="#services"><span></span> <span data-translate="sub_services">LAYANAN</span></a>
+                        <a href="#skills"><span></span> <span data-translate="sub_skills">KEAHLIAN</span></a>
+                        <a href="#resume"><span></span> <span data-translate="sub_resume">RIWAYAT</span></a>
+                        <a href="#clients"><span></span> <span data-translate="sub_clients">KLIEN</span></a>
+                        <a href="#portofolio"><span></span> <span data-translate="sub_portfolio">PORTOFOLIO</span></a>
+                    </div>
+                    <div class="nav-controls-minimal">
+                        <button class="nav-arrow prev" title="Previous Section">▲</button>
+                        <span class="nav-sep">/</span>
+                        <button class="nav-arrow next" title="Next Section">▼</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- THE PINNED CONTAINER SYSTEM -->
+        <div class="pinned-layout">
+            <!-- Global Fixed Left Panel -->
+            <div class="fixed-left-panel">
+                <!-- Layer About -->
+                <div class="bg-layer active" data-layer="about">
+                    <div class="split-bg" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');"></div>
+                    <h2 class="split-vertical-title" data-translate="layer_about">TENTANG</h2>
+                    <div class="split-accent-line"></div>
+                </div>
+                <!-- Layer Services -->
+                <div class="bg-layer" data-layer="services">
+                    <div class="split-bg" style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');"></div>
+                    <h2 class="split-vertical-title" data-translate="layer_services">LAYANAN</h2>
+                    <div class="split-accent-line"></div>
+                </div>
+                <!-- Layer Skills -->
+                <div class="bg-layer" data-layer="skills">
+                    <div class="split-bg" style="background-image: url('https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');"></div>
+                    <h2 class="split-vertical-title" data-translate="layer_skills">KEAHLIAN</h2>
+                    <div class="split-accent-line"></div>
+                </div>
+                <!-- Layer Resume -->
+                <div class="bg-layer" data-layer="resume">
+                    <div class="split-bg" style="background-image: url('assets/images/foto side panel resume.jpg');"></div>
+                    <h2 class="split-vertical-title" data-translate="layer_resume">RIWAYAT</h2>
+                    <div class="split-accent-line"></div>
+                </div>
+                <!-- Layer Clients -->
+                <div class="bg-layer" data-layer="clients">
+                    <div class="split-bg" style="background-image: url('assets/images/foto side panel klien.jpg');"></div>
+                    <h2 class="split-vertical-title" data-translate="layer_clients">KLIEN</h2>
+                    <div class="split-accent-line"></div>
+                </div>
+                <!-- Layer Portfolio -->
+                <div class="bg-layer" data-layer="portofolio">
+                    <div class="split-bg" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');"></div>
+                    <h2 class="split-vertical-title" data-translate="layer_portfolio">PORTOFOLIO</h2>
+                    <div class="split-accent-line"></div>
+                </div>
+            </div>
+
+            <!-- Scrolling Right Content -->
+            <div class="scrolling-right-panel">
+                <!-- ABOUT CONTENT -->
+                <section id="about" class="content-section" data-scroll-section>
+                    <div class="section-number">01</div>
+                    <div class="content-header">
+                        <span class="small-line"></span>
+                        <h2 class="main-title" data-translate="about_title">TENTANG SAYA</h2>
+                        <p class="subtitle" data-translate="about_subtitle">PENGEMBANGAN WEB • VISUAL BRANDING • FOTOGRAFI</p>
+                    </div>
+                    <div class="about-body">
+                        <div class="profile-frame">
+                            <img src="assets/images/my foto.png" alt="Profile">
+                            <div class="frame-accent"></div>
+                        </div>
+                        <div class="text-content">
+                            <h3 class="secondary-title" data-translate="about_sec_title">Solusi inovatif pengembangan web & <span class="accent">branding</span></h3>
+                            <p class="description" data-translate="about_desc">Zeifur Rohman adalah seorang Web Developer dan Desainer Visual Branding profesional yang berspesialisasi dalam menciptakan pengalaman digital berkinerja tinggi serta identitas visual yang memukau.</p>
+                            <ul class="bullets">
+                                <li><i data-lucide="arrow-right"></i> <span data-translate="about_bullet1">Aplikasi web berkinerja tinggi.</span></li>
+                                <li><i data-lucide="arrow-right"></i> <span data-translate="about_bullet2">Branding visual yang strategis.</span></li>
+                                <li><i data-lucide="arrow-right"></i> <span data-translate="about_bullet3">Fotografi komersial profesional.</span></li>
+                            </ul>
+                            <div class="signature-container">
+                                <video class="signature-video" autoplay loop muted playsinline>
+                                    <source src="assets/video/my sign animation.MOV" type="video/quicktime">
+                                    <source src="assets/video/my sign animation.MOV" type="video/mp4">
+                                </video>
+                            </div>
+                            <a href="#portofolio" class="cta-btn-sm" data-translate="about_cta">PORTOFOLIO SAYA</a>
+                        </div>
+                    </div>
+                    <div class="inner-stats">
+                        <div class="stat-item"><h3 class="stat-number">145</h3><p class="stat-label" data-translate="about_stats_projects">PROYEK SELESAI</p></div>
+                        <div class="stat-item"><h3 class="stat-number">357</h3><p class="stat-label" data-translate="about_stats_customers">KLIEN PUAS</p></div>
+                    </div>
+                </section>
+
+                <!-- SERVICES CONTENT -->
+                <section id="services" class="content-section" data-scroll-section>
+                    <div class="section-number">02</div>
+                    <div class="content-header">
+                        <span class="small-line"></span>
+                        <h2 class="main-title" data-translate="services_title">LAYANAN SAYA</h2>
+                        <p class="subtitle" data-translate="services_subtitle">BAGAIMANA SAYA DAPAT MEMBANTU BISNIS ANDA BERKEMBANG</p>
+                    </div>
+                    <div class="services-list">
+                        <div class="service-item">
+                            <span class="service-num">01.</span>
+                            <h3 class="service-name" data-translate="services_name1">Pengembangan Web</h3>
+                            <p class="service-text" data-translate="services_text1">Membangun website yang cepat, responsif, dan berskala besar menggunakan teknologi modern.</p>
+                        </div>
+                        <div class="service-item">
+                            <span class="service-num">02.</span>
+                            <h3 class="service-name" data-translate="services_name2">Branding Visual</h3>
+                            <p class="service-text" data-translate="services_text2">Mengembangkan identitas brand yang unik, logo, dan panduan visual.</p>
+                        </div>
+                        <div class="service-item">
+                            <span class="service-num">03.</span>
+                            <h3 class="service-name" data-translate="services_name3">Fotografi</h3>
+                            <p class="service-text" data-translate="services_text3">Layanan fotografi profesional untuk proyek komersial.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SKILLS CONTENT -->
+                <section id="skills" class="content-section" data-scroll-section>
+                    <div class="section-number">03</div>
+                    <div class="content-header">
+                        <span class="small-line"></span>
+                        <h2 class="main-title" data-translate="skills_title">KEAHLIAN SAYA</h2>
+                        <p class="subtitle" data-translate="skills_subtitle">KEAHLIAN TEKNIS & ALAT KREATIF</p>
+                    </div>
+                    <div class="skills-container">
+                        <div class="skill-box">
+                            <div class="skill-info"><span data-translate="skills_name1">PENGEMBANGAN WEB</span><span>95%</span></div>
+                            <div class="skill-bar"><div class="skill-progress" style="width: 95%;"></div></div>
+                        </div>
+                        <div class="skill-box">
+                            <div class="skill-info"><span data-translate="skills_name2">BRANDING VISUAL</span><span>90%</span></div>
+                            <div class="skill-bar"><div class="skill-progress" style="width: 90%;"></div></div>
+                        </div>
+                        <div class="skill-box">
+                            <div class="skill-info"><span data-translate="skills_name3">FOTOGRAFI</span><span>85%</span></div>
+                            <div class="skill-bar"><div class="skill-progress" style="width: 85%;"></div></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- RESUME CONTENT -->
+                <section id="resume" class="content-section" data-scroll-section>
+                    <div class="section-number">04</div>
+                    <div class="content-header">
+                        <span class="small-line"></span>
+                        <h2 class="main-title" data-translate="resume_title">RIWAYAT HIDUP</h2>
+                        <p class="subtitle" data-translate="resume_subtitle">PENDIDIKAN DAN PERJALANAN PROFESIONAL SAYA</p>
+                    </div>
+                    <div class="resume-wrapper">
+                        <div class="resume-category">
+                            <h3 data-translate="resume_edu">PENDIDIKAN</h3>
+                            <div class="resume-block">
+                                <span class="year">2015 - 2019</span>
+                                <h4 data-translate="resume_edu_degree1">Sarjana Arsitektur</h4>
+                                <p data-translate="resume_edu_school1">Universitas Indonesia</p>
+                            </div>
+                        </div>
+                        <div class="resume-category">
+                            <h3 data-translate="resume_exp">PENGALAMAN KERJA</h3>
+                            <div class="resume-block">
+                                <span class="year" data-translate="resume_exp_present">2021 - Sekarang</span>
+                                <h4 data-translate="resume_exp_role1">Produser Kreatif Senior</h4>
+                                <p data-translate="resume_exp_comp1">Agensi Media Global</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CLIENTS CONTENT -->
+                <section id="clients" class="content-section" data-scroll-section>
+                    <div class="section-number">05</div>
+                    <div class="content-header">
+                        <span class="small-line"></span>
+                        <h2 class="main-title" data-translate="clients_title">KLIEN KAMI</h2>
+                        <p class="subtitle" data-translate="clients_subtitle">DIPERCAYA OLEH BRAND GLOBAL</p>
+                    </div>
+                    <div class="clients-list">
+                        <div class="client-logo">LOGO 01</div>
+                        <div class="client-logo">LOGO 02</div>
+                        <div class="client-logo">LOGO 03</div>
+                    </div>
+                </section>
+
+                <!-- PORTOFOLIO CONTENT -->
+                <section id="portofolio" class="content-section" data-scroll-section>
+                    <div class="section-number">06</div>
+                    <div class="content-header">
+                        <span class="small-line"></span>
+                        <h2 class="main-title" data-translate="portfolio_title">PORTOFOLIO KARYA</h2>
+                        <p class="subtitle" data-translate="portfolio_subtitle">GALERI KARYA TERBAIK SAYA</p>
+                    </div>
+
+                    <!-- Portfolio Filter System -->
+                    <div class="portfolio-filter-container">
+                        <button class="filter-btn active" data-filter="all" data-translate="portfolio_filter_all">SEMUA KARYA</button>
+                        <button class="filter-btn" data-filter="branding" data-translate="portfolio_filter_branding">BRANDING</button>
+                        <button class="filter-btn" data-filter="photography" data-translate="portfolio_filter_photography">FOTOGRAFI</button>
+                        <button class="filter-btn" data-filter="website" data-translate="portfolio_filter_website">WEBSITE</button>
+                    </div>
+
+                    <div class="portfolio-grid-new">
+                        <div class="port-item website" data-category="website">
+                            <img src="assets/images/webdev.png" alt="Web Project">
+                            <div class="port-overlay"><span data-translate="portfolio_item_web_cat">WEBSITE</span><h3 data-translate="portfolio_item_web_title">PLATFORM AGENSI</h3></div>
+                        </div>
+                        <div class="port-item branding" data-category="branding">
+                            <img src="assets/images/branding.png" alt="Branding Project">
+                            <div class="port-overlay"><span data-translate="portfolio_item_brand_cat">BRANDING</span><h3 data-translate="portfolio_item_brand_title">IDENTITAS MEWAH</h3></div>
+                        </div>
+                        <div class="port-item photography" data-category="photography">
+                            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Photography">
+                            <div class="port-overlay"><span data-translate="portfolio_item_photo_cat">FOTOGRAFI</span><h3 data-translate="portfolio_item_photo_title">KEHIDUPAN KOTA</h3></div>
+                        </div>
+                        <div class="port-item branding" data-category="branding">
+                            <img src="https://images.unsplash.com/photo-1603302576837-37561b2e2302?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Branding">
+                            <div class="port-overlay"><span data-translate="portfolio_item_brand_cat2">BRANDING</span><h3 data-translate="portfolio_item_brand_title2">KEMASAN MINIMALIS</h3></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- SECTION: FOOTER -->
+        <footer id="contact" class="footer-section" data-scroll-section>
+            <div class="footer-grid-bg"></div>
+            <div class="container">
+                <div class="footer-box">
+                    <div class="footer-columns">
+                        <!-- LEFT SIDE: CALL TO ACTION -->
+                        <div class="footer-main-info">
+                            <h3 class="footer-tagline" data-translate="footer_tagline">MARI BANGUN SESUATU YANG <span class="accent-text">LUAR BIASA</span> BERSAMA</h3>
+                            <div class="footer-contact-details">
+                                <h4 class="col-title" data-translate="footer_contact_title">HUBUNGI SAYA</h4>
+                                <a href="mailto:zeifurrohman@gmail.com">ZEIFURROHMAN@GMAIL.COM</a>
+                                <a href="https://wa.me/6287860009497" target="_blank">+62 878 6000 9497</a>
+                            </div>
+                            <div class="footer-social-wrap">
+                                <a href="https://www.instagram.com/zeifurrhmn/" target="_blank" class="social-circle" title="Instagram">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                                </a>
+                                <a href="https://www.facebook.com/zeifur.zeifur24/directory_links?locale=id_ID" target="_blank" class="social-circle" title="Facebook">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                                </a>
+                                <a href="https://x.com/zeifurrhmn" target="_blank" class="social-circle" title="X">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932L18.901 1.153zM17.61 20.644h2.039L6.486 3.24H4.298l13.311 17.404z"/></svg>
+                                </a>
+                                <a href="https://www.tiktok.com/@zeifurrhmn" target="_blank" class="social-circle" title="TikTok">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+                                </a>
+                                <a href="https://wa.me/6287860009497" target="_blank" class="social-circle" title="WhatsApp">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- RIGHT SIDE: LOCATION & MAP -->
+                        <div class="footer-location-box">
+                            <h4 class="col-title" data-translate="footer_loc_title">LOKASI UTAMA</h4>
+                            <p class="address-text" data-translate="footer_address">Kota Malang, Jawa Timur, Indonesia<br>Tersedia untuk proyek di seluruh dunia.</p>
+                            <div class="map-container">
+                                <iframe 
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126438.28548022131!2d112.5617415!3d-7.9784695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd62822063dc2fb%3A0x788ad5d55837283c!2sMalang%2C%20Malang%20City%2C%20East%20Java!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid" 
+                                    width="100%" height="180" style="border:0; filter: grayscale(1) invert(1) opacity(0.7);" allowfullscreen="" loading="lazy">
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p class="copyright" data-translate="footer_copy">© ZEIFUR 2026 / HAK CIPTA DILINDUNGI.</p>
+                    <a href="#" class="to-top-btn" data-scroll-to><span data-translate="footer_top">KEMBALI KE ATAS</span> <i data-lucide="arrow-up"></i></a>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- JS Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    <script src="js/translations.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

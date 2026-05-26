@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeifur Rohman | Blog - Coming Soon</title>
+    <meta name="description" content="Zeifur Rohman's creative space and developer blog. Under construction.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/my favicon.png">
+    
+    <!-- CSS Dependencies -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        /* Custom Coming Soon Overrides to keep the aesthetic highly creative and cinematic */
+        body {
+            background-color: #080808;
+            color: #ffffff;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .cs-container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 40px 30px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Abstract Animated Grid Backdrop */
+        .cs-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 77, 0, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 77, 0, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            background-position: center center;
+            z-index: 1;
+            opacity: 0.6;
+        }
+
+        .cs-backdrop::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, transparent 20%, #080808 80%);
+        }
+
+        /* Header */
+        .cs-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cs-logo {
+            height: 40px;
+            width: auto;
+        }
+
+        .cs-back-btn {
+            font-family: var(--font-condensed);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 4px;
+            transition: var(--transition-smooth);
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(5px);
+        }
+
+        .cs-back-btn i {
+            width: 16px;
+            height: 16px;
+            transition: var(--transition-smooth);
+        }
+
+        .cs-back-btn:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .cs-back-btn:hover i {
+            transform: translateX(-5px);
+        }
+
+        /* Content Body */
+        .cs-body {
+            margin: auto 0;
+            max-width: 700px;
+            position: relative;
+        }
+
+        .cs-badge {
+            font-family: var(--font-condensed);
+            font-size: 0.75rem;
+            font-weight: 900;
+            letter-spacing: 0.3em;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: inline-block;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .cs-badge::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 2px;
+            background: var(--accent-color);
+        }
+
+        .cs-title {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 900;
+            line-height: 0.95;
+            letter-spacing: -0.03em;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        .cs-desc {
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            color: var(--muted-text);
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+
+        /* Status & Progress Bar */
+        .cs-status-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 20px 30px;
+            border-radius: 8px;
+            display: inline-block;
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .cs-status-header {
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-condensed);
+            font-size: 0.75rem;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+        }
+
+        .cs-status-label {
+            color: var(--muted-text);
+        }
+
+        .cs-status-val {
+            color: var(--accent-color);
+        }
+
+        .cs-progress-bar {
+            width: 100%;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+        }
+
+        .cs-progress-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 75%; 
+            background: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-color);
+            animation: pulseGlow 2s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            from { opacity: 0.8; box-shadow: 0 0 5px var(--accent-color); }
+            to { opacity: 1; box-shadow: 0 0 15px var(--accent-color); }
+        }
+
+        /* Footer */
+        .cs-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 30px;
+        }
+
+        .cs-copyright {
+            font-family: var(--font-condensed);
+            font-size: 0.7rem;
+            color: var(--muted-text);
+            letter-spacing: 0.1em;
+        }
+
+        .cs-socials {
+            display: flex;
+            gap: 15px;
+        }
+
+        .cs-social-link {
+            width: 35px;
+            height: 35px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--muted-text);
+            transition: var(--transition-smooth);
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .cs-social-link:hover {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        .cs-social-link svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .cs-container {
+                padding: 30px 20px;
+            }
+
+            .cs-header {
+                align-items: center;
+            }
+
+            .cs-logo {
+                height: 30px;
+            }
+
+            .cs-back-btn {
+                padding: 8px 15px;
+                font-size: 0.75rem;
+            }
+
+            .cs-title {
+                font-size: 2.8rem;
+            }
+
+            .cs-desc {
+                font-size: 0.95rem;
+                margin-bottom: 30px;
+            }
+
+            .cs-status-box {
+                padding: 15px 20px;
+            }
+
+            .cs-footer {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+                padding-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-content">
+            <img src="assets/images/my personal logo.png" alt="Logo" class="preloader-logo">
+            <div class="preloader-bar"><span></span></div>
+        </div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- Backdrop pattern -->
+    <div class="cs-backdrop"></div>
+
+    <!-- Main Container -->
+    <main class="cs-container">
+        <!-- Header -->
+        <header class="cs-header">
+            <img src="assets/images/my personal logo.png" alt="Logo" class="cs-logo">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div class="lang-social-box" style="flex-direction: row; gap: 4px; border: none; height: auto; width: auto; display: flex; align-items: center; padding: 0;">
+                    <button class="lang-btn active" data-lang="id">ID</button>
+                    <span class="lang-sep">/</span>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+                <a href="index.html" class="cs-back-btn"><i data-lucide="arrow-left"></i> <span data-translate="cs_back">KEMBALI KE BERANDA</span></a>
+            </div>
+        </header>
+
+        <!-- Body -->
+        <section class="cs-body">
+            <span class="cs-badge" data-translate="cs_badge">SEGERA HADIR</span>
+            <h1 class="cs-title">CREATIVE<br><span style="color: var(--accent-color);">THOUGHTS.</span></h1>
+            <p class="cs-desc" data-translate="blog_desc">Saya sedang membangun ruang kerja blog khusus di mana saya dapat berbagi inspirasi desain, tutorial pengembangan web, wawasan industri, dan tulisan teknis. Nantikan pembaruannya.</p>
+            
+            <!-- Progress Status -->
+            <div class="cs-status-box">
+                <div class="cs-status-header">
+                    <span class="cs-status-label" data-translate="cs_status_blog">TAHAP SEKARANG: PENGEMBANGAN</span>
+                    <span class="cs-status-val">75%</span>
+                </div>
+                <div class="cs-progress-bar">
+                    <div class="cs-progress-fill" style="width: 75%;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="cs-footer">
+            <p class="cs-copyright" data-translate="cs_copy">© ZEIFUR 2026 / HAK CIPTA DILINDUNGI.</p>
+            <div class="cs-socials">
+                <a href="https://www.instagram.com/zeifurrhmn/" target="_blank" class="cs-social-link" title="Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                </a>
+                <a href="https://x.com/zeifurrhmn" target="_blank" class="cs-social-link" title="X">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932L18.901 1.153zM17.61 20.644h2.039L6.486 3.24H4.298l13.311 17.404z"/></svg>
+                </a>
+                <a href="https://www.tiktok.com/@zeifurrhmn" target="_blank" class="cs-social-link" title="TikTok">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+                </a>
+                <a href="https://wa.me/6287860009497" target="_blank" class="cs-social-link" title="WhatsApp">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </a>
+            </div>
+        </footer>
+    </main>
+
+    <!-- JS Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="js/translations.js"></script>
+    
+    <script>
+        // Custom Cursor Logic
+        const cursor = document.querySelector('.cursor');
+        const follower = document.querySelector('.cursor-follower');
+        
+        if (cursor && follower) {
+            document.addEventListener('mousemove', (e) => {
+                gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1 });
+                gsap.to(follower, { x: e.clientX, y: e.clientY, duration: 0.3 });
+            });
+        }
+
+        // Preloader & Initial Animations
+        window.addEventListener('load', () => {
+            const preloader = document.querySelector('.preloader');
+            
+            setTimeout(() => {
+                if (preloader) {
+                    preloader.classList.add('fade-out');
+                    
+                    // Entrance animations for coming soon page
+                    setTimeout(() => {
+                        const tl = gsap.timeline();
+                        tl.from('.cs-logo', { y: -30, opacity: 0, duration: 0.8, ease: 'power3.out' })
+                          .from('.cs-back-btn', { y: -30, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6')
+                          .from('.cs-badge', { x: -30, opacity: 0, duration: 0.6, ease: 'power3.out' }, '-=0.4')
+                          .from('.cs-title', { y: 50, opacity: 0, duration: 1, ease: 'power4.out' }, '-=0.4')
+                          .from('.cs-desc', { y: 30, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6')
+                          .from('.cs-status-box', { scale: 0.95, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6')
+                          .from('.cs-footer', { y: 30, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6');
+                    }, 400);
+                }
+            }, 1000); // Shorter preloader on subpages for better UX
+        });
+
+        // Initialize Lucide icons
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>
