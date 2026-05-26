@@ -194,7 +194,7 @@ if (menuToggle && menuPanel && menuOverlay) {
         document.body.classList.remove('menu-open');
         lenis.start();
         
-        const isDesktop = window.innerWidth > 1200;
+        const isDesktop = window.innerWidth > 1024;
         gsap.to(menuPanel, { 
             left: isDesktop ? -400 : '-100%', 
             duration: 0.6, 
@@ -208,7 +208,7 @@ if (menuToggle && menuPanel && menuOverlay) {
         
         if (isOpen) {
             lenis.stop();
-            const isDesktop = window.innerWidth > 1200;
+            const isDesktop = window.innerWidth > 1024;
             
             // Slide panel in
             gsap.to(menuPanel, { 
@@ -251,7 +251,7 @@ if (toTopBtn) {
 }
 
 const getScrollOffset = () => {
-    return window.innerWidth > 1200 ? -75 : -120;
+    return window.innerWidth > 1024 ? -75 : -120;
 };
 
 // Smooth Scroll for Nav Links (Fix for '#' error)

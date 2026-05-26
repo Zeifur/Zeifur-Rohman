@@ -105,26 +105,13 @@
     box-sizing: border-box;
 }
 
-html, body {
-    overflow-x: hidden;
-    max-width: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
-    position: relative;
-}
-
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
     font-family: var(--font-body);
     line-height: 1.6;
+    overflow-x: hidden; /* Safe only on body element, doesn't block sticky child */
+    margin: 0; /* Ensure no body margin */
 }
 
 /* Sidebar Redesign - Matching Reference Image */
@@ -716,7 +703,7 @@ body.menu-open .menu-toggle:hover .close-icon {
 }
 
 /* Tablet & Mobile Responsive centering */
-@media (max-width: 1200px) {
+@media (max-width: 1024px) {
     .hero-content-wrapper {
         padding-left: 20px;
         padding-right: 20px;
@@ -1418,7 +1405,7 @@ main[data-scroll-container] {
     width: 16px;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1024px) {
     .hero-bg-image {
         background-position: 80% center; /* Focus the image on narrow screens to show the face */
     }
@@ -1540,14 +1527,7 @@ main[data-scroll-container] {
         margin: 15px 0;
     }
 
-    .sub-nav {
-        width: 100%;
-        max-width: 100vw;
-        overflow: hidden; /* Prevent horizontal layout stretch from escaping */
-        margin-left: 0;
-        top: 70px;
-        padding: 10px 0;
-    }
+    .sub-nav { width: 100%; margin-left: 0; top: 70px; padding: 10px 0; }
     
     .hero-split { 
         padding-left: 0; 
@@ -1620,7 +1600,6 @@ main[data-scroll-container] {
         width: 100%;
     }
     .sub-links {
-        position: relative; /* Fixes offsetParent calculation for accurate JS scrolling */
         justify-content: flex-start !important;
         overflow-x: auto !important;
         white-space: nowrap !important;
@@ -1704,4 +1683,29 @@ main[data-scroll-container] {
     /* Similar labels */
     .stat-label { font-size: 0.5rem; }
     .service-num { font-size: 0.7rem; }
+
+    /* Optimized client logos and statistics for mobile to prevent overflow */
+    .clients-list {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 30px;
+    }
+    
+    .client-logo {
+        font-size: 1.1rem;
+        flex: 0 0 auto;
+    }
+    
+    .inner-stats {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 25px;
+        justify-content: center;
+        margin-top: 35px;
+    }
+    
+    .stat-number {
+        font-size: 2.2rem;
+    }
 }
