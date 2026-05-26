@@ -1410,6 +1410,20 @@ main[data-scroll-container] {
         --mobile-gutter: 30px;
     }
 
+    /* Bulletproof Horizontal Layout Lock */
+    html, body,
+    .pinned-layout,
+    .scrolling-right-panel,
+    .content-section,
+    .footer-section,
+    footer,
+    main {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
+    }
+
     .hero-bg-image {
         background-position: 80% center; /* Focus the image on narrow screens to show the face */
     }
@@ -1421,7 +1435,7 @@ main[data-scroll-container] {
         flex-direction: row;
         border-right: none;
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        padding: 0 var(--mobile-gutter);
+        padding: 0 0 0 var(--mobile-gutter); /* Left padding only for inset logo, flush control cells on right */
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -1495,7 +1509,7 @@ main[data-scroll-container] {
     
     .lang-social-box {
         height: 100%;
-        width: 80px;
+        width: 70px; /* Symmetrical 70px square cell */
         border-left: 1px solid rgba(255, 255, 255, 0.05);
         border-bottom: none;
         border-right: none;
@@ -1505,28 +1519,11 @@ main[data-scroll-container] {
     }
     
     .social-box {
-        width: 55px;
-        height: 100%;
-        border-left: 1px solid rgba(255, 255, 255, 0.05);
-        border-bottom: none;
-        border-right: none;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        display: none !important; /* Hide individual social boxes on mobile top bar for professional focus */
     }
     
     .grid-dots-link { 
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0 25px; 
-        border-left: 1px solid rgba(255, 255, 255, 0.05);
-        margin-left: 0; 
-        transition: var(--transition-smooth);
-    }
-    .grid-dots-link:hover {
-        background: rgba(255, 255, 255, 0.02);
+        display: none !important; /* Hide grid dots completely on mobile to prevent clutter */
     }
     
     .logo-box { width: 40px; height: 40px; font-size: 1rem; }
@@ -1618,14 +1615,14 @@ main[data-scroll-container] {
     .footer-section { padding-left: 0; position: relative; z-index: 10; }
     .footer-box { padding: 40px var(--mobile-gutter); border-radius: 16px; }
     
-    /* Editorial Left-Alignment for Footer */
-    .footer-columns { grid-template-columns: 1fr; gap: 40px; text-align: left; }
-    .footer-tagline { font-size: clamp(1.6rem, 5vw, 2.2rem); text-align: left; }
-    .footer-contact-details a { font-size: 1.2rem; }
-    .footer-social-wrap { justify-content: flex-start; }
-    .footer-bottom { flex-direction: column; gap: 20px; text-align: left; align-items: flex-start; padding: 30px var(--mobile-gutter); }
+    /* Centered Mobile Footer Alignment */
+    .footer-columns { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+    .footer-tagline { font-size: clamp(1.6rem, 5vw, 2.2rem); text-align: center; }
+    .footer-contact-details a { font-size: 1.2rem; text-align: center; }
+    .footer-social-wrap { justify-content: center; }
+    .footer-bottom { flex-direction: column; gap: 20px; text-align: center; align-items: center; padding: 30px var(--mobile-gutter); }
     .map-container iframe { height: 150px; }
-    .footer-location-box { text-align: left; }
+    .footer-location-box { text-align: center; }
 }
 
 @media (max-width: 768px) {
@@ -1718,7 +1715,7 @@ main[data-scroll-container] {
     .subtitle { font-size: 0.65rem; letter-spacing: 0.15em; line-height: 1.4; margin-bottom: 35px; }
     .description { font-size: 0.85rem; line-height: 1.6; }
     .portfolio-grid-new { grid-template-columns: 1fr; }
-    .footer-bottom { padding: 25px 20px; }
+    .footer-bottom { padding: 25px var(--mobile-gutter); }
     .copyright { font-size: 0.6rem; }
     
     /* Resume details typography spacing */
