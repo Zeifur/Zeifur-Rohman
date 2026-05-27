@@ -866,6 +866,7 @@ body.menu-open .menu-toggle:hover .close-icon {
     transition: all 0.4s cubic-bezier(0.25, 1, 0.3, 1);
     align-self: flex-start; /* Lock flex item width to fit-content */
     z-index: 1;
+    border-radius: 0 0 12px 0; /* Brand Signature: Bottom-Right Rounded Only */
 }
 
 /* Elegant background sliding fill on hover */
@@ -880,7 +881,8 @@ body.menu-open .menu-toggle:hover .close-icon {
     z-index: -1;
     transform: scaleX(0);
     transform-origin: right center;
-    transition: transform 0.4s cubic-bezier(0.25, 1, 0.3, 1);
+    transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+    border-radius: 0 0 12px 0; /* Match parent brand corner style */
 }
 
 .cta-btn:hover::before {
@@ -1077,6 +1079,7 @@ body.menu-open .menu-toggle:hover .close-icon {
     position: relative; 
     border: 1px solid var(--border-color);
     transition: var(--transition-smooth);
+    border-radius: 0 0 20px 0; /* Brand Signature: Bottom-Right Rounded Only */
 }
 .frame-accent { 
     position: absolute; 
@@ -1087,6 +1090,7 @@ body.menu-open .menu-toggle:hover .close-icon {
     border: 3px solid var(--accent-color); /* Premium offset red accent frame */
     z-index: 1; /* Placed underneath the image for a high-end 3D layered look */
     transition: var(--transition-smooth);
+    border-radius: 0 0 20px 0; /* Match parent brand corner style */
 }
 
 /* Premium Hover Interactions */
@@ -1122,7 +1126,7 @@ body.menu-open .menu-toggle:hover .close-icon {
     pointer-events: none;
 }
 
-.cta-btn-sm { display: inline-block; padding: 12px 30px; background: var(--accent-color); color: var(--text-color); text-decoration: none; font-weight: 700; font-size: 0.8rem; }
+.cta-btn-sm { display: inline-block; padding: 12px 30px; background: var(--accent-color); color: var(--text-color); text-decoration: none; font-weight: 700; font-size: 0.8rem; border-radius: 0 0 8px 0; }
 
 .inner-stats { display: flex; gap: 50px; margin-top: 50px; }
 .stat-number { font-family: var(--font-condensed); font-size: 3rem; color: var(--accent-color); }
@@ -1147,9 +1151,9 @@ body.menu-open .menu-toggle:hover .close-icon {
 .client-logo { font-family: var(--font-condensed); font-size: 1.5rem; font-weight: 900; }
 
 .portfolio-grid-new { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.port-item { position: relative; aspect-ratio: 16/10; overflow: hidden; }
+.port-item { position: relative; aspect-ratio: 16/10; overflow: hidden; border-radius: 0 0 16px 0; }
 .port-item img { width: 100%; height: 100%; object-fit: cover; }
-.port-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; flex-direction: column; justify-content: center; padding: 30px; opacity: 0; transition: 0.4s; }
+.port-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; flex-direction: column; justify-content: center; padding: 30px; opacity: 0; transition: 0.4s; border-radius: 0 0 16px 0; }
 .port-item:hover .port-overlay { opacity: 1; }
 .port-overlay span { color: var(--accent-color); font-weight: 900; font-size: 0.7rem; }
 .port-overlay h3 { font-family: var(--font-condensed); font-size: 1.8rem; }
@@ -1174,6 +1178,7 @@ body.menu-open .menu-toggle:hover .close-icon {
     cursor: pointer;
     transition: var(--transition-smooth);
     text-transform: uppercase;
+    border-radius: 0 0 8px 0; /* Brand Signature: Bottom-Right Rounded Only */
 }
 
 .filter-btn:hover {
@@ -1218,7 +1223,7 @@ body.menu-open .menu-toggle:hover .close-icon {
     padding: 120px 80px 80px 80px; /* Pushed content down */
     background: var(--secondary-bg); /* Deep Midnight Grey/Blue */
     border: 1px solid var(--border-color);
-    border-radius: 24px; /* Sophisticated rounded corners */
+    border-radius: 0 0 24px 0; /* Brand Signature: Bottom-Right Rounded Only */
     position: relative;
     max-width: 1200px; 
     margin: 0 auto;
@@ -1294,7 +1299,7 @@ body.menu-open .menu-toggle:hover .close-icon {
 
 .map-container {
     overflow: hidden;
-    border-radius: 16px;
+    border-radius: 0 0 16px 0; /* Brand Signature: Bottom-Right Rounded Only */
     border: 1px solid var(--border-color);
 }
 
@@ -1621,6 +1626,7 @@ main[data-scroll-container] {
         top: 70px;
         border-right: none;
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 0 0 32px 0 !important; /* Brand Signature: Beautiful asymmetric bottom corner flow */
     }
     
     .menu-panel-inner {
@@ -1792,7 +1798,7 @@ main[data-scroll-container] {
     .resume-wrapper { grid-template-columns: 1fr; }
     
     .footer-section { padding-left: 0; position: relative; z-index: 10; }
-    .footer-box { padding: 40px var(--mobile-gutter); border-radius: 16px; }
+    .footer-box { padding: 40px var(--mobile-gutter); border-radius: 0 0 16px 0 !important; }
     
     /* Centered Mobile Footer Alignment */
     .footer-columns { grid-template-columns: 1fr; gap: 40px; text-align: center; }
