@@ -156,6 +156,10 @@ body {
     transition: var(--transition-smooth);
 }
 
+.mobile-lang-switcher {
+    display: none;
+}
+
 /* Sleek Integrated Language Switcher Box */
 .lang-social-box {
     display: flex;
@@ -1523,8 +1527,9 @@ main[data-scroll-container] {
     }
     
     .sidebar-top {
-        display: flex;
-        align-items: center;
+        display: flex !important;
+        flex-direction: row !important; /* Memaksa sejajar horizontal ke samping */
+        align-items: center !important;
         order: 1;
         padding: 0;
         height: 100%;
@@ -1537,6 +1542,40 @@ main[data-scroll-container] {
         height: 100%; 
         display: flex; 
         align-items: center; 
+    }
+
+    /* Styling Fitur Bahasa Mobile Baru */
+    .mobile-lang-switcher {
+        display: flex !important;
+        align-items: center;
+        gap: 6px;
+        margin-left: 15px;
+        padding-left: 15px;
+        border-left: 1px solid rgba(255, 255, 255, 0.08);
+        height: 20px;
+    }
+    .mobile-lang-switcher .lang-btn {
+        background: transparent;
+        border: none;
+        color: rgba(255, 255, 255, 0.4);
+        font-family: var(--font-condensed);
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        cursor: pointer;
+        padding: 2px 4px;
+        transition: var(--transition-smooth);
+    }
+    .mobile-lang-switcher .lang-btn:hover {
+        color: var(--text-color);
+    }
+    .mobile-lang-switcher .lang-btn.active {
+        color: var(--accent-color);
+    }
+    .mobile-lang-switcher .lang-sep {
+        color: rgba(255, 255, 255, 0.15);
+        font-size: 0.65rem;
+        user-select: none;
     }
     
     .sidebar-bottom {
@@ -1645,44 +1684,44 @@ main[data-scroll-container] {
         align-items: center !important;
     }
     
-    /* Non-scrolling single-row segmented control bar */
     .sub-links {
+        flex: 1 !important;
         display: flex !important;
-        width: 100% !important;
-        justify-content: space-between !important;
-        overflow-x: visible !important;
+        justify-content: flex-start !important; /* Rata kiri */
+        overflow-x: auto !important; /* Scrollable halus jika layar ekstra sempit */
+        -webkit-overflow-scrolling: touch !important;
         white-space: nowrap !important;
-        gap: 0 !important;
-        padding: 0 !important;
+        gap: 16px !important; /* Jarak rapat antar tombol */
+        padding: 0 15px 0 20px !important; /* Jarak kosong di sebelah kiri (padding-left: 20px) */
     }
     
-    /* Segmented Cells with Divider Lines */
+    .sub-links::-webkit-scrollbar {
+        display: none !important; /* Sembunyikan scrollbar untuk kebersihan estetis */
+    }
+    
+    /* Link item bergaya minimalis tanpa garis */
     .sub-links a {
-        flex: 1 1 0 !important;
-        text-align: center !important;
-        justify-content: center !important;
-        font-size: clamp(0.48rem, 1.8vw, 0.58rem) !important; /* Compact, fluid readable scale */
+        flex: none !important;
+        text-align: left !important;
+        justify-content: flex-start !important;
+        font-size: clamp(0.48rem, 1.8vw, 0.58rem) !important;
         letter-spacing: 0.04em !important;
-        padding: 12px 2px !important; /* Perfect visual tap target vertical breathing room */
+        padding: 12px 0 !important;
         white-space: nowrap !important;
-        border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+        border-right: none !important; /* Hilangkan garis pembatas kanan */
         transition: var(--transition-smooth) !important;
-    }
-    
-    .sub-links a:last-child {
-        border-right: none !important;
     }
     
     .sub-links a > span:first-child {
         display: none !important;
     }
     
-    /* Show arrow controls on mobile, inside sub-nav on the right */
+    /* Tombol navigasi atas-bawah tetap di sebelah kanan */
     .nav-controls-minimal {
         display: flex !important;
         align-items: center !important;
         gap: 1px !important;
-        margin-right: 6px !important;
+        margin-right: 15px !important; /* Sesuai grid kanan */
         flex-shrink: 0 !important;
     }
 
@@ -1694,17 +1733,6 @@ main[data-scroll-container] {
 
     .nav-controls-minimal .nav-sep {
         font-size: 0.65rem !important;
-    }
-
-    /* Adjust sub-links to fill remaining space beside arrow controls */
-    .sub-links {
-        flex: 1 !important;
-        display: flex !important;
-        justify-content: space-evenly !important;
-        overflow-x: visible !important;
-        white-space: nowrap !important;
-        gap: 0 !important;
-        padding: 0 !important;
     }
     
     .hero-split { 
