@@ -153,6 +153,14 @@ contentSections.forEach((section) => {
     });
 });
 
+// Class trigger to reveal progress indicators in sub-nav on scroll
+ScrollTrigger.create({
+    trigger: '#about',
+    start: 'top 85%',
+    onEnter: () => document.body.classList.add('scrolled-past-hero'),
+    onLeaveBack: () => document.body.classList.remove('scrolled-past-hero')
+});
+
 function switchLayer(id) {
     bgLayers.forEach(layer => {
         if (layer.getAttribute('data-layer') === id) {
@@ -304,7 +312,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             } else {
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
-                    lenis.scrollTo(targetElement, { offset: getScrollOffset() });
+                    if (targetId === '#contact') {
+                        // Scroll to absolute bottom to fully reveal sticky footer
+                        lenis.scrollTo('bottom');
+                    } else {
+                        lenis.scrollTo(targetElement, { offset: getScrollOffset() });
+                    }
                 }
             }
         }
@@ -319,6 +332,15 @@ if (prevBtns.length && nextBtns.length) {
     const sections = Array.from(contentSections);
     
     nextBtns.forEach(btn => btn.addEventListener('click', () => {
+        // If we are at the top (Hero Section), scroll to About section first (02 Tentang Saya)
+        if (window.scrollY < window.innerHeight * 0.4) {
+            const aboutSection = document.querySelector('#about');
+            if (aboutSection) {
+                lenis.scrollTo(aboutSection, { offset: getScrollOffset() });
+                return;
+            }
+        }
+        
         const currentActive = document.querySelector('.sub-links a.active');
         if (currentActive) {
             const currentId = currentActive.getAttribute('href').substring(1);
