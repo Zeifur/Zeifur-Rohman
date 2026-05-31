@@ -2050,6 +2050,7 @@ body.scrolled-past-hero .sub-links a.active > span:first-child {
 
 .logo-marquee-track {
     display: flex;
+    align-items: center;
     width: max-content;
     gap: 30px;
     animation: infiniteMarquee 35s linear infinite;
@@ -2062,6 +2063,22 @@ body.scrolled-past-hero .sub-links a.active > span:first-child {
 @keyframes infiniteMarquee {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); } /* Shift exactly by half the total duplicated track width */
+}
+
+/* Premium Black and White Logos in Marquee */
+.marquee-logo {
+    height: 45px;
+    width: auto;
+    object-fit: contain;
+    opacity: 0.5;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    user-select: none;
+    margin: 0 15px; /* Symmetrical spacing */
+}
+
+.marquee-logo:hover {
+    opacity: 1;
+    transform: scale(1.06);
 }
 
 /* Symmetrical SVG-style Typographic Badges */
