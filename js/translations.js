@@ -102,6 +102,11 @@ const translations = {
         testi4_author: "Official CapCut Partner",
         testi5_text: "Sangat puas dengan manajemen proyek dan solusi branding terintegrasi yang diberikan. Sangat direkomendasikan!",
         testi5_author: "Doel BMW Jakarta",
+        testi1_platform: "VIA SYSTEM",
+        testi2_platform: "VIA BRANDING",
+        testi3_platform: "VIA TRAVEL",
+        testi4_platform: "VIA CREATIVE",
+        testi5_platform: "VIA BUSINESS",
         
         // Portfolio Section
         portfolio_title: "PORTOFOLIO KARYA",
@@ -132,7 +137,7 @@ const translations = {
         portfolio_item_photo_desc3: "Jurnal visual komprehensif yang merangkum highlight momen krusial dan interaksi peserta dalam sebuah acara.",
         
         // Footer Section
-        footer_tagline: "Siap Memulai Proyek Bersama?",
+        footer_tagline: "Siap <span class=\"accent\">Memulai</span> Proyek Bersama?",
         footer_desc: "Apakah Anda membutuhkan platform web custom, identitas visual yang kuat, atau sedang mencari kandidat profesional untuk posisi full-time maupun part-time?",
         footer_contact_title: "HUBUNGI SAYA",
         footer_loc_title: "LOKASI UTAMA",
@@ -275,6 +280,11 @@ const translations = {
         testi4_author: "Official CapCut Partner",
         testi5_text: "Very satisfied with the project management and integrated branding solutions delivered. Highly recommended!",
         testi5_author: "Doel BMW Jakarta",
+        testi1_platform: "VIA SYSTEM",
+        testi2_platform: "VIA BRANDING",
+        testi3_platform: "VIA TRAVEL",
+        testi4_platform: "VIA CREATIVE",
+        testi5_platform: "VIA BUSINESS",
         
         // Portfolio Section
         portfolio_title: "PORTFOLIO",
@@ -305,7 +315,7 @@ const translations = {
         portfolio_item_photo_desc3: "Comprehensive visual storyboarding capturing key highlight moments and attendee engagement.",
         
         // Footer Section
-        footer_tagline: "Ready to Start a Project Together?",
+        footer_tagline: "Ready to <span class=\"accent\">Start</span> a Project Together?",
         footer_desc: "Do you need a custom web platform, a strong visual identity, or are you looking for a professional candidate for full-time or part-time roles?",
         footer_contact_title: "SAY HELLO",
         footer_loc_title: "LOCATION",

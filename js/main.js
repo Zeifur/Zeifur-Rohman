@@ -369,3 +369,79 @@ if (prevBtns.length && nextBtns.length) {
 if (typeof lucide !== 'undefined') {
     lucide.createIcons();
 }
+
+// Premium Testimonials Slider Control Logic
+const testiTrack = document.querySelector('.testimonials-track');
+const testiSlides = document.querySelectorAll('.testimonial-slide');
+const testiDots = document.querySelectorAll('.testi-dot');
+const testiPrevBtn = document.querySelector('.testimonials-controls .prev-btn');
+const testiNextBtn = document.querySelector('.testimonials-controls .next-btn');
+
+if (testiTrack && testiSlides.length && testiDots.length) {
+    let currentSlide = 0;
+    const totalSlides = testiSlides.length;
+
+    const updateSlider = () => {
+        const isMobile = window.innerWidth <= 768;
+        let slideWidthPercentage = 100; // on mobile, 1 slide is 100% width
+        let maxSlideIndex = totalSlides - 1;
+        
+        if (!isMobile) {
+            slideWidthPercentage = 50; // on desktop/tablet, each slide is 50% width
+            maxSlideIndex = totalSlides - 2;
+        }
+
+        // Clamp slide index
+        if (currentSlide > maxSlideIndex) currentSlide = maxSlideIndex;
+        if (currentSlide < 0) currentSlide = 0;
+
+        // Calculate horizontal offset and apply translate transition
+        const offset = -currentSlide * slideWidthPercentage;
+        testiTrack.style.transform = `translateX(${offset}%)`;
+
+        // Update active dots
+        testiDots.forEach((dot, idx) => {
+            if (idx === currentSlide) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+    };
+
+    if (testiPrevBtn) {
+        testiPrevBtn.addEventListener('click', () => {
+            currentSlide--;
+            if (currentSlide < 0) {
+                const isMobile = window.innerWidth <= 768;
+                currentSlide = isMobile ? totalSlides - 1 : totalSlides - 2;
+            }
+            updateSlider();
+        });
+    }
+
+    if (testiNextBtn) {
+        testiNextBtn.addEventListener('click', () => {
+            currentSlide++;
+            const isMobile = window.innerWidth <= 768;
+            const maxSlideIndex = isMobile ? totalSlides - 1 : totalSlides - 2;
+            if (currentSlide > maxSlideIndex) {
+                currentSlide = 0;
+            }
+            updateSlider();
+        });
+    }
+
+    testiDots.forEach(dot => {
+        dot.addEventListener('click', (e) => {
+            currentSlide = parseInt(e.target.getAttribute('data-index'));
+            updateSlider();
+        });
+    });
+
+    // Auto-update on resize
+    window.addEventListener('resize', updateSlider);
+    
+    // Initial run
+    updateSlider();
+}

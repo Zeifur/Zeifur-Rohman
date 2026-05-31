@@ -1505,13 +1505,13 @@ body.scrolled-past-hero .sub-links a.active > span:first-child {
 .process-card-body {
     background: rgba(255, 255, 255, 0.015);
     border: 1px solid var(--border-color);
-    border-radius: 4px; /* Crisp minimal corners like reference card */
+    border-radius: 0 0 24px 0 !important; /* Signature Apple-size Brand Corner */
     padding: 30px;
     display: flex;
     flex-direction: column;
     position: relative;
     box-sizing: border-box;
-    min-height: 250px;
+    min-height: 280px;
     flex-grow: 1; /* Stretch body to exactly match sibling card height */
     justify-content: space-between;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -1797,88 +1797,329 @@ body.scrolled-past-hero .sub-links a.active > span:first-child {
 .resume-block { margin-bottom: 30px; border-left: 1px solid var(--border-color); padding-left: 20px; }
 .resume-block .year { font-size: 0.7rem; color: var(--muted-text); }
 
-/* Testimonials Premium Style */
-.testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-    margin-top: 50px;
+/* Testimonials Slider & Controls Style */
+.testimonials-header-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
 }
 
-.testimonial-card {
-    background: var(--secondary-bg);
+.testimonials-header-wrap .content-header {
+    margin: 0;
+    border: none;
+    padding: 0;
+}
+
+.testimonials-controls {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.testi-control-btn {
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.02);
     border: 1px solid var(--border-color);
-    padding: 30px;
-    border-radius: 0 0 20px 0;
+    border-radius: 6px;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
     transition: var(--transition-smooth);
+}
+
+.testi-control-btn:hover {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(152, 0, 0, 0.2);
+}
+
+.testimonials-slider-outer {
+    width: 100%;
+    position: relative;
+}
+
+.testimonials-slider-container {
+    width: 100%;
+    overflow: hidden;
+    padding: 40px 0 25px 0; /* Add top/bottom padding to allow overlapping avatar and shadows */
+}
+
+.testimonials-track {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    width: 100%;
+}
+
+.testimonial-slide {
+    flex: 0 0 50%; /* On desktop, shows 2 slides (each is 50% width) */
+    padding: 0 15px; /* Symmetrical gutters between slides */
+    box-sizing: border-box;
+}
+
+/* Premium Testimonial Card Layout */
+.testimonial-card-premium {
+    background: rgba(255, 255, 255, 0.015);
+    border: 1px solid var(--border-color);
+    border-radius: 0 0 24px 0 !important; /* Signature Apple brand corner */
+    padding: 40px 35px 35px 35px;
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 20px;
+    min-height: 280px;
+    box-sizing: border-box;
+    transition: var(--transition-smooth);
 }
 
-.testimonial-card:hover {
+.testimonial-card-premium:hover {
+    background: rgba(255, 255, 255, 0.035);
+    border-color: rgba(152, 0, 0, 0.3);
     transform: translateY(-5px);
-    border-color: var(--accent-color);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 20px rgba(152, 0, 0, 0.05);
 }
 
-.testi-quote-icon {
-    color: var(--accent-color);
-    font-size: 1.8rem;
-    font-family: serif;
-    line-height: 1;
+/* Floating Overlapping Avatar Style */
+.testi-profile-wrap {
+    position: absolute;
+    top: 0;
+    left: 35px;
+    transform: translateY(-50%);
+    z-index: 5;
 }
 
-.testi-text {
-    font-size: 0.92rem;
-    line-height: 1.6;
-    color: var(--text-color);
-    font-style: italic;
+.testi-avatar {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    border: 3px solid var(--bg-color); /* Matches page dark background */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    object-fit: cover;
 }
 
-.testi-meta {
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    padding-top: 15px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.testi-author {
-    font-family: var(--font-condensed);
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    color: var(--accent-color);
-    text-transform: uppercase;
-}
-
-/* Symmetrical Partner Logos Bar */
-.clients-list {
+.testi-card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 30px;
-    flex-wrap: wrap;
-    margin-top: 40px;
-    padding: 30px;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid var(--border-color);
-    border-radius: 0 0 24px 0;
+    margin-bottom: 20px;
+    margin-top: 10px; /* Accounts for floating avatar offset */
 }
 
-.client-logo {
+.testi-card-header .testi-author {
+    font-family: var(--font-heading);
+    font-size: 0.98rem;
+    font-weight: 800;
+    color: var(--text-color);
+    margin: 0;
+    letter-spacing: 0.01em;
+}
+
+.testi-step-num {
     font-family: var(--font-condensed);
-    font-size: 0.82rem;
+    font-size: 1.5rem;
     font-weight: 900;
-    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.04);
+    letter-spacing: 0.05em;
+    transition: color 0.3s ease;
+}
+
+.testimonial-card-premium:hover .testi-step-num {
+    color: rgba(152, 0, 0, 0.2);
+}
+
+.testi-card-body {
+    flex-grow: 1;
+    margin-bottom: 25px;
+}
+
+.testi-quote-text {
+    font-size: 0.88rem;
+    line-height: 1.6;
     color: var(--muted-text);
+    font-style: italic;
+    margin: 0;
+}
+
+.testi-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    padding-top: 20px;
+}
+
+/* Premium Platform Badge (Mockup-aligned VIA FACEBOOK style) */
+.testi-platform-tag {
+    font-family: var(--font-heading);
+    font-size: 0.68rem;
+    font-weight: 800;
+    color: var(--accent-color);
+    background: rgba(255, 255, 255, 0.015);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    padding: 8px 18px;
+    border-radius: 4px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     transition: var(--transition-smooth);
+}
+
+.testimonial-card-premium:hover .testi-platform-tag {
+    background: rgba(152, 0, 0, 0.05);
+    border-color: rgba(152, 0, 0, 0.2);
+}
+
+.testi-decor-quote {
+    font-family: var(--font-condensed);
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.03);
+    user-select: none;
+    transition: color 0.3s ease;
+}
+
+.testimonial-card-premium:hover .testi-decor-quote {
+    color: rgba(152, 0, 0, 0.15);
+}
+
+/* Pagination Dots */
+.testimonials-pagination-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 35px;
+}
+
+.testi-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.testi-dot.active {
+    background: var(--accent-color);
+    transform: scale(1.3);
+    box-shadow: 0 0 10px var(--accent-color);
+}
+
+/* Endless Partner Logo Marquee Row */
+.logo-marquee-container {
+    width: 100%;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid var(--border-color);
+    border-radius: 0 0 24px 0; /* Signature Apple curved corner */
+    padding: 35px var(--mobile-gutter);
+    margin-top: 50px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* Gradient fade masks on left/right edges for premium cinematic feel */
+.logo-marquee-container::before,
+.logo-marquee-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.logo-marquee-container::before {
+    left: 0;
+    background: linear-gradient(90deg, var(--bg-color) 0%, rgba(6, 8, 8, 0) 100%);
+}
+
+.logo-marquee-container::after {
+    right: 0;
+    background: linear-gradient(270deg, var(--bg-color) 0%, rgba(6, 8, 8, 0) 100%);
+}
+
+.logo-marquee-track {
+    display: flex;
+    width: max-content;
+    gap: 30px;
+    animation: infiniteMarquee 35s linear infinite;
+}
+
+.logo-marquee-track:hover {
+    animation-play-state: paused; /* Pause scrolling on mouse hover for accessibility */
+}
+
+@keyframes infiniteMarquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } /* Shift exactly by half the total duplicated track width */
+}
+
+/* Symmetrical SVG-style Typographic Badges */
+.logo-badge-emblem {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.015);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    padding: 15px 30px;
+    border-radius: 6px;
+    transition: var(--transition-smooth);
+    user-select: none;
+    flex-shrink: 0;
+}
+
+.logo-badge-emblem:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(152, 0, 0, 0.25);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), 0 0 10px rgba(152, 0, 0, 0.05);
+    transform: translateY(-2px);
+}
+
+.emblem-icon {
+    color: var(--muted-text);
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-badge-emblem:hover .emblem-icon {
+    color: var(--accent-color);
+}
+
+.emblem-texts {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.emblem-main {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 900;
+    color: var(--text-color);
+    letter-spacing: 0.05em;
     text-transform: uppercase;
 }
 
-.client-logo:hover {
-    color: var(--accent-color);
+.emblem-sub {
+    font-family: var(--font-body);
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: var(--muted-text);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 2px;
 }
 
 .portfolio-grid-new { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -2662,6 +2903,9 @@ main[data-scroll-container] {
 
 @media (max-width: 768px) {
     .social-sidebar .social-box { display: none !important; }
+    .testimonial-slide {
+        flex: 0 0 100%;
+    }
 }
 
 @media (max-width: 600px) {
@@ -2736,20 +2980,7 @@ main[data-scroll-container] {
     .stat-label { font-size: 0.5rem; }
     .service-num { font-size: 0.7rem; }
 
-    /* Left-Aligned client logos and statistics for mobile */
-    .clients-list {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        gap: 30px;
-        margin-top: 35px;
-        opacity: 0.5;
-    }
-    
-    .client-logo {
-        font-size: 1.1rem;
-        flex: 0 0 auto;
-    }
+    /* Left-Aligned statistics for mobile */
     
     .inner-stats {
         display: grid;
