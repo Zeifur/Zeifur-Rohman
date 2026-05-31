@@ -128,22 +128,38 @@ const translations = {
         portfolio_item_web_cat: "WEBSITE",
         portfolio_item_web_title: "Website IKAFASYA (Full-Stack Web)",
         portfolio_item_web_desc: "Portal direktori jaringan alumni dengan antarmuka modern dan sistem database terintegrasi.",
+        portfolio_item_web2_title: "Website IKAFASYA (Dashboard Admin)",
+        portfolio_item_web2_desc: "Antarmuka dashboard interaktif untuk manajemen database alumni secara real-time.",
+        portfolio_item_web3_title: "Website IKDAR Malang (Full-Stack)",
+        portfolio_item_web3_desc: "Platform profil asosiasi dakwah dengan direktori anggota dan integrasi agenda kegiatan.",
         
         portfolio_item_brand_cat: "VISUAL BRANDING",
         portfolio_item_brand_title: "Logo \"Pesona Cupang Malang\"",
         portfolio_item_brand_desc: "Identitas visual berstandar kompetisi nasional yang memadukan profesionalisme dan kearifan lokal.",
         
-        portfolio_item_photo_cat: "CONCEPT",
-        portfolio_item_photo_title: "Graduation Photography",
-        portfolio_item_photo_desc: "Penataan cahaya tingkat lanjut untuk menangkap momen pencapaian akademis secara elegan dan estetik.",
+        portfolio_item_photo_grad_cat: "PORTRET",
+        portfolio_item_photo_grad_title: "Wisudawati UIN Malang",
+        portfolio_item_photo_grad_desc: "Seri potret wisuda luar ruangan dengan fokus tajam dan warna alami untuk mengabadikan momen kelulusan secara personal.",
         
-        portfolio_item_brand_cat2: "ACTION",
-        portfolio_item_brand_title2: "Sports Photography",
-        portfolio_item_brand_desc2: "Tangkapan visual dengan akurasi tinggi yang membekukan kecepatan dan intensitas emosi di lapangan.",
+        portfolio_item_photo_concept_cat: "KONSEP",
+        portfolio_item_photo_concept_title: "Conceptual Photography",
+        portfolio_item_photo_concept_desc: "Eksplorasi artistik yang memadukan bayangan tebal, kontras tinggi, dan pencahayaan studio terarah untuk bercerita secara visual.",
         
-        portfolio_item_photo_cat3: "FOTOGRAFI",
-        portfolio_item_photo_title3: "Event Documentation",
-        portfolio_item_photo_desc3: "Jurnal visual komprehensif yang merangkum highlight momen krusial dan interaksi peserta dalam sebuah acara.",
+        portfolio_item_photo_doc_cat: "DOKUMENTASI",
+        portfolio_item_photo_doc_title: "Event Documentation",
+        portfolio_item_photo_doc_desc: "Liputan momen berharga secara langsung dari berbagai agenda formal, seminar, dan acara publik.",
+        
+        portfolio_item_photo_model_cat: "MODEL & FASHION",
+        portfolio_item_photo_model_title: "Model & Fashion Photography",
+        portfolio_item_photo_model_desc: "Sesi foto studio dan luar ruangan bergaya komersial dengan pencahayaan dramatis dan komposisi mode yang berkarakter.",
+        
+        portfolio_item_photo_sport_cat: "AKSI & OLAHRAGA",
+        portfolio_item_photo_sport_title: "Sports Action Photography",
+        portfolio_item_photo_sport_desc: "Pembekuan aksi berkecepatan tinggi pada momen olahraga dengan dynamic range luas dan detail tajam.",
+        
+        portfolio_item_photo_yudisium_cat: "DOKUMENTASI",
+        portfolio_item_photo_yudisium_title: "Yudisium UMM",
+        portfolio_item_photo_yudisium_desc: "Dokumentasi resmi upacara yudisium dengan potret formal wisudawan dan suasana khidmat acara.",
         
         // Footer Section
         footer_tagline: "Siap <span class=\"accent\">Memulai</span> Proyek Bersama?",
@@ -315,22 +331,38 @@ const translations = {
         portfolio_item_web_cat: "WEBSITE",
         portfolio_item_web_title: "IKAFASYA Website (Full-Stack Web)",
         portfolio_item_web_desc: "An alumni network directory portal with a modern interface and integrated database system.",
+        portfolio_item_web2_title: "IKAFASYA Website (Admin Dashboard)",
+        portfolio_item_web2_desc: "Interactive dashboard interface for real-time alumni database management.",
+        portfolio_item_web3_title: "IKDAR Malang Website (Full-Stack)",
+        portfolio_item_web3_desc: "Dakwah association profile platform featuring member directory and event integrations.",
         
         portfolio_item_brand_cat: "VISUAL BRANDING",
         portfolio_item_brand_title: "Logo \"Pesona Cupang Malang\"",
         portfolio_item_brand_desc: "Competition-standard visual identity blending high professionalism and local wisdom.",
         
-        portfolio_item_photo_cat: "CONCEPT",
-        portfolio_item_photo_title: "Graduation Photography",
-        portfolio_item_photo_desc: "Advanced studio lighting setups capturing academic achievement moments with utmost elegance.",
+        portfolio_item_photo_grad_cat: "PORTRAIT",
+        portfolio_item_photo_grad_title: "UIN Malang Graduation Portrait",
+        portfolio_item_photo_grad_desc: "Outdoor graduation portrait series featuring crisp focus and natural coloring to capture personal academic milestones.",
         
-        portfolio_item_brand_cat2: "ACTION",
-        portfolio_item_brand_title2: "Sports Photography",
-        portfolio_item_brand_desc2: "High-precision action photography freezing speed, raw motion, and intense on-field emotions.",
+        portfolio_item_photo_concept_cat: "CONCEPT",
+        portfolio_item_photo_concept_title: "Conceptual Photography",
+        portfolio_item_photo_concept_desc: "Artistic exploration merging bold shadows, high contrast, and directional studio lighting for visual storytelling.",
         
-        portfolio_item_photo_cat3: "PHOTOGRAPHY",
-        portfolio_item_photo_title3: "Event Documentation",
-        portfolio_item_photo_desc3: "Comprehensive visual storyboarding capturing key highlight moments and attendee engagement.",
+        portfolio_item_photo_doc_cat: "DOCUMENTARY",
+        portfolio_item_photo_doc_title: "Event Documentation",
+        portfolio_item_photo_doc_desc: "Direct capture of precious moments from formal agendas, educational seminars, and public events.",
+        
+        portfolio_item_photo_model_cat: "MODEL & FASHION",
+        portfolio_item_photo_model_title: "Model & Fashion Photography",
+        portfolio_item_photo_model_desc: "Commercial-style studio and outdoor shoots with dramatic lighting and character-driven fashion compositions.",
+        
+        portfolio_item_photo_sport_cat: "ACTION & SPORTS",
+        portfolio_item_photo_sport_title: "Sports Action Photography",
+        portfolio_item_photo_sport_desc: "High-speed action freeze of athletic moments with wide dynamic range and sharp focal details.",
+        
+        portfolio_item_photo_yudisium_cat: "DOCUMENTARY",
+        portfolio_item_photo_yudisium_title: "UMM Graduation Ceremony",
+        portfolio_item_photo_yudisium_desc: "Official documentation of the graduation ceremony with formal portraits and the solemn event atmosphere.",
         
         // Footer Section
         footer_tagline: "Ready to <span class=\"accent\">Start</span> a Project Together?",

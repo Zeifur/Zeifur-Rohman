@@ -1511,7 +1511,7 @@ body.scrolled-past-hero .sub-links a.active > span:first-child {
     flex-direction: column;
     position: relative;
     box-sizing: border-box;
-    min-height: 280px;
+    min-height: 300px; /* Increased to match testimonial cards height exactly */
     flex-grow: 1; /* Stretch body to exactly match sibling card height */
     justify-content: space-between;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -1860,6 +1860,7 @@ body.scrolled-past-hero .sub-links a.active > span:first-child {
 }
 
 .testimonial-slide {
+    display: flex; /* Enforces flex stretching for consistent heights inside track */
     flex: 0 0 50%; /* On desktop, shows 2 slides (each is 50% width) */
     padding: 0 15px; /* Symmetrical gutters between slides */
     box-sizing: border-box;
@@ -1875,7 +1876,8 @@ body.scrolled-past-hero .sub-links a.active > span:first-child {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 280px;
+    min-height: 300px; /* Highly consistent height matching working process cards */
+    width: 100%; /* Stretch fully inside parent flex slide */
     box-sizing: border-box;
     transition: var(--transition-smooth);
 }
@@ -2108,10 +2110,26 @@ body.scrolled-past-hero .sub-links a.active > span:first-child {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 35px;
+    height: 35px;
 }
 
 .logo-badge-emblem:hover .emblem-icon {
     color: var(--accent-color);
+}
+
+.emblem-img-logo {
+    max-width: 35px;
+    max-height: 35px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    opacity: 0.75;
+    transition: opacity 0.3s ease;
+}
+
+.logo-badge-emblem:hover .emblem-img-logo {
+    opacity: 1;
 }
 
 .emblem-texts {
@@ -2139,10 +2157,42 @@ body.scrolled-past-hero .sub-links a.active > span:first-child {
     margin-top: 2px;
 }
 
-.portfolio-grid-new { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.port-item { position: relative; aspect-ratio: 16/10; overflow: hidden; border-radius: 0 0 32px 0; }
-.port-item img { width: 100%; height: 100%; object-fit: cover; }
-.port-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; flex-direction: column; justify-content: center; padding: 30px; opacity: 0; transition: 0.4s; border-radius: 0 0 32px 0; }
+.portfolio-grid-new {
+    column-count: 2;
+    column-gap: 20px;
+    width: 100%;
+}
+.port-item {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0 0 32px 0;
+    break-inside: avoid;
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.6s ease;
+}
+.port-item img {
+    width: 100% !important;
+    height: auto !important;
+    display: block;
+    object-fit: cover !important;
+}
+.port-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 30px;
+    opacity: 0;
+    transition: 0.4s;
+    border-radius: 0 0 32px 0;
+}
 .port-item:hover .port-overlay { opacity: 1; }
 .port-overlay span { color: var(--accent-color); font-weight: 900; font-size: 0.7rem; }
 .port-overlay h3 { font-family: var(--font-condensed); font-size: 1.8rem; }
@@ -2923,6 +2973,10 @@ main[data-scroll-container] {
     .testimonial-slide {
         flex: 0 0 100%;
     }
+    .testimonial-card-premium {
+        min-height: auto;
+        padding: 35px 25px 25px 25px; /* Compact padding matching mobile process cards */
+    }
 }
 
 @media (max-width: 600px) {
@@ -2985,7 +3039,7 @@ main[data-scroll-container] {
     .main-title { font-size: clamp(2.2rem, 8vw, 3rem); line-height: 1.1; }
     .subtitle { font-size: 0.65rem; letter-spacing: 0.15em; line-height: 1.4; margin-bottom: 35px; }
     .description { font-size: 0.85rem; line-height: 1.6; }
-    .portfolio-grid-new { grid-template-columns: 1fr; }
+    .portfolio-grid-new { column-count: 1; }
     .footer-bottom { padding: 25px var(--mobile-gutter); }
     .copyright { font-size: 0.6rem; }
     
@@ -3037,4 +3091,204 @@ main[data-scroll-container] {
     :root {
         --mobile-gutter: 20px; /* Refined gutter to maximize text space on tight displays */
     }
+}
+
+/* Premium Portfolio Lightbox Modal Styling */
+.lightbox-modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 20000; /* Above all site elements, sidebars, and loader */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(6, 8, 8, 0.96); /* PRETO background with high opacity */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lightbox-modal.show {
+    opacity: 1;
+}
+
+.lightbox-content {
+    max-width: 85%;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+    transform: scale(0.92);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lightbox-modal.show .lightbox-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 35px;
+    right: 45px;
+    color: var(--text-color);
+    font-size: 36px;
+    font-weight: 200;
+    transition: var(--transition-smooth);
+    cursor: pointer;
+    z-index: 20002;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.lightbox-close:hover {
+    color: var(--accent-color);
+    background: rgba(152, 0, 0, 0.1);
+    border-color: rgba(152, 0, 0, 0.3);
+    transform: scale(1.05) rotate(90deg);
+}
+
+.lightbox-caption {
+    position: absolute;
+    bottom: 40px;
+    text-align: center;
+    color: var(--text-color);
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    z-index: 20001;
+    background: rgba(6, 8, 8, 0.7);
+    padding: 10px 30px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s, opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+}
+
+.lightbox-modal.show .lightbox-caption {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .lightbox-close {
+        top: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        font-size: 28px;
+    }
+    .lightbox-content {
+        max-width: 95%;
+        max-height: 70vh;
+    }
+    .lightbox-caption {
+        bottom: 30px;
+        font-size: 0.85rem;
+        padding: 8px 20px;
+    }
+}
+
+/* Aspect ratio auto-managed by CSS columns masonry */
+
+/* Lightbox Navigation Slider Styles */
+.lightbox-img-wrapper {
+    max-width: 85%;
+    max-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: var(--text-color);
+    font-size: 24px;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    z-index: 20005;
+    user-select: none;
+}
+
+.lightbox-nav:hover {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #ffffff;
+    transform: translateY(-50%) scale(1.05);
+    box-shadow: 0 5px 15px rgba(152, 0, 0, 0.3);
+}
+
+.lightbox-prev {
+    left: 45px;
+}
+
+.lightbox-next {
+    right: 45px;
+}
+
+.lightbox-counter {
+    position: absolute;
+    top: 35px;
+    left: 45px;
+    color: var(--text-color);
+    font-family: var(--font-condensed);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    z-index: 20001;
+    background: rgba(6, 8, 8, 0.6);
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    display: none; /* Only show when there are multiple slides */
+}
+
+/* Tablet overrides clean-up */
+
+@media (max-width: 768px) {
+    .lightbox-nav {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+    .lightbox-prev {
+        left: 20px;
+    }
+    .lightbox-next {
+        right: 20px;
+    }
+    .lightbox-counter {
+        top: 20px;
+        left: 20px;
+        font-size: 0.78rem;
+        padding: 6px 12px;
+    }
+    
+    /* Mobile aspect ratio managed by CSS columns masonry */
 }

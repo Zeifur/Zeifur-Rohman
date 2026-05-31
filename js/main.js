@@ -445,3 +445,182 @@ if (testiTrack && testiSlides.length && testiDots.length) {
     // Initial run
     updateSlider();
 }
+
+// Premium Portfolio Lightbox Logic
+const lightbox = document.getElementById('portfolio-lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const lightboxCaption = document.getElementById('lightbox-caption');
+const lightboxClose = document.querySelector('.lightbox-close');
+const portItems = document.querySelectorAll('.port-item');
+const lightboxPrev = document.querySelector('.lightbox-prev');
+const lightboxNext = document.querySelector('.lightbox-next');
+const lightboxCounter = document.getElementById('lightbox-counter');
+
+if (lightbox && lightboxImg && lightboxClose) {
+    let currentImages = [];
+    let currentImgIndex = 0;
+    let baseCaption = "";
+
+    const updateLightbox = (index, direction = 'next') => {
+        if (currentImages.length === 0) return;
+        currentImgIndex = (index + currentImages.length) % currentImages.length;
+        
+        // Update Counter
+        if (lightboxCounter) {
+            lightboxCounter.textContent = `${currentImgIndex + 1} / ${currentImages.length}`;
+            lightboxCounter.style.display = currentImages.length > 1 ? 'block' : 'none';
+        }
+        
+        // Update Nav Buttons Visibility
+        if (lightboxPrev && lightboxNext) {
+            lightboxPrev.style.display = currentImages.length > 1 ? 'flex' : 'none';
+            lightboxNext.style.display = currentImages.length > 1 ? 'flex' : 'none';
+        }
+
+        // Professional transition using GSAP if available
+        if (window.gsap) {
+            gsap.to(lightboxImg, {
+                opacity: 0,
+                scale: 0.95,
+                duration: 0.15,
+                ease: "power2.inOut",
+                onComplete: () => {
+                    lightboxImg.src = currentImages[currentImgIndex];
+                    lightboxImg.onload = () => {
+                        gsap.to(lightboxImg, {
+                            opacity: 1,
+                            scale: 1,
+                            duration: 0.25,
+                            ease: "power2.out"
+                        });
+                    };
+                }
+            });
+        } else {
+            // Fallback pure CSS
+            lightboxImg.style.opacity = '0';
+            lightboxImg.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                lightboxImg.src = currentImages[currentImgIndex];
+                lightboxImg.onload = () => {
+                    lightboxImg.style.opacity = '1';
+                    lightboxImg.style.transform = 'scale(1)';
+                };
+            }, 150);
+        }
+    };
+
+    portItems.forEach(item => {
+        // Enforce hover pointer to show interactivity
+        item.style.cursor = 'pointer';
+        
+        item.addEventListener('click', () => {
+            const img = item.querySelector('img');
+            const titleElement = item.querySelector('h3');
+            const categoryElement = item.querySelector('span[data-translate]');
+            
+            if (img) {
+                // Populate slide array from data-images or fallback to img.src
+                const imagesAttr = item.getAttribute('data-images');
+                if (imagesAttr) {
+                    currentImages = imagesAttr.split(',').map(s => s.trim());
+                } else {
+                    currentImages = [img.src];
+                }
+                currentImgIndex = 0;
+                
+                // Construct caption text
+                let captionText = "";
+                if (titleElement) {
+                    captionText = titleElement.textContent;
+                }
+                if (categoryElement) {
+                    captionText = `${categoryElement.textContent} — ${captionText}`;
+                }
+                baseCaption = captionText || img.alt || "Portfolio Work";
+                lightboxCaption.textContent = baseCaption;
+                
+                // Set initial image
+                lightboxImg.src = currentImages[currentImgIndex];
+                
+                // Reset styling properties in case they were modified by GSAP animation
+                if (window.gsap) {
+                    gsap.set(lightboxImg, { opacity: 1, scale: 1 });
+                } else {
+                    lightboxImg.style.opacity = '1';
+                    lightboxImg.style.transform = 'scale(1)';
+                }
+                
+                // Update Counter & Controls
+                if (lightboxCounter) {
+                    lightboxCounter.textContent = `${currentImgIndex + 1} / ${currentImages.length}`;
+                    lightboxCounter.style.display = currentImages.length > 1 ? 'block' : 'none';
+                }
+                if (lightboxPrev && lightboxNext) {
+                    lightboxPrev.style.display = currentImages.length > 1 ? 'flex' : 'none';
+                    lightboxNext.style.display = currentImages.length > 1 ? 'flex' : 'none';
+                }
+                
+                // Open modal with smooth transition
+                lightbox.style.display = 'flex';
+                lightbox.offsetHeight; // trigger reflow
+                lightbox.classList.add('show');
+                
+                // Lock viewport scrolling for pristine UX
+                document.body.style.overflow = 'hidden';
+            }
+        });
+    });
+
+    const closeLightbox = () => {
+        lightbox.classList.remove('show');
+        document.body.style.overflow = '';
+        setTimeout(() => {
+            lightbox.style.display = 'none';
+            // Clear slider state to avoid leak
+            currentImages = [];
+            currentImgIndex = 0;
+        }, 400); // Matches CSS transition duration
+    };
+
+    // Close modal on close button click
+    lightboxClose.addEventListener('click', closeLightbox);
+
+    // Navigation triggers
+    if (lightboxPrev) {
+        lightboxPrev.addEventListener('click', (e) => {
+            e.stopPropagation();
+            updateLightbox(currentImgIndex - 1, 'prev');
+        });
+    }
+    if (lightboxNext) {
+        lightboxNext.addEventListener('click', (e) => {
+            e.stopPropagation();
+            updateLightbox(currentImgIndex + 1, 'next');
+        });
+    }
+
+    // Close modal on clicking translucent backdrop outside image/buttons
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox || e.target === lightboxClose || e.target.classList.contains('lightbox-img-wrapper')) {
+            closeLightbox();
+        }
+    });
+
+    // Close and Navigation on Keyboard Press
+    window.addEventListener('keydown', (e) => {
+        if (!lightbox.classList.contains('show')) return;
+        
+        if (e.key === 'Escape') {
+            closeLightbox();
+        } else if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') {
+            if (currentImages.length > 1) {
+                updateLightbox(currentImgIndex + 1, 'next');
+            }
+        } else if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') {
+            if (currentImages.length > 1) {
+                updateLightbox(currentImgIndex - 1, 'prev');
+            }
+        }
+    });
+}
