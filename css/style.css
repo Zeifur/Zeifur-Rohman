@@ -2912,7 +2912,10 @@ main[data-scroll-container] {
     
     /* Centered Mobile Footer Alignment */
     .footer-columns { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+    .footer-main-info { align-items: center; text-align: center; }
     .footer-tagline { font-size: clamp(1.6rem, 5vw, 2.2rem); text-align: center; }
+    .footer-desc { text-align: center !important; margin: 15px auto 0 auto !important; }
+    .footer-contact-details { align-items: center; }
     .footer-contact-details a { font-size: 1.2rem; text-align: center; }
     .footer-social-wrap { justify-content: center; }
     .footer-bottom { flex-direction: column; gap: 20px; text-align: center; align-items: center; padding: 30px var(--mobile-gutter); }
