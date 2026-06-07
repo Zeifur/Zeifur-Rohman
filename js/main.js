@@ -450,6 +450,7 @@ if (testiTrack && testiSlides.length && testiDots.length) {
 const lightbox = document.getElementById('portfolio-lightbox');
 const lightboxImg = document.getElementById('lightbox-img');
 const lightboxCaption = document.getElementById('lightbox-caption');
+const lightboxCaseStudy = document.getElementById('lightbox-casestudy');
 const lightboxClose = document.querySelector('.lightbox-close');
 const portItems = document.querySelectorAll('.port-item');
 const lightboxPrev = document.querySelector('.lightbox-prev');
@@ -460,10 +461,38 @@ if (lightbox && lightboxImg && lightboxClose) {
     let currentImages = [];
     let currentImgIndex = 0;
     let baseCaption = "";
+    let hasCaseStudy = false;
+    let caseStudyHTML = "";
+    let isTransitioning = false;
+
+    // Preload lightbox images for instant navigation response
+    const preloadImages = () => {
+        currentImages.forEach(src => {
+            if (src && src !== 'casestudy') {
+                const img = new Image();
+                img.src = src;
+            }
+        });
+    };
 
     const updateLightbox = (index, direction = 'next') => {
         if (currentImages.length === 0) return;
-        currentImgIndex = (index + currentImages.length) % currentImages.length;
+        
+        const nextIndex = (index + currentImages.length) % currentImages.length;
+        const isCaseStudySlide = hasCaseStudy && (nextIndex === currentImages.length - 1);
+        
+        // Identify active outgoing elements
+        let outgoingEl = null;
+        let outgoingCaption = null;
+        
+        if (lightboxCaseStudy.style.display === 'block') {
+            outgoingEl = lightboxCaseStudy;
+        } else if (lightboxImg.style.display === 'block') {
+            outgoingEl = lightboxImg;
+            outgoingCaption = lightboxCaption;
+        }
+        
+        currentImgIndex = nextIndex;
         
         // Update Counter
         if (lightboxCounter) {
@@ -471,161 +500,340 @@ if (lightbox && lightboxImg && lightboxClose) {
             lightboxCounter.style.display = currentImages.length > 1 ? 'block' : 'none';
         }
         
-        // Update Nav Buttons Visibility
+        // Update Nav Buttons
         if (lightboxPrev && lightboxNext) {
             lightboxPrev.style.display = currentImages.length > 1 ? 'flex' : 'none';
             lightboxNext.style.display = currentImages.length > 1 ? 'flex' : 'none';
         }
-
-        // Professional transition using GSAP if available
-        if (window.gsap) {
-            gsap.to(lightboxImg, {
-                opacity: 0,
-                scale: 0.95,
-                duration: 0.15,
-                ease: "power2.inOut",
-                onComplete: () => {
-                    lightboxImg.src = currentImages[currentImgIndex];
-                    lightboxImg.onload = () => {
-                        gsap.to(lightboxImg, {
-                            opacity: 1,
-                            scale: 1,
-                            duration: 0.25,
-                            ease: "power2.out"
-                        });
-                    };
+        
+        // Horizontal offset values for slide transition
+        let outX = 0;
+        let inX = 0;
+        
+        if (direction === 'next') {
+            outX = -60; // slides left
+            inX = 60;   // enters from right
+        } else if (direction === 'prev') {
+            outX = 60;  // slides right
+            inX = -60;  // enters from left
+        }
+        
+        const durationOut = 0.2;
+        const durationIn = 0.35;
+        
+        const animateIn = () => {
+            if (isCaseStudySlide) {
+                // Display Case Study
+                lightboxCaseStudy.innerHTML = caseStudyHTML;
+                lightboxCaseStudy.style.display = 'block';
+                
+                if (window.gsap) {
+                    gsap.killTweensOf(lightboxCaseStudy);
+                    gsap.fromTo(lightboxCaseStudy, 
+                        { opacity: 0, x: inX, scale: 0.98 },
+                        { 
+                            opacity: 1, 
+                            x: 0, 
+                            scale: 1, 
+                            duration: durationIn, 
+                            ease: "power2.out",
+                            onComplete: () => { isTransitioning = false; }
+                        }
+                    );
+                } else {
+                    lightboxCaseStudy.style.opacity = '1';
+                    isTransitioning = false;
                 }
-            });
-        } else {
-            // Fallback pure CSS
-            lightboxImg.style.opacity = '0';
-            lightboxImg.style.transform = 'scale(0.95)';
-            setTimeout(() => {
+            } else {
+                // Display standard Image
+                lightboxImg.style.display = 'block';
+                lightboxCaption.style.display = 'block';
+                lightboxCaption.textContent = baseCaption;
+                
                 lightboxImg.src = currentImages[currentImgIndex];
-                lightboxImg.onload = () => {
-                    lightboxImg.style.opacity = '1';
-                    lightboxImg.style.transform = 'scale(1)';
+                
+                const showImage = () => {
+                    if (window.gsap) {
+                        gsap.killTweensOf([lightboxImg, lightboxCaption]);
+                        
+                        gsap.fromTo(lightboxImg,
+                            { opacity: 0, x: inX, scale: 0.96 },
+                            { 
+                                opacity: 1, 
+                                x: 0, 
+                                scale: 1, 
+                                duration: durationIn, 
+                                ease: "power2.out",
+                                onComplete: () => { isTransitioning = false; }
+                            }
+                        );
+                        gsap.fromTo(lightboxCaption,
+                            { opacity: 0, y: 15 },
+                            { opacity: 1, y: 0, duration: durationIn, ease: "power2.out", delay: 0.05 }
+                        );
+                    } else {
+                        lightboxImg.style.opacity = '1';
+                        lightboxCaption.style.opacity = '1';
+                        isTransitioning = false;
+                    }
                 };
-            }, 150);
+                
+                // Trigger animation when the new image resource is fully loaded
+                if (lightboxImg.complete) {
+                    showImage();
+                } else {
+                    lightboxImg.onload = showImage;
+                }
+            }
+        };
+        
+        // Handle transitions when navigating slides (direction is next or prev)
+        if (outgoingEl && direction !== 'open') {
+            if (window.gsap) {
+                gsap.killTweensOf(outgoingEl);
+                if (outgoingCaption) gsap.killTweensOf(outgoingCaption);
+                
+                gsap.to(outgoingEl, {
+                    opacity: 0,
+                    x: outX,
+                    duration: durationOut,
+                    ease: "power2.in",
+                    onComplete: () => {
+                        gsap.set(outgoingEl, { display: 'none', x: 0 });
+                        if (outgoingCaption) gsap.set(outgoingCaption, { display: 'none', y: 0 });
+                        animateIn();
+                    }
+                });
+                
+                if (outgoingCaption) {
+                    gsap.to(outgoingCaption, {
+                        opacity: 0,
+                        y: -10,
+                        duration: durationOut,
+                        ease: "power2.in"
+                    });
+                }
+            } else {
+                outgoingEl.style.display = 'none';
+                if (outgoingCaption) outgoingCaption.style.display = 'none';
+                animateIn();
+            }
+        } else {
+            // First slide open / backdrop initialization
+            if (outgoingEl) {
+                outgoingEl.style.display = 'none';
+                if (outgoingCaption) outgoingCaption.style.display = 'none';
+            }
+            
+            if (window.gsap) {
+                if (isCaseStudySlide) {
+                    lightboxCaseStudy.innerHTML = caseStudyHTML;
+                    lightboxCaseStudy.style.display = 'block';
+                    gsap.fromTo(lightboxCaseStudy,
+                        { opacity: 0, scale: 0.95, y: 20 },
+                        { 
+                            opacity: 1, 
+                            scale: 1, 
+                            y: 0, 
+                            duration: 0.45, 
+                            ease: "power2.out",
+                            onComplete: () => { isTransitioning = false; }
+                        }
+                    );
+                } else {
+                    lightboxImg.style.display = 'block';
+                    lightboxCaption.style.display = 'block';
+                    lightboxCaption.textContent = baseCaption;
+                    
+                    lightboxImg.src = currentImages[currentImgIndex];
+                    
+                    const handleInitialLoad = () => {
+                        gsap.killTweensOf([lightboxImg, lightboxCaption]);
+                        gsap.fromTo(lightboxImg,
+                            { opacity: 0, scale: 0.94 },
+                            { 
+                                opacity: 1, 
+                                scale: 1, 
+                                duration: 0.45, 
+                                ease: "power2.out",
+                                onComplete: () => { isTransitioning = false; }
+                            }
+                        );
+                        gsap.fromTo(lightboxCaption,
+                            { opacity: 0, y: 20 },
+                            { opacity: 1, y: 0, duration: 0.45, ease: "power2.out", delay: 0.1 }
+                        );
+                    };
+                    
+                    if (lightboxImg.complete) {
+                        handleInitialLoad();
+                    } else {
+                        lightboxImg.onload = handleInitialLoad;
+                    }
+                }
+            } else {
+                animateIn();
+            }
         }
     };
 
     portItems.forEach(item => {
-        // Enforce hover pointer to show interactivity
         item.style.cursor = 'pointer';
         
         item.addEventListener('click', () => {
+            if (isTransitioning) return;
+            
             const img = item.querySelector('img');
             const titleElement = item.querySelector('h3');
             const categoryElement = item.querySelector('span[data-translate]');
             
             if (img) {
-                // Populate slide array from data-images or fallback to img.src
                 const imagesAttr = item.getAttribute('data-images');
                 if (imagesAttr) {
                     currentImages = imagesAttr.split(',').map(s => s.trim());
                 } else {
                     currentImages = [img.src];
                 }
-                currentImgIndex = 0;
                 
-                // Construct caption text
                 let captionText = "";
                 if (titleElement) {
                     captionText = titleElement.textContent;
                 }
+                
+                if (categoryElement) {
+                    baseCaption = `${categoryElement.textContent} — ${captionText}`;
+                } else {
+                    baseCaption = captionText || img.alt || "Portfolio Work";
+                }
+
+                // Check for Case Study HTML
                 const caseStudyElement = item.querySelector('.port-casestudy');
                 if (caseStudyElement && caseStudyElement.innerHTML.trim() !== '') {
-                    lightbox.classList.add('has-casestudy');
-                    lightboxCaption.innerHTML = `<h3 class="casestudy-title">${captionText}</h3><div class="casestudy-content">${caseStudyElement.innerHTML}</div>`;
+                    hasCaseStudy = true;
+                    caseStudyHTML = `<h3 class="casestudy-title">${captionText}</h3><div class="casestudy-content">${caseStudyElement.innerHTML}</div>`;
+                    currentImages.push("casestudy");
                 } else {
-                    lightbox.classList.remove('has-casestudy');
-                    if (categoryElement) {
-                        captionText = `${categoryElement.textContent} — ${captionText}`;
-                    }
-                    baseCaption = captionText || img.alt || "Portfolio Work";
-                    lightboxCaption.textContent = baseCaption;
+                    hasCaseStudy = false;
+                    caseStudyHTML = "";
                 }
                 
-                // Set initial image
-                lightboxImg.src = currentImages[currentImgIndex];
+                currentImgIndex = 0;
+                isTransitioning = true;
                 
-                // Reset styling properties in case they were modified by GSAP animation
+                // Preload all portfolio images for smooth navigations
+                preloadImages();
+                
+                // Clear state of the content containers to prevent any visual residual leaks
+                lightboxImg.src = '';
+                lightboxImg.style.display = 'none';
+                lightboxCaption.style.display = 'none';
+                lightboxCaseStudy.style.display = 'none';
+                
                 if (window.gsap) {
-                    gsap.set(lightboxImg, { opacity: 1, scale: 1 });
-                } else {
-                    lightboxImg.style.opacity = '1';
-                    lightboxImg.style.transform = 'scale(1)';
+                    gsap.set([lightboxImg, lightboxCaption, lightboxCaseStudy], { clearProps: "all" });
+                    gsap.set(lightboxImg, { opacity: 0 });
+                    gsap.set(lightboxCaption, { opacity: 0 });
+                    gsap.set(lightboxCaseStudy, { opacity: 0 });
                 }
                 
-                // Update Counter & Controls
-                if (lightboxCounter) {
-                    lightboxCounter.textContent = `${currentImgIndex + 1} / ${currentImages.length}`;
-                    lightboxCounter.style.display = currentImages.length > 1 ? 'block' : 'none';
-                }
-                if (lightboxPrev && lightboxNext) {
-                    lightboxPrev.style.display = currentImages.length > 1 ? 'flex' : 'none';
-                    lightboxNext.style.display = currentImages.length > 1 ? 'flex' : 'none';
-                }
+                // Initialize active slide
+                updateLightbox(0, 'open');
                 
-                // Open modal with smooth transition
+                // Open backdrop smoothly
                 lightbox.style.display = 'flex';
-                lightbox.offsetHeight; // trigger reflow
+                lightbox.offsetHeight; // force reflow
                 lightbox.classList.add('show');
                 
-                // Lock viewport scrolling for pristine UX
                 document.body.style.overflow = 'hidden';
             }
         });
     });
 
     const closeLightbox = () => {
+        if (isTransitioning) return;
+        isTransitioning = true;
+        
         lightbox.classList.remove('show');
         document.body.style.overflow = '';
+        
+        if (window.gsap) {
+            // Animate active element out along with the backdrop
+            if (lightboxCaseStudy.style.display === 'block') {
+                gsap.to(lightboxCaseStudy, {
+                    opacity: 0,
+                    scale: 0.95,
+                    duration: 0.35,
+                    ease: "power2.in"
+                });
+            } else {
+                gsap.to(lightboxImg, {
+                    opacity: 0,
+                    scale: 0.95,
+                    duration: 0.35,
+                    ease: "power2.in"
+                });
+                gsap.to(lightboxCaption, {
+                    opacity: 0,
+                    y: 15,
+                    duration: 0.35,
+                    ease: "power2.in"
+                });
+            }
+        }
+        
         setTimeout(() => {
             lightbox.style.display = 'none';
-            // Clear slider state to avoid leak
+            // Reset state parameters
             currentImages = [];
             currentImgIndex = 0;
-        }, 400); // Matches CSS transition duration
+            isTransitioning = false;
+            
+            // Clear content references
+            lightboxImg.src = '';
+            lightboxCaseStudy.innerHTML = '';
+        }, 400);
     };
 
-    // Close modal on close button click
     lightboxClose.addEventListener('click', closeLightbox);
 
-    // Navigation triggers
     if (lightboxPrev) {
         lightboxPrev.addEventListener('click', (e) => {
             e.stopPropagation();
-            updateLightbox(currentImgIndex - 1, 'prev');
+            if (!isTransitioning && currentImages.length > 1) {
+                isTransitioning = true;
+                updateLightbox(currentImgIndex - 1, 'prev');
+            }
         });
     }
     if (lightboxNext) {
         lightboxNext.addEventListener('click', (e) => {
             e.stopPropagation();
-            updateLightbox(currentImgIndex + 1, 'next');
+            if (!isTransitioning && currentImages.length > 1) {
+                isTransitioning = true;
+                updateLightbox(currentImgIndex + 1, 'next');
+            }
         });
     }
 
-    // Close modal on clicking translucent backdrop outside image/buttons
     lightbox.addEventListener('click', (e) => {
         if (e.target === lightbox || e.target === lightboxClose || e.target.classList.contains('lightbox-img-wrapper')) {
             closeLightbox();
         }
     });
 
-    // Close and Navigation on Keyboard Press
     window.addEventListener('keydown', (e) => {
-        if (!lightbox.classList.contains('show')) return;
+        if (!lightbox.classList.contains('show') || isTransitioning) return;
         
         if (e.key === 'Escape') {
             closeLightbox();
         } else if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') {
             if (currentImages.length > 1) {
+                isTransitioning = true;
                 updateLightbox(currentImgIndex + 1, 'next');
             }
         } else if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') {
             if (currentImages.length > 1) {
+                isTransitioning = true;
                 updateLightbox(currentImgIndex - 1, 'prev');
             }
         }
