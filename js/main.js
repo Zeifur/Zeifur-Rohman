@@ -534,11 +534,18 @@ if (lightbox && lightboxImg && lightboxClose) {
                 if (titleElement) {
                     captionText = titleElement.textContent;
                 }
-                if (categoryElement) {
-                    captionText = `${categoryElement.textContent} — ${captionText}`;
+                const caseStudyElement = item.querySelector('.port-casestudy');
+                if (caseStudyElement && caseStudyElement.innerHTML.trim() !== '') {
+                    lightbox.classList.add('has-casestudy');
+                    lightboxCaption.innerHTML = `<h3 class="casestudy-title">${captionText}</h3><div class="casestudy-content">${caseStudyElement.innerHTML}</div>`;
+                } else {
+                    lightbox.classList.remove('has-casestudy');
+                    if (categoryElement) {
+                        captionText = `${categoryElement.textContent} — ${captionText}`;
+                    }
+                    baseCaption = captionText || img.alt || "Portfolio Work";
+                    lightboxCaption.textContent = baseCaption;
                 }
-                baseCaption = captionText || img.alt || "Portfolio Work";
-                lightboxCaption.textContent = baseCaption;
                 
                 // Set initial image
                 lightboxImg.src = currentImages[currentImgIndex];
@@ -624,3 +631,4 @@ if (lightbox && lightboxImg && lightboxClose) {
         }
     });
 }
+

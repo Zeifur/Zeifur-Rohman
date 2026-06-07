@@ -130,9 +130,11 @@ const translations = {
         
         portfolio_item_web_cat: "WEBSITE",
         portfolio_item_web_title: "Website IKAFASYA (Full-Stack Web)",
-        portfolio_item_web_desc: "<strong>1. Latar Belakang/Masalah:</strong> Sulitnya melacak dan mendata jaringan alumni secara efisien dan terpusat.<br><br><strong>2. Solusi Teknis:</strong> Pengembangan Full-Stack Web portal direktori dengan manajemen database yang aman.<br><br><strong>3. Hasil & Dampak:</strong> Berhasil merancang website dengan antarmuka yang sangat bersih dan sistem database alumni yang sangat andal, mempermudah komunikasi dan koneksi antar alumni.",
+        portfolio_item_web_desc: "Portal direktori jaringan alumni dengan antarmuka modern dan sistem database terintegrasi.",
+        portfolio_item_web_casestudy: "<strong class='cs-label'>Latar Belakang / Masalah:</strong><br>Mengatasi kesulitan dalam melacak dan mendata jaringan alumni yang terus bertambah secara efisien dan terpusat.<br><br><strong class='cs-label'>Solusi Teknis:</strong><br>Pengembangan platform direktori Full-Stack Web yang aman dan responsif dengan manajemen database modern.<br><br><strong class='cs-label'>Hasil & Dampak:</strong><br>Berhasil merancang website dengan antarmuka yang sangat bersih dan sistem database alumni yang sangat andal, mempermudah komunikasi dan koneksi antar alumni.",
         portfolio_item_web3_title: "Website IKDAR Malang (Full-Stack)",
         portfolio_item_web3_desc: "Platform profil asosiasi dakwah dengan direktori anggota dan integrasi agenda kegiatan.",
+        portfolio_item_web3_casestudy: "<strong class='cs-label'>Latar Belakang / Masalah:</strong><br>Membutuhkan platform terpusat yang modern untuk menampilkan profil organisasi dan mengelola data anggota secara efisien.<br><br><strong class='cs-label'>Solusi Teknis:</strong><br>Membangun sistem Full-Stack Web dinamis yang dilengkapi fitur manajemen keanggotaan dan integrasi agenda kegiatan.<br><br><strong class='cs-label'>Hasil & Dampak:</strong><br>Mempermudah akses informasi organisasi dan meningkatkan partisipasi anggota melalui penyampaian agenda yang lebih terstruktur dan real-time.",
         
         portfolio_item_brand_cat: "VISUAL BRANDING",
         portfolio_item_brand_title: "Logo \"Pesona Cupang Malang\"",
@@ -334,9 +336,11 @@ const translations = {
         
         portfolio_item_web_cat: "WEBSITE",
         portfolio_item_web_title: "IKAFASYA Website (Full-Stack Web)",
-        portfolio_item_web_desc: "<strong>1. Background/Problem:</strong> Difficulties in tracking and managing the alumni network efficiently in a centralized manner.<br><br><strong>2. Technical Solution:</strong> Full-Stack Web development of a directory portal with secure database management.<br><br><strong>3. Results & Impact:</strong> Successfully designed a website with a very clean interface and a highly reliable alumni database system, facilitating communication and connections among alumni.",
+        portfolio_item_web_desc: "An alumni network directory portal with a modern interface and integrated database system.",
+        portfolio_item_web_casestudy: "<strong class='cs-label'>Background / Problem:</strong><br>Overcoming difficulties in tracking and managing the growing alumni network efficiently in a centralized manner.<br><br><strong class='cs-label'>Technical Solution:</strong><br>Developed a secure and responsive Full-Stack Web directory platform with modern database management.<br><br><strong class='cs-label'>Results & Impact:</strong><br>Successfully designed a website with a very clean interface and a highly reliable alumni database system, facilitating communication and connections among alumni.",
         portfolio_item_web3_title: "IKDAR Malang Website (Full-Stack)",
         portfolio_item_web3_desc: "Dakwah association profile platform featuring member directory and event integrations.",
+        portfolio_item_web3_casestudy: "<strong class='cs-label'>Background / Problem:</strong><br>A modern centralized platform was needed to showcase the organization's profile and manage member data efficiently.<br><br><strong class='cs-label'>Technical Solution:</strong><br>Built a dynamic Full-Stack Web system featuring membership management and event agenda integrations.<br><br><strong class='cs-label'>Results & Impact:</strong><br>Streamlined access to organizational information and increased member participation through structured and real-time event delivery.",
         
         portfolio_item_brand_cat: "VISUAL BRANDING",
         portfolio_item_brand_title: "Logo \"Pesona Cupang Malang\"",
