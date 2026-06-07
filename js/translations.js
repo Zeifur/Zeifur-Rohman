@@ -57,9 +57,10 @@ const translations = {
         // Skills Section
         skills_title: "KEAHLIAN",
         skills_subtitle: "KEAHLIAN TEKNIS & ALAT KREATIF",
-        skills_name1: "HTML / CSS / JavaScript / Node.js",
-        skills_name2: "Digital Branding & Video Editing",
-        skills_name3: "Technical Concept Photography",
+        skills_name1: "PENGEMBANGAN WEB",
+        tech_stack_title: "Teknologi yang Digunakan / Tech Stack",
+        skills_name2: "BRANDING VISUAL",
+        skills_name3: "FOTOGRAFI",
         skills_lang_title: "BAHASA",
         skills_lang_text: "Indonesian (Native) | English (Menengah) | Arabic (Menengah)",
         lang_indonesia: "INDONESIA",
@@ -129,7 +130,7 @@ const translations = {
         
         portfolio_item_web_cat: "WEBSITE",
         portfolio_item_web_title: "Website IKAFASYA (Full-Stack Web)",
-        portfolio_item_web_desc: "Portal direktori jaringan alumni dengan antarmuka modern dan sistem database terintegrasi.",
+        portfolio_item_web_desc: "<strong>1. Latar Belakang/Masalah:</strong> Sulitnya melacak dan mendata jaringan alumni secara efisien dan terpusat.<br><br><strong>2. Solusi Teknis:</strong> Pengembangan Full-Stack Web portal direktori dengan manajemen database yang aman.<br><br><strong>3. Hasil & Dampak:</strong> Berhasil merancang website dengan antarmuka yang sangat bersih dan sistem database alumni yang sangat andal, mempermudah komunikasi dan koneksi antar alumni.",
         portfolio_item_web3_title: "Website IKDAR Malang (Full-Stack)",
         portfolio_item_web3_desc: "Platform profil asosiasi dakwah dengan direktori anggota dan integrasi agenda kegiatan.",
         
@@ -260,9 +261,10 @@ const translations = {
         // Skills Section
         skills_title: "MY SKILLS",
         skills_subtitle: "TECHNICAL EXPERTISE & CREATIVE TOOLS",
-        skills_name1: "HTML / CSS / JavaScript / Node.js",
-        skills_name2: "Digital Branding & Video Editing",
-        skills_name3: "Technical Concept Photography",
+        skills_name1: "WEB DEVELOPMENT",
+        tech_stack_title: "Tech Stack Used",
+        skills_name2: "VISUAL BRANDING",
+        skills_name3: "PHOTOGRAPHY",
         skills_lang_title: "LANGUAGES",
         skills_lang_text: "Indonesian (Native) | English (Intermediate) | Arabic (Intermediate)",
         lang_indonesia: "INDONESIAN",
@@ -332,7 +334,7 @@ const translations = {
         
         portfolio_item_web_cat: "WEBSITE",
         portfolio_item_web_title: "IKAFASYA Website (Full-Stack Web)",
-        portfolio_item_web_desc: "An alumni network directory portal with a modern interface and integrated database system.",
+        portfolio_item_web_desc: "<strong>1. Background/Problem:</strong> Difficulties in tracking and managing the alumni network efficiently in a centralized manner.<br><br><strong>2. Technical Solution:</strong> Full-Stack Web development of a directory portal with secure database management.<br><br><strong>3. Results & Impact:</strong> Successfully designed a website with a very clean interface and a highly reliable alumni database system, facilitating communication and connections among alumni.",
         portfolio_item_web3_title: "IKDAR Malang Website (Full-Stack)",
         portfolio_item_web3_desc: "Dakwah association profile platform featuring member directory and event integrations.",
         
