@@ -19,9 +19,50 @@ const cursor = document.querySelector('.cursor');
 const follower = document.querySelector('.cursor-follower');
 
 if (cursor && follower) {
+    let cursorVisible = false;
+
     document.addEventListener('mousemove', (e) => {
-        gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1 });
-        gsap.to(follower, { x: e.clientX, y: e.clientY, duration: 0.3 });
+        if (!cursorVisible) {
+            cursor.classList.add('visible');
+            follower.classList.add('visible');
+            cursorVisible = true;
+        }
+        gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.05 });
+        gsap.to(follower, { x: e.clientX, y: e.clientY, duration: 0.25 });
+    });
+
+    document.addEventListener('mouseleave', () => {
+        cursor.classList.remove('visible');
+        follower.classList.remove('visible');
+        cursorVisible = false;
+    });
+
+    document.addEventListener('mouseenter', () => {
+        cursor.classList.add('visible');
+        follower.classList.add('visible');
+        cursorVisible = true;
+    });
+
+    document.addEventListener('mousedown', () => {
+        cursor.classList.add('is-active');
+        follower.classList.add('is-active');
+    });
+
+    document.addEventListener('mouseup', () => {
+        cursor.classList.remove('is-active');
+        follower.classList.remove('is-active');
+    });
+
+    // Event delegation for interactive hover states
+    document.addEventListener('mouseover', (e) => {
+        const target = e.target.closest('a, button, .port-item, .menu-toggle, .lang-btn, .social-box, .social-circle, .filter-btn, .hero-arrow-btn, .nav-arrow, .to-top-btn, [role="button"]');
+        if (target) {
+            cursor.classList.add('is-hovered');
+            follower.classList.add('is-hovered');
+        } else {
+            cursor.classList.remove('is-hovered');
+            follower.classList.remove('is-hovered');
+        }
     });
 }
 
@@ -137,11 +178,67 @@ lenis.on('scroll', updateSubNavSticky);
 // Also fire on first paint
 window.addEventListener('resize', updateSubNavSticky);
 
+// Section mapping to page index (01 - 08)
+const sectionPageMap = {
+    'hero': 1,
+    'about': 2,
+    'services': 3,
+    'process': 4,
+    'skills': 5,
+    'resume': 6,
+    'clients': 7,
+    'portofolio': 8
+};
+
+// Dynamic progress indicator updater
+function updateProgress(pageNumber) {
+    const percentage = (pageNumber / 8) * 100;
+    
+    // Update Hero Bottom Progress
+    const heroFill = document.querySelector('.hero-progress-indicator .progress-bar-fill');
+    const heroText = document.querySelector('.hero-progress-indicator .progress-text');
+    if (heroFill) {
+        gsap.to(heroFill, { width: `${percentage}%`, duration: 0.5, ease: 'power2.out' });
+    }
+    if (heroText) {
+        heroText.textContent = `${String(pageNumber).padStart(2, '0')} — 08`;
+    }
+    
+    // Update Side Panel Progress
+    const sideFill = document.getElementById('side-progress-fill');
+    const sideText = document.getElementById('side-progress-text');
+    if (sideFill) {
+        gsap.to(sideFill, { width: `${percentage}%`, duration: 0.5, ease: 'power2.out' });
+    }
+    if (sideText) {
+        sideText.textContent = `${String(pageNumber).padStart(2, '0')} — 08`;
+    }
+
+    // Update Mobile Navbar Progress
+    const mobileFill = document.getElementById('mobile-progress-fill');
+    const mobileText = document.getElementById('mobile-progress-text');
+    if (mobileFill) {
+        gsap.to(mobileFill, { width: `${percentage}%`, duration: 0.5, ease: 'power2.out' });
+    }
+    if (mobileText) {
+        mobileText.textContent = `${String(pageNumber).padStart(2, '0')} — 08`;
+    }
+}
+
 // Fixed Panel & Layer Switching Logic
 const contentSections = document.querySelectorAll('.content-section');
 const bgLayers = document.querySelectorAll('.bg-layer');
 // Select sub-links from BOTH nav variants (mobile inside hero + desktop sticky)
 const subLinks = document.querySelectorAll('.sub-links a');
+
+// Hero section trigger to update progress back to 01
+ScrollTrigger.create({
+    trigger: '#hero',
+    start: 'top 50%',
+    end: 'bottom 50%',
+    onEnter: () => updateProgress(1),
+    onEnterBack: () => updateProgress(1)
+});
 
 contentSections.forEach((section) => {
     ScrollTrigger.create({
@@ -162,6 +259,10 @@ ScrollTrigger.create({
 });
 
 function switchLayer(id) {
+    const pageNum = sectionPageMap[id];
+    if (pageNum) {
+        updateProgress(pageNum);
+    }
     bgLayers.forEach(layer => {
         if (layer.getAttribute('data-layer') === id) {
             if (!layer.classList.contains('active')) {

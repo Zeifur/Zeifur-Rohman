@@ -399,9 +399,50 @@
         const follower = document.querySelector('.cursor-follower');
         
         if (cursor && follower) {
+            let cursorVisible = false;
+
             document.addEventListener('mousemove', (e) => {
-                gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1 });
-                gsap.to(follower, { x: e.clientX, y: e.clientY, duration: 0.3 });
+                if (!cursorVisible) {
+                    cursor.classList.add('visible');
+                    follower.classList.add('visible');
+                    cursorVisible = true;
+                }
+                gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.05 });
+                gsap.to(follower, { x: e.clientX, y: e.clientY, duration: 0.25 });
+            });
+
+            document.addEventListener('mouseleave', () => {
+                cursor.classList.remove('visible');
+                follower.classList.remove('visible');
+                cursorVisible = false;
+            });
+
+            document.addEventListener('mouseenter', () => {
+                cursor.classList.add('visible');
+                follower.classList.add('visible');
+                cursorVisible = true;
+            });
+
+            document.addEventListener('mousedown', () => {
+                cursor.classList.add('is-active');
+                follower.classList.add('is-active');
+            });
+
+            document.addEventListener('mouseup', () => {
+                cursor.classList.remove('is-active');
+                follower.classList.remove('is-active');
+            });
+
+            // Event delegation for interactive hover states
+            document.addEventListener('mouseover', (e) => {
+                const target = e.target.closest('a, button, .cs-social-link, .cs-back-btn, .lang-btn, [role="button"]');
+                if (target) {
+                    cursor.classList.add('is-hovered');
+                    follower.classList.add('is-hovered');
+                } else {
+                    cursor.classList.remove('is-hovered');
+                    follower.classList.remove('is-hovered');
+                }
             });
         }
 

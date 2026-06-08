@@ -2868,7 +2868,7 @@ main[data-scroll-container] {
     }
     .hero-bottom { 
         position: absolute; 
-        bottom: 30px; 
+        bottom: 50px; 
         left: 0; 
         width: 100%;
         height: auto;
@@ -3367,4 +3367,123 @@ main[data-scroll-container] {
     }
     
     /* Mobile aspect ratio managed by CSS columns masonry */
+}
+
+/* Side Progress Indicator Styling */
+.side-progress-indicator {
+    position: absolute;
+    top: 110px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 15;
+    pointer-events: none;
+}
+
+/* Custom Cursor Styling */
+.cursor {
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-branco); /* Small white/gray dot */
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 99999;
+    opacity: 0;
+    transition: opacity 0.3s ease, width 0.3s ease, height 0.3s ease, background-color 0.3s ease;
+}
+
+.cursor-follower {
+    width: 32px;
+    height: 32px;
+    border: 2px solid var(--accent-color); /* Red circle matching reference */
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 99998;
+    opacity: 0;
+    transition: opacity 0.3s ease, width 0.3s ease, height 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.cursor.visible, .cursor-follower.visible {
+    opacity: 1;
+}
+
+/* Hover/Active states */
+.cursor.is-hovered {
+    width: 4px;
+    height: 4px;
+    background-color: var(--accent-color);
+}
+
+.cursor-follower.is-hovered {
+    width: 48px;
+    height: 48px;
+    border-color: var(--color-branco);
+    background-color: rgba(152, 0, 0, 0.15); /* Red glow background fill */
+}
+
+/* Press/Click states */
+.cursor.is-active {
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-branco);
+}
+
+.cursor-follower.is-active {
+    width: 24px;
+    height: 24px;
+    border-width: 3px;
+    background-color: rgba(152, 0, 0, 0.3);
+}
+
+@media (max-width: 1024px) {
+    .cursor, .cursor-follower {
+        display: none !important;
+    }
+}
+
+/* Mobile Navbar Progress Styling */
+.mobile-navbar-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.05);
+    z-index: 10;
+    display: none; /* Hidden on desktop */
+}
+
+.mobile-navbar-progress .progress-bar-fill {
+    height: 100%;
+    background: var(--accent-color);
+    box-shadow: 0 0 8px var(--accent-color);
+    width: 12.5%;
+}
+
+.mobile-nav-progress-text {
+    display: none; /* Hidden on desktop */
+}
+
+@media (max-width: 1024px) {
+    .mobile-navbar-progress {
+        display: block;
+    }
+    .mobile-nav-progress-text {
+        display: block;
+        font-family: var(--font-condensed);
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--text-color);
+        letter-spacing: 0.1em;
+        z-index: 5;
+        margin-right: 15px; /* Spacing to the left of the MENU button */
+        user-select: none;
+        opacity: 0.7; /* Slightly muted style */
+    }
 }
