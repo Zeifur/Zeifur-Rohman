@@ -2278,9 +2278,15 @@ body.scrolled-past-hero .sub-links a.active > span:first-child {
 
 .footer-columns { 
     display: grid; 
-    grid-template-columns: 1.2fr 1fr; /* Better balance for side-by-side info */
+    grid-template-columns: 1.2fr 1.2fr 1fr; /* 3 columns layout: Call to Action, Newsletter, Map */
     gap: 60px; 
     align-items: flex-start; /* Aligned to top for better readability */
+}
+
+.footer-newsletter-box {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .footer-main-info {
@@ -2920,6 +2926,7 @@ main[data-scroll-container] {
     /* Centered Mobile Footer Alignment */
     .footer-columns { grid-template-columns: 1fr; gap: 40px; text-align: center; }
     .footer-main-info { align-items: center; text-align: center; }
+    .footer-newsletter-box { align-items: center; text-align: center; }
     .footer-tagline { font-size: clamp(1.6rem, 5vw, 2.2rem); text-align: center; }
     .footer-desc { text-align: center !important; margin: 15px auto 0 auto !important; }
     .footer-contact-details { align-items: center; }
