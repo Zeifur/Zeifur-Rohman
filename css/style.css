@@ -2509,6 +2509,7 @@ main[data-scroll-container] {
     align-items: center;
     gap: 12px;
     transition: var(--transition-smooth);
+    border-radius: 0 0 16px 0;
 }
 
 .footer-socials {

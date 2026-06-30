@@ -10,3 +10,6 @@ Thumbs.db
 *.ntvs*
 *.njsproj
 *.sln
+
+# Security Credentials
+api/config.php

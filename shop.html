@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1YYB7VW7YR"></script>
@@ -13,309 +13,1172 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zeifur Rohman | Shop - Coming Soon</title>
-    <meta name="description" content="Zeifur Rohman's curated shop storefront for digital assets. Under construction.">
+    <title>Zeifur Rohman | Creative Store</title>
+    <meta name="description" content="Zeifur Rohman's curated shop storefront for premium digital templates, presets, and visual branding assets.">
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/images/my-favicon.png">
     
     <!-- CSS Dependencies -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=3">
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <style>
-        /* Custom Coming Soon Overrides to keep the aesthetic highly creative and cinematic */
+        /* Base Overrides for Cinematic Layout */
         body {
-            background-color: #080808;
-            color: #ffffff;
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-body);
+            overflow-y: auto !important;
+            height: auto;
         }
 
-        .cs-container {
-            max-width: 1200px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 40px 30px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+        /* Sidebar background match */
+        .sidebar {
+            background-color: var(--secondary-bg) !important;
+            border-right: 1px solid var(--border-color) !important;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                border-right: none !important;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+                background-color: var(--secondary-bg) !important;
+            }
+        }
+
+        /* Page Layout Wrapper */
+        .shop-page-wrapper {
+            padding-left: var(--sidebar-width);
+            padding-top: 70px;
+            min-height: 100vh;
             position: relative;
-            z-index: 10;
+            z-index: 5;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Abstract Animated Grid Backdrop */
-        .cs-backdrop {
-            position: absolute;
+        /* Subtle Animated Backdrop */
+        .shop-backdrop {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(rgba(255, 77, 0, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 77, 0, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
+                linear-gradient(rgba(152, 0, 0, 0.01) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(152, 0, 0, 0.01) 1px, transparent 1px);
+            background-size: 60px 60px;
             background-position: center center;
             z-index: 1;
-            opacity: 0.6;
+            pointer-events: none;
+            opacity: 0.8;
         }
 
-        .cs-backdrop::after {
+        .shop-backdrop::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 50% 50%, transparent 20%, #080808 80%);
+            background: radial-gradient(circle at 50% 50%, transparent 40%, var(--bg-color) 90%);
         }
 
-        /* Header */
-        .cs-header {
+        /* Top Navigation Bar */
+        .shop-topbar {
+            position: fixed;
+            top: 0;
+            left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+            height: 70px;
+            background: rgba(6, 8, 8, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 990;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 45px;
+            box-sizing: border-box;
         }
 
-        .cs-logo {
-            height: 40px;
-            width: auto;
-        }
-
-        .cs-back-btn {
-            font-family: var(--font-condensed);
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: #fff;
-            text-decoration: none;
+        .topbar-left {
             display: flex;
             align-items: center;
-            gap: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 10px 20px;
-            border-radius: 4px;
-            transition: var(--transition-smooth);
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(5px);
+            gap: 12px;
+            color: var(--muted-text);
+            font-family: var(--font-condensed);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
         }
 
-        .cs-back-btn i {
+        .topbar-left i {
+            color: var(--accent-color);
             width: 16px;
             height: 16px;
-            transition: var(--transition-smooth);
         }
 
-        .cs-back-btn:hover {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-        }
-
-        .cs-back-btn:hover i {
-            transform: translateX(-5px);
-        }
-
-        /* Content Body */
-        .cs-body {
-            margin: auto 0;
-            max-width: 700px;
-            position: relative;
-        }
-
-        .cs-badge {
-            font-family: var(--font-condensed);
-            font-size: 0.75rem;
-            font-weight: 900;
-            letter-spacing: 0.3em;
-            color: var(--accent-color);
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            display: inline-block;
-            position: relative;
-            padding-left: 20px;
-        }
-
-        .cs-badge::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 12px;
-            height: 2px;
-            background: var(--accent-color);
-        }
-
-        .cs-title {
-            font-family: var(--font-heading);
-            font-size: clamp(3rem, 8vw, 5.5rem);
-            font-weight: 900;
-            line-height: 0.95;
-            letter-spacing: -0.03em;
-            margin-bottom: 25px;
-            text-transform: uppercase;
-        }
-
-        .cs-desc {
-            font-family: var(--font-body);
-            font-size: 1.1rem;
-            color: var(--muted-text);
-            line-height: 1.6;
-            margin-bottom: 40px;
-        }
-
-        /* Status & Progress Bar */
-        .cs-status-box {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            padding: 20px 30px;
-            border-radius: 8px;
-            display: inline-block;
-            width: 100%;
-            max-width: 480px;
-        }
-
-        .cs-status-header {
+        .topbar-right {
             display: flex;
-            justify-content: space-between;
-            font-family: var(--font-condensed);
-            font-size: 0.75rem;
-            font-weight: 900;
-            letter-spacing: 0.1em;
-            margin-bottom: 12px;
-        }
-
-        .cs-status-label {
-            color: var(--muted-text);
-        }
-
-        .cs-status-val {
-            color: var(--accent-color);
-        }
-
-        .cs-progress-bar {
-            width: 100%;
-            height: 3px;
-            background: rgba(255, 255, 255, 0.05);
-            position: relative;
-            overflow: hidden;
-            border-radius: 2px;
-        }
-
-        .cs-progress-fill {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 55%; 
-            background: var(--accent-color);
-            box-shadow: 0 0 10px var(--accent-color);
-            animation: pulseGlow 2s infinite alternate;
-        }
-
-        @keyframes pulseGlow {
-            from { opacity: 0.8; box-shadow: 0 0 5px var(--accent-color); }
-            to { opacity: 1; box-shadow: 0 0 15px var(--accent-color); }
-        }
-
-        /* Footer */
-        .cs-footer {
-            display: flex;
-            justify-content: space-between;
             align-items: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding-top: 30px;
-        }
-
-        .cs-copyright {
-            font-family: var(--font-condensed);
-            font-size: 0.7rem;
-            color: var(--muted-text);
-            letter-spacing: 0.1em;
-        }
-
-        .cs-socials {
-            display: flex;
             gap: 15px;
         }
 
-        .cs-social-link {
-            width: 35px;
-            height: 35px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        .topbar-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 10px 20px;
+            font-family: var(--font-condensed);
+            font-size: 0.75rem;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .topbar-btn:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            background: rgba(152, 0, 0, 0.03);
+        }
+
+        /* Cover Hero Banner */
+        .shop-cover-banner {
+            position: relative;
+            width: 100%;
+            height: 45vh;
+            min-height: 320px;
+            background-image: url('assets/images/foto-side-panel-proses-kerja.jpeg');
+            background-size: cover;
+            background-position: center 30%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+
+        .shop-cover-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(6, 8, 8, 0.95) 0%, rgba(6, 8, 8, 0.65) 45%, rgba(6, 8, 8, 0.1) 100%),
+                        linear-gradient(180deg, rgba(6, 8, 8, 0) 50%, rgba(6, 8, 8, 0.9) 100%);
+            z-index: 1;
+        }
+
+        .shop-cover-content {
+            position: relative;
+            z-index: 2;
+            text-align: left;
+            max-width: 700px;
+            width: calc(100% - 90px);
+            margin-left: 45px;
+            padding: 30px 0;
+            box-sizing: border-box;
+        }
+
+        .shop-cover-accent {
+            width: 45px;
+            height: 2px;
+            background: var(--accent-color);
+            margin-bottom: 25px;
+        }
+
+        .shop-cover-title {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 0 0 20px 0;
+        }
+
+        .shop-cover-title .title-main {
+            font-family: var(--font-heading);
+            font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.0;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+            color: var(--text-color);
+            background: linear-gradient(135deg, #ffffff 40%, rgba(255, 255, 255, 0.7) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .shop-cover-title .title-main span {
+            color: var(--accent-color);
+            -webkit-text-fill-color: var(--accent-color);
+        }
+
+        .shop-cover-title .title-sub {
+            font-family: var(--font-condensed);
+            font-size: 0.82rem;
+            font-weight: 900;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .shop-cover-desc {
+            font-family: var(--font-body);
+            font-size: 1.0rem;
+            line-height: 1.6;
+            color: var(--muted-text);
+            margin: 0;
+        }
+
+        /* Split-screen Layout Container */
+        .shop-layout-container {
+            position: relative;
+            z-index: 5;
+            padding: 50px 45px;
+            display: flex;
+            gap: 50px;
+            box-sizing: border-box;
+        }
+
+        /* Left Main Column: Products & Filter Status */
+        .shop-main-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .shop-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .toolbar-results {
+            font-family: var(--font-condensed);
+            font-size: 0.75rem;
+            color: var(--muted-text);
+            letter-spacing: 0.05em;
+        }
+
+        .toolbar-sorting {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toolbar-sorting label {
+            font-family: var(--font-condensed);
+            font-size: 0.75rem;
+            color: var(--muted-text);
+            letter-spacing: 0.05em;
+        }
+
+        .sort-select {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            font-family: var(--font-body);
+            font-size: 0.8rem;
+            padding: 8px 12px;
+            border-radius: 4px;
+            outline: none;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .sort-select:focus {
+            border-color: var(--accent-color);
+        }
+
+        /* Product Grid */
+        .store-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .product-card {
+            background: rgba(20, 22, 22, 0.3);
+            border: 1px solid var(--border-color);
+            border-radius: 0 0 24px 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition-smooth);
+        }
+
+        .product-card:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 30px var(--accent-glow);
+        }
+
+        .product-preview {
+            height: 250px;
+            position: relative;
+            overflow: hidden;
+            background: #141616;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .product-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.85;
+            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .product-card:hover .product-preview img {
+            transform: scale(1.05);
+            opacity: 1;
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--accent-color);
+            color: #fff;
+            font-family: var(--font-condensed);
+            font-size: 0.62rem;
+            font-weight: 900;
+            padding: 4px 10px;
+            border-radius: 2px;
+            letter-spacing: 0.1em;
+            z-index: 3;
+            box-shadow: 0 0 10px rgba(152,0,0,0.5);
+        }
+
+        .product-info {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            background: rgba(20, 22, 22, 0.6);
+        }
+
+        .product-name {
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 8px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .product-price-tag {
+            font-family: var(--font-condensed);
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--muted-text);
+            margin-bottom: 20px;
+        }
+
+        .product-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .btn-store-detail {
+            font-family: var(--font-condensed);
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #fff;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            text-align: center;
+        }
+
+        .btn-store-detail:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-store-buy {
+            font-family: var(--font-condensed);
+            font-size: 0.72rem;
+            font-weight: 900;
+            color: #fff;
+            background: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 10px;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            text-align: center;
+        }
+
+        .btn-store-buy:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+            box-shadow: 0 0 15px rgba(152,0,0,0.3);
+        }
+
+        /* Pagination Layout */
+        .shop-pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .page-num-btn {
+            width: 40px;
+            height: 40px;
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-family: var(--font-condensed);
+            font-size: 0.8rem;
+            font-weight: 700;
+            border-radius: 2px;
+            transition: var(--transition-smooth);
+        }
+
+        .page-num-btn:hover {
+            border-color: rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.02);
+        }
+
+        .page-num-btn.active {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #fff;
+            box-shadow: 0 0 15px rgba(152, 0, 0, 0.3);
+        }
+
+        /* Right Column: Widgets Column (30%) */
+        .shop-sidebar-column {
+            width: 320px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .sidebar-widget {
+            background: rgba(20, 22, 22, 0.3);
+            border: 1px solid var(--border-color);
+            border-radius: 0 0 24px 0;
+            padding: 30px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .widget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .widget-title {
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .widget-number {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: var(--accent-color);
+            opacity: 0.6;
+        }
+
+        /* Widget 01: Cart list */
+        .cart-widget-items {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .cart-empty-text {
+            font-size: 0.85rem;
+            color: var(--muted-text);
+            line-height: 1.5;
+        }
+
+        .cart-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            padding-bottom: 10px;
+        }
+
+        .cart-item-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .cart-item-name {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .cart-item-price {
+            font-size: 0.78rem;
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        .cart-item-remove {
+            background: transparent;
+            border: none;
+            color: var(--muted-text);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+            padding: 4px;
+        }
+
+        .cart-item-remove:hover {
+            color: var(--accent-color);
+        }
+
+        .cart-widget-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 15px;
+        }
+
+        .btn-cart-checkout {
+            width: 100%;
+            font-family: var(--font-condensed);
+            font-size: 0.75rem;
+            font-weight: 900;
+            color: #fff;
+            background: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            padding: 12px;
+            border-radius: 2px;
+            cursor: pointer;
+            letter-spacing: 0.05em;
+            transition: var(--transition-smooth);
+            text-align: center;
+        }
+
+        .btn-cart-checkout:hover:not(:disabled) {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+            box-shadow: 0 0 15px rgba(152,0,0,0.3);
+        }
+
+        .btn-cart-checkout:disabled {
+            background: transparent;
+            border-color: var(--border-color);
+            color: var(--muted-text);
+            cursor: not-allowed;
+        }
+
+        /* Widget 02: Price range filter */
+        .price-filter-box {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .price-slider {
+            width: 100%;
+            -webkit-appearance: none;
+            background: rgba(255,255,255,0.05);
+            height: 4px;
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .price-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+
+        .price-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            background: #fff;
+        }
+
+        .price-label-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-condensed);
+            font-size: 0.75rem;
+            color: var(--muted-text);
+        }
+
+        .btn-filter-action {
+            width: 100%;
+            font-family: var(--font-condensed);
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #fff;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-filter-action:hover {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px rgba(152,0,0,0.2);
+        }
+
+        /* Widget 03: Popular products list */
+        .popular-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .popular-item {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            cursor: pointer;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            transition: var(--transition-smooth);
+        }
+
+        .popular-item:hover {
+            opacity: 0.8;
+        }
+
+        .popular-preview {
+            width: 50px;
+            height: 50px;
+            border-radius: 2px;
+            background: #141616;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .popular-preview i {
+            color: var(--accent-color);
+        }
+
+        .popular-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .popular-name {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .popular-price {
+            font-size: 0.75rem;
+            color: var(--muted-text);
+        }
+
+        /* Widget 04: Product Tags */
+        .tags-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag-btn {
+            font-family: var(--font-condensed);
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--muted-text);
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 2px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: var(--transition-smooth);
+        }
+
+        .tag-btn:hover {
+            color: #fff;
+            border-color: var(--accent-color);
+        }
+
+        .tag-btn.active {
+            color: #fff;
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        /* Widget 05: Product Categories list */
+        .categories-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .category-link {
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            color: var(--muted-text);
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition-smooth);
+        }
+
+        .category-link:hover {
+            color: #fff;
+        }
+
+        .category-link.active {
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        /* Glassmorphic Modals System */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(6, 8, 8, 0.85);
+            backdrop-filter: blur(15px);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-box {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0 0 32px 0;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px var(--accent-glow);
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: scale(1);
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            color: var(--muted-text);
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: var(--muted-text);
+            cursor: pointer;
             transition: var(--transition-smooth);
-            text-decoration: none;
-            background: rgba(255, 255, 255, 0.01);
+            z-index: 100;
         }
 
-        .cs-social-link:hover {
-            background: var(--accent-color);
-            border-color: var(--accent-color);
+        .modal-close-btn:hover {
             color: #fff;
-            transform: translateY(-3px);
+            border-color: rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1);
         }
 
-        .cs-social-link svg {
-            width: 14px;
-            height: 14px;
+        /* Detail Modal Contents */
+        .detail-preview-banner {
+            height: 220px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
         }
 
-        /* Mobile Adjustments */
-        @media (max-width: 768px) {
-            body {
-                height: auto;
-                min-height: 100vh;
-                overflow-y: auto !important;
+        .detail-body {
+            padding: 35px;
+        }
+
+        .detail-cat {
+            font-family: var(--font-condensed);
+            font-size: 0.75rem;
+            color: var(--accent-color);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+
+        .detail-title {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .detail-desc {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--muted-text);
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .detail-features-title {
+            font-family: var(--font-condensed);
+            font-size: 0.8rem;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            color: #fff;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .features-list li {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: var(--text-color);
+        }
+
+        .features-list li i {
+            color: var(--accent-color);
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+        .detail-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .detail-price {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #fff;
+        }
+
+        /* Checkout Modal Contents */
+        .checkout-header {
+            padding: 30px 30px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .doku-logo-badge {
+            background: #fff;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-family: var(--font-condensed);
+            font-size: 0.75rem;
+            font-weight: 900;
+            color: #d82424;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 0 10px rgba(255,255,255,0.1);
+        }
+
+        .checkout-body {
+            padding: 30px;
+        }
+
+        .checkout-summary {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .checkout-prod-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #fff;
+            max-width: 70%;
+        }
+
+        .checkout-prod-price {
+            font-weight: 900;
+            color: var(--accent-color);
+        }
+
+        .checkout-form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-family: var(--font-condensed);
+            font-size: 0.75rem;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .form-input {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            padding: 12px 15px;
+            border-radius: 4px;
+            color: #fff;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            transition: var(--transition-smooth);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px rgba(152,0,0,0.2);
+            background: rgba(0,0,0,0.5);
+        }
+
+        .btn-submit-pay {
+            width: 100%;
+            margin-top: 10px;
+            padding: 14px;
+            font-family: var(--font-condensed);
+            font-size: 0.85rem;
+            font-weight: 900;
+            letter-spacing: 0.05em;
+            border-radius: 2px;
+        }
+
+        .merchant-badge {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.65rem;
+            color: var(--muted-text);
+            font-family: var(--font-condensed);
+            letter-spacing: 0.05em;
+        }
+
+        /* Success & Status Modals */
+        .status-content-box {
+            padding: 50px 30px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .success-icon-box {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(152, 0, 0, 0.1);
+            border: 2px solid var(--accent-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--accent-color);
+            font-size: 2rem;
+            margin-bottom: 25px;
+            box-shadow: 0 0 20px rgba(152,0,0,0.3);
+        }
+
+        .success-title {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .success-desc {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--muted-text);
+            line-height: 1.6;
+            margin-bottom: 30px;
+            max-width: 450px;
+        }
+
+        .btn-success-close {
+            font-family: var(--font-condensed);
+            font-size: 0.8rem;
+            font-weight: 900;
+            color: #fff;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            padding: 12px 30px;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            letter-spacing: 0.05em;
+        }
+
+        .btn-success-close:hover {
+            border-color: #fff;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border-left-color: var(--accent-color);
+            animation: spin 1s linear infinite;
+            margin-bottom: 25px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Footer centered style matching blog.html */
+        .footer-section {
+            padding-left: 0 !important;
+            position: relative !important;
+            z-index: 10 !important;
+            margin-top: 80px !important;
+        }
+
+        @media (min-width: 1025px) {
+            .footer-bottom {
+                padding-left: calc(var(--sidebar-width) + 60px) !important;
+            }
+        }
+
+
+        /* Mobile Layout tweaks */
+        @media (max-width: 1024px) {
+            .shop-page-wrapper {
+                padding-left: 0;
+                padding-top: 70px;
             }
 
-            .cs-container {
-                padding: 30px 20px;
-                height: auto;
-                min-height: 100vh;
+            .shop-topbar {
+                left: 0;
+                width: 100%;
+                padding: 0 20px;
             }
 
-            .cs-header {
-                align-items: center;
+            .shop-cover-content {
+                margin-left: 20px;
+                width: calc(100% - 40px);
             }
 
-            .cs-logo {
-                height: 30px;
-            }
-
-            .cs-back-btn {
-                padding: 8px 15px;
-                font-size: 0.75rem;
-            }
-
-            .cs-title {
-                font-size: 2.8rem;
-            }
-
-            .cs-desc {
-                font-size: 0.95rem;
-                margin-bottom: 30px;
-            }
-
-            .cs-status-box {
-                padding: 15px 20px;
-            }
-
-            .cs-footer {
+            .shop-layout-container {
                 flex-direction: column;
-                gap: 20px;
-                text-align: center;
-                padding-top: 20px;
+                padding: 30px 20px;
+                gap: 40px;
+            }
+
+            .shop-sidebar-column {
+                width: 100%;
             }
         }
     </style>
@@ -333,67 +1196,457 @@
     <div class="cursor"></div>
     <div class="cursor-follower"></div>
 
-    <!-- Backdrop pattern -->
-    <div class="cs-backdrop"></div>
+    <!-- Slide-out Menu Panel -->
+    <div class="menu-panel">
+        <div class="menu-panel-inner">
+            <div class="menu-panel-header">
+                <span class="menu-panel-subtitle" data-translate="menu_subtitle">NAVIGASI MENU</span>
+            </div>
+            
+            <nav class="menu-panel-nav">
+                <!-- Core Section Navigation -->
+                <div class="menu-nav-group">
+                    <a href="index.html#hero" class="menu-panel-link"><span>01</span> <span data-translate="sub_home">BERANDA</span></a>
+                    <a href="index.html#about" class="menu-panel-link"><span>02</span> <span data-translate="sub_about">TENTANG</span></a>
+                    <a href="index.html#services" class="menu-panel-link"><span>03</span> <span data-translate="sub_services">LAYANAN</span></a>
+                    <a href="index.html#process" class="menu-panel-link"><span>04</span> <span data-translate="sub_process">PROSES</span></a>
+                    <a href="index.html#skills" class="menu-panel-link"><span>05</span> <span data-translate="sub_skills">KEAHLIAN</span></a>
+                    <a href="index.html#resume" class="menu-panel-link"><span>06</span> <span data-translate="sub_resume">RIWAYAT</span></a>
+                    <a href="index.html#clients" class="menu-panel-link"><span>07</span> <span data-translate="sub_clients">MITRA</span></a>
+                    <a href="index.html#portofolio" class="menu-panel-link"><span>08</span> <span data-translate="sub_portfolio">PORTOFOLIO</span></a>
+                </div>
+                
+                <!-- Elegant Separator Line -->
+                <div class="menu-nav-divider"></div>
+                
+                <!-- Secondary Platforms Navigation -->
+                <div class="menu-nav-group sub-group">
+                    <a href="blog.html" class="menu-panel-link highlight">
+                        <span data-translate="menu_link_blog">BLOG KREATIF</span> <span class="badge">NEW</span>
+                    </a>
+                    <a href="shop.html" class="menu-panel-link highlight active">
+                        <span data-translate="menu_link_shop">TOKO KREATIF</span> <span class="badge">STORE</span>
+                    </a>
+                </div>
+            </nav>
+            
+            <div class="menu-panel-footer">
+                <div class="menu-panel-contact">
+                    <span class="footer-title" data-translate="menu_contact_subtitle">HUBUNGI SAYA</span>
+                    <a href="mailto:collab@zeifurrohman.com">collab@zeifurrohman.com</a>
+                    <a href="https://wa.me/6287860009497" target="_blank">087860009497</a>
+                </div>
+                
+                <!-- Mobile Menu Symmetrical Socials -->
+                <div class="menu-panel-socials">
+                    <a href="https://www.instagram.com/zeifurrhmn/" target="_blank" class="social-icon-btn" title="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                    </a>
+                    <a href="https://www.facebook.com/zeifur.zeifur24/directory_links?locale=id_ID" target="_blank" class="social-icon-btn" title="Facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                    </a>
+                    <a href="https://x.com/zeifurrhmn" target="_blank" class="social-icon-btn" title="X">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932L18.901 1.153zM17.61 20.644h2.039L6.486 3.24H4.298l13.311 17.404z"/></svg>
+                    </a>
+                    <a href="https://www.tiktok.com/@zeifurrhmn" target="_blank" class="social-icon-btn" title="TikTok">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+                    </a>
+                    <a href="https://wa.me/6287860009497" target="_blank" class="social-icon-btn" title="WhatsApp">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="menu-panel-overlay"></div>
 
-    <!-- Main Container -->
-    <main class="cs-container">
-        <!-- Header -->
-        <header class="cs-header">
-            <img src="assets/images/my-personal-logo.png" alt="Logo" class="cs-logo">
-            <div style="display: flex; align-items: center; gap: 15px;">
-                <div class="lang-social-box" style="flex-direction: row; gap: 4px; border: none; height: auto; width: auto; display: flex; align-items: center; padding: 0;">
+    <!-- Sidebar Navigation (Left) -->
+    <aside class="sidebar">
+        <div class="sidebar-top">
+            <a href="index.html" class="logo-box-link">
+                <img src="assets/images/my-personal-logo.png" alt="Logo" class="main-logo">
+            </a>
+            <!-- Fitur Bahasa Mobile -->
+            <div class="mobile-lang-switcher">
+                <button class="lang-btn active" data-lang="id">ID</button>
+                <span class="lang-sep">/</span>
+                <button class="lang-btn" data-lang="en">EN</button>
+            </div>
+        </div>
+        
+        <div class="sidebar-middle">
+            <div class="menu-toggle">
+                <div class="menu-icon-wrapper">
+                    <div class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="menu-text">MENU</div>
+                    <div class="close-icon">
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sidebar-bottom">
+            <div class="social-sidebar">
+                <!-- Language Switcher -->
+                <div class="lang-social-box">
                     <button class="lang-btn active" data-lang="id">ID</button>
                     <span class="lang-sep">/</span>
                     <button class="lang-btn" data-lang="en">EN</button>
                 </div>
-                <a href="index.html" class="cs-back-btn"><i data-lucide="arrow-left"></i> <span data-translate="cs_back">KEMBALI KE BERANDA</span></a>
+                
+                <a href="https://www.instagram.com/zeifurrhmn/" target="_blank" class="social-box" title="Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                </a>
+                <a href="https://www.facebook.com/zeifur.zeifur24/directory_links?locale=id_ID" target="_blank" class="social-box" title="Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                </a>
+                <a href="https://x.com/zeifurrhmn" target="_blank" class="social-box" title="X">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932L18.901 1.153zM17.61 20.644h2.039L6.486 3.24H4.298l13.311 17.404z"/></svg>
+                </a>
+                <a href="https://www.tiktok.com/@zeifurrhmn" target="_blank" class="social-box" title="TikTok">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+                </a>
+                <a href="https://wa.me/6287860009497" target="_blank" class="social-box" title="WhatsApp">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </a>
             </div>
-        </header>
+            <a href="index.html#portofolio" class="grid-dots-link">
+                <div class="grid-dots">
+                    <span></span><span></span><span></span>
+                    <span></span><span></span><span></span>
+                    <span></span><span></span><span></span>
+                </div>
+            </a>
+        </div>
+    </aside>
 
-        <!-- Body -->
-        <section class="cs-body">
-            <span class="cs-badge" data-translate="cs_badge">SEGERA HADIR</span>
-            <h1 class="cs-title">CREATIVE<br><span style="color: var(--accent-color);">STORE.</span></h1>
-            <p class="cs-desc" data-translate="shop_desc">Saya sedang mengurasi storefront toko digital premium yang menampilkan template website berkualitas tinggi, aset branding visual orisinal, UI kit, dan preset profesional. Nantikan pembaruannya.</p>
-            
-            <!-- Progress Status -->
-            <div class="cs-status-box">
-                <div class="cs-status-header">
-                    <span class="cs-status-label" data-translate="cs_status_shop">TAHAP SEKARANG: KURASI ASET</span>
-                    <span class="cs-status-val">55%</span>
+    <!-- Main Content Page Wrapper -->
+    <main class="shop-page-wrapper" data-scroll-container>
+        <!-- Subtle Backdrop Grid -->
+        <div class="shop-backdrop"></div>
+
+        <!-- Top Navigation Bar -->
+        <div class="shop-topbar">
+            <div class="topbar-left">
+                <i data-lucide="compass"></i>
+                <span data-translate="hero_scroll">GULIR KE BAWAH UNTUK MENJELAJAHI</span>
+            </div>
+            <div class="topbar-right">
+                <button class="topbar-btn categories-trigger">
+                    <i data-lucide="sliders-horizontal" style="width: 14px; height: 14px;"></i>
+                    <span data-translate="widget_categories">KATEGORI</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Widescreen Hero Cover Banner (Matching layout in reference 2) -->
+        <section class="shop-cover-banner">
+            <div class="shop-cover-overlay"></div>
+            <div class="shop-cover-content">
+                <div class="shop-cover-accent"></div>
+                <div class="shop-cover-title">
+                    <span class="title-sub" data-translate="store_subtitle">PRODUK DIGITAL PILIHAN</span>
+                    <h1 class="title-main">SHOP<span>.</span></h1>
                 </div>
-                <div class="cs-progress-bar">
-                    <div class="cs-progress-fill" style="width: 55%;"></div>
-                </div>
+                <p class="shop-cover-desc" data-translate="store_desc">Tingkatkan produktivitas dan alur kerja kreatif Anda dengan koleksi eksklusif template website premium, aset visual branding, UI kit, dan preset profesional garapan saya.</p>
             </div>
         </section>
 
-        <!-- Footer -->
-        <footer class="cs-footer">
-            <p class="cs-copyright" data-translate="cs_copy">© ZEIFUR 2026 / HAK CIPTA DILINDUNGI.</p>
-            <div class="cs-socials">
-                <a href="https://www.instagram.com/zeifurrhmn/" target="_blank" class="cs-social-link" title="Instagram">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-                </a>
-                <a href="https://x.com/zeifurrhmn" target="_blank" class="cs-social-link" title="X">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932L18.901 1.153zM17.61 20.644h2.039L6.486 3.24H4.298l13.311 17.404z"/></svg>
-                </a>
-                <a href="https://www.tiktok.com/@zeifurrhmn" target="_blank" class="cs-social-link" title="TikTok">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
-                </a>
-                <a href="https://wa.me/6287860009497" target="_blank" class="cs-social-link" title="WhatsApp">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                </a>
+        <!-- Two-column Layout Container -->
+        <section class="shop-layout-container">
+            <!-- Left Main Column (70%) -->
+            <div class="shop-main-column">
+                <!-- Toolbar for sorting and result counts -->
+                <div class="shop-toolbar">
+                    <div class="toolbar-results" id="toolbar-results-count" data-translate="showing_results">Menampilkan 1-4 dari 4 hasil</div>
+                    <div class="toolbar-sorting">
+                        <label for="sort-products" data-translate="sort_by">Urutkan</label>
+                        <select id="sort-products" class="sort-select" onchange="handleSort(this.value)">
+                            <option value="latest" data-translate="sort_latest">Terbaru</option>
+                            <option value="low-high" data-translate="sort_price_low">Harga: Rendah ke Tinggi</option>
+                            <option value="high-low" data-translate="sort_price_high">Harga: Tinggi ke Rendah</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div class="store-grid" id="products-grid-container">
+                    <!-- Product items dynamically rendered via Javascript to support filter/sorting -->
+                </div>
+
+                <!-- Pagination Widget -->
+                <div class="shop-pagination" id="shop-pagination-box">
+                    <!-- Paginations dynamically created -->
+                </div>
+            </div>
+
+            <!-- Right Sidebar Widgets Column (30%) -->
+            <aside class="shop-sidebar-column">
+                <!-- Widget 01: Cart (Keranjang) -->
+                <div class="sidebar-widget" id="cart-widget-box">
+                    <div class="widget-header">
+                        <h3 class="widget-title" data-translate="widget_cart">KERANJANG BELANJA</h3>
+                        <span class="widget-number">01.</span>
+                    </div>
+                    <div class="cart-widget-items" id="cart-items-list-container">
+                        <!-- Cart lists injected here -->
+                        <p class="cart-empty-text" data-translate="widget_cart_empty">Belum ada produk di keranjang.</p>
+                    </div>
+                    <div class="cart-widget-total">
+                        <span data-translate="cart_total">Subtotal</span>
+                        <span id="cart-subtotal-val">Rp 0</span>
+                    </div>
+                    <button class="btn-cart-checkout" id="cart-checkout-btn" disabled onclick="triggerCartCheckout()" data-translate="btn_checkout">SELESAIKAN PEMBAYARAN</button>
+                </div>
+
+                <!-- Widget 02: Filter by Price -->
+                <div class="sidebar-widget">
+                    <div class="widget-header">
+                        <h3 class="widget-title" data-translate="widget_price_filter">FILTER HARGA</h3>
+                        <span class="widget-number">02.</span>
+                    </div>
+                    <div class="price-filter-box">
+                        <input type="range" min="50000" max="300000" step="10000" value="300000" class="price-slider" id="price-range-slider" oninput="updatePriceSliderVal(this.value)">
+                        <div class="price-label-row">
+                            <span data-translate="btn_filter">FILTER</span>
+                            <span id="price-slider-label">Price: Rp 50k — Rp 300k</span>
+                        </div>
+                        <button class="btn-filter-action" onclick="applyPriceFilter()" data-translate="btn_filter">FILTER</button>
+                    </div>
+                </div>
+
+                <!-- Widget 03: Popular Products (Sidebar rows) -->
+                <div class="sidebar-widget">
+                    <div class="widget-header">
+                        <h3 class="widget-title" data-translate="widget_popular_products">PRODUK POPULER</h3>
+                        <span class="widget-number">03.</span>
+                    </div>
+                    <div class="popular-list">
+                        <div class="popular-item" onclick="openDetails(1)">
+                            <div class="popular-preview">
+                                <i data-lucide="coffee" style="width:18px;height:18px;"></i>
+                            </div>
+                            <div class="popular-meta">
+                                <h4 class="popular-name">Traktir Kopi Kreatif</h4>
+                                <span class="popular-price">Rp 10.000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Widget 04: Product Tags -->
+                <div class="sidebar-widget">
+                    <div class="widget-header">
+                        <h3 class="widget-title" data-translate="widget_tags">TAG POPULER</h3>
+                        <span class="widget-number">04.</span>
+                    </div>
+                    <div class="tags-cloud" id="tags-cloud-container">
+                        <button class="tag-btn active" data-tag="all" data-translate="tag_all">Semua</button>
+                        <button class="tag-btn" data-tag="React">React</button>
+                        <button class="tag-btn" data-tag="Vite">Vite</button>
+                        <button class="tag-btn" data-tag="GSAP">GSAP</button>
+                        <button class="tag-btn" data-tag="Figma">Figma</button>
+                        <button class="tag-btn" data-tag="Presets">Presets</button>
+                    </div>
+                </div>
+
+                <!-- Widget 05: Product Categories list -->
+                <div class="sidebar-widget" id="categories-sidebar-widget">
+                    <div class="widget-header">
+                        <h3 class="widget-title" data-translate="widget_categories">KATEGORI PRODUK</h3>
+                        <span class="widget-number">05.</span>
+                    </div>
+                    <div class="categories-list" id="categories-list-container">
+                        <a href="#" class="category-link active" data-category="all">
+                            <span data-translate="filter_all">SEMUA</span>
+                            <span>(1)</span>
+                        </a>
+                        <a href="#" class="category-link" data-category="templates">
+                            <span data-translate="filter_templates">TEMPLATE WEB</span>
+                            <span id="cat-count-templates">(1)</span>
+                        </a>
+                        <a href="#" class="category-link" data-category="branding">
+                            <span data-translate="filter_branding">ASET BRANDING</span>
+                            <span id="cat-count-branding">(0)</span>
+                        </a>
+                        <a href="#" class="category-link" data-category="presets">
+                            <span data-translate="filter_presets">PRESET & UI KIT</span>
+                            <span id="cat-count-presets">(0)</span>
+                        </a>
+                    </div>
+                </div>
+            </aside>
+        </section>
+
+        <!-- SECTION: FOOTER (Matching blog.html footer) -->
+        <footer id="contact" class="footer-section" style="margin-top: 80px; position: relative; z-index: 10;">
+            <div class="footer-grid-bg"></div>
+            <div class="container">
+                <div class="footer-box">
+                    <div class="footer-columns">
+                        <!-- LEFT SIDE: CALL TO ACTION -->
+                        <div class="footer-main-info">
+                            <h3 class="footer-tagline" data-translate="footer_tagline">Siap <span class="accent">Memulai</span> Proyek Bersama?</h3>
+                            <p class="footer-desc" data-translate="footer_desc" style="color: var(--muted-text); font-size: 0.95rem; margin-top: 5px; line-height: 1.6; max-width: 500px;">Apakah Anda membutuhkan platform web custom, identitas visual yang kuat, atau sedang mencari kandidat profesional untuk posisi full-time maupun part-time?</p>
+                            <div class="footer-contact-details" style="margin-top: 25px;">
+                                <h4 class="col-title" data-translate="footer_contact_title">HUBUNGI SAYA</h4>
+                                <a href="mailto:collab@zeifurrohman.com">collab@zeifurrohman.com</a>
+                                <a href="https://wa.me/6287860009497" target="_blank">087860009497</a>
+                            </div>
+                        </div>
+
+                        <!-- MIDDLE SIDE: NEWSLETTER -->
+                        <div class="footer-newsletter-box">
+                            <h4 class="col-title" data-translate="footer_newsletter_title">LANGGANAN NEWSLETTER</h4>
+                            <div class="newsletter-form-container" style="margin-top: 15px;">
+                                <div data-reach-form="780774bb-f782-4c23-9fc4-00e5665bbe6c"></div>
+                            </div>
+                        </div>
+
+                        <!-- RIGHT SIDE: LOCATION & MAP -->
+                        <div class="footer-location-box">
+                            <h4 class="col-title" data-translate="footer_loc_title">LOKASI UTAMA</h4>
+                            <p class="address-text" data-translate="footer_address">Kota Malang, Jawa Timur, Indonesia<br>Tersedia untuk proyek di seluruh dunia.</p>
+                            <div class="map-container">
+                                <iframe 
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126438.28548022131!2d112.5617415!3d-7.9784695!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd62822063dc2fb%3A0x788ad5d55837283c!2sMalang%2C%20Malang%20City%2C%20East%20Java!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid" 
+                                    width="100%" height="180" style="border:0; filter: grayscale(1) invert(1) opacity(0.7);" allowfullscreen="" loading="lazy">
+                                </iframe>
+                            </div>
+                            <div class="footer-social-wrap" style="margin-top: 25px;">
+                                <a href="https://www.instagram.com/zeifurrhmn/" target="_blank" class="social-circle" title="Instagram">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                                </a>
+                                <a href="https://www.facebook.com/zeifur.zeifur24/directory_links?locale=id_ID" target="_blank" class="social-circle" title="Facebook">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                                </a>
+                                <a href="https://x.com/zeifurrhmn" target="_blank" class="social-circle" title="X">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932L18.901 1.153zM17.61 20.644h2.039L6.486 3.24H4.298l13.311 17.404z"/></svg>
+                                </a>
+                                <a href="https://www.tiktok.com/@zeifurrhmn" target="_blank" class="social-circle" title="TikTok">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+                                </a>
+                                <a href="https://wa.me/6287860009497" target="_blank" class="social-circle" title="WhatsApp">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p class="copyright" data-translate="footer_copy">© ZEIFUR 2026 / HAK CIPTA DILINDUNGI.</p>
+                    <a href="#" class="to-top-btn"><span data-translate="footer_top">KEMBALI KE ATAS</span> <i data-lucide="arrow-up" style="width:14px; height:14px; display:inline-block; vertical-align:middle;"></i></a>
+                </div>
             </div>
         </footer>
     </main>
 
+    <!-- Modal 1: Product Details -->
+    <div id="modal-details" class="modal-overlay" onclick="closeDetailsOutside(event)">
+        <div class="modal-box">
+            <button class="modal-close-btn" onclick="closeDetails()"><i data-lucide="x" style="width:16px;height:16px;"></i></button>
+            <div id="modal-banner" class="detail-preview-banner">
+                <!-- Inner design injected dynamically -->
+            </div>
+            <div class="detail-body">
+                <span id="modal-cat" class="detail-cat"></span>
+                <h2 id="modal-title" class="detail-title"></h2>
+                <p id="modal-desc" class="detail-desc"></p>
+                
+                <h4 class="detail-features-title" data-translate="detail_features_title">APA YANG ANDA DAPATKAN:</h4>
+                <ul id="modal-features" class="features-list">
+                    <!-- Feature items injected dynamically -->
+                </ul>
+
+                <div class="detail-footer">
+                    <div id="modal-price" class="detail-price"></div>
+                    <button id="modal-checkout-btn" class="btn-store-buy" style="padding: 12px 30px;"><i data-lucide="shopping-cart" style="width:16px;height:16px;"></i> <span data-translate="btn_buy">BELI SEKARANG</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Modal 3: Payment Loading State -->
+    <div id="modal-loading" class="modal-overlay">
+        <div class="modal-box" style="max-width: 400px; background: rgba(20, 22, 22, 0.95);">
+            <div class="status-content-box">
+                <div class="spinner"></div>
+                <h3 style="font-family:var(--font-heading);font-weight:900;color:#fff;margin-bottom:10px;" data-translate="connecting_doku">Menghubungkan ke DOKU...</h3>
+                <p style="font-size:0.85rem;color:var(--muted-text);" data-translate="connecting_doku_desc">Mempersiapkan transaksi aman. Jangan tutup halaman ini.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 4: Payment Success Confirmation -->
+    <div id="modal-success" class="modal-overlay">
+        <div class="modal-box" style="max-width: 500px;">
+            <div class="status-content-box">
+                <div class="success-icon-box">
+                    <i data-lucide="check" style="width:36px;height:36px;"></i>
+                </div>
+                <h3 class="success-title" data-translate="payment_success_title">PEMBAYARAN SIMULASI BERHASIL</h3>
+                <p id="success-message" class="success-desc" data-translate="payment_success_desc">Terima kasih! Kami telah mensimulasikan checkout DOKU Anda dengan sukses. Link download produk digital telah dikirimkan ke email Anda.</p>
+                <button class="btn-success-close" onclick="closeSuccess()" data-translate="back_to_shop">KEMBALI KE TOKO</button>
+            </div>
+        </div>
+    </div>
+
     <!-- JS Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- Lenis smooth scroll for elite scrolling experience -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
     <script src="js/translations.js"></script>
     
     <script>
+        // Initialize Lenis Smooth Scroll
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Store Product Database
+        const productsData = {
+            1: {
+                id: 1,
+                titleKey: "p1_title",
+                descKey: "p1_desc",
+                featuresKey: "p1_features",
+                catKey: "filter_templates",
+                priceNumeric: 10000,
+                priceString: "Rp 10.000",
+                class: "preview-presets",
+                icon: "coffee",
+                category: "templates",
+                tags: ["React", "Vite", "GSAP"],
+                paymentLink: "https://pay.doku.com/p-link/p/nU6Twy06pX"
+            }
+        };
+
+        // Active States
+        let cart = [];
+        let currentActiveProductId = null;
+        let selectedCategory = "all";
+        let selectedTag = "all";
+        let maxFilterPrice = 300000;
+        let activeSorting = "latest";
+        let currentPage = 1;
+        const productsPerPage = 3;
+
         // Custom Cursor Logic
         const cursor = document.querySelector('.cursor');
         const follower = document.querySelector('.cursor-follower');
@@ -433,9 +1686,9 @@
                 follower.classList.remove('is-active');
             });
 
-            // Event delegation for interactive hover states
+            // Dynamic Hover effects
             document.addEventListener('mouseover', (e) => {
-                const target = e.target.closest('a, button, .cs-social-link, .cs-back-btn, .lang-btn, [role="button"]');
+                const target = e.target.closest('a, button, select, input, .social-icon-btn, .category-link, .tag-btn, .btn-store-detail, .btn-store-buy, .social-circle, [role="button"]');
                 if (target) {
                     cursor.classList.add('is-hovered');
                     follower.classList.add('is-hovered');
@@ -446,33 +1699,520 @@
             });
         }
 
-        // Preloader & Initial Animations
+        // Slide-out Menu Navigation Panel
+        const menuToggle = document.querySelector('.menu-toggle');
+        const menuPanel = document.querySelector('.menu-panel');
+        const menuOverlay = document.querySelector('.menu-panel-overlay');
+
+        if (menuToggle && menuPanel && menuOverlay) {
+            const closeMenu = () => {
+                document.body.classList.remove('menu-open');
+                lenis.start();
+                
+                const isDesktop = window.innerWidth > 1024;
+                gsap.to(menuPanel, { 
+                    left: isDesktop ? -400 : '-100%', 
+                    duration: 0.6, 
+                    ease: 'power4.inOut' 
+                });
+                gsap.to(menuOverlay, { opacity: 0, visibility: 'hidden', duration: 0.4 });
+            };
+
+            menuToggle.addEventListener('click', () => {
+                const isOpen = document.body.classList.toggle('menu-open');
+                
+                if (isOpen) {
+                    lenis.stop();
+                    const isDesktop = window.innerWidth > 1024;
+                    
+                    gsap.to(menuPanel, { 
+                        left: isDesktop ? 80 : 0, 
+                        duration: 0.6, 
+                        ease: 'power4.out' 
+                    });
+                    gsap.to(menuOverlay, { opacity: 1, visibility: 'visible', duration: 0.4 });
+                    
+                    gsap.fromTo('.menu-panel-link', 
+                        { y: 30, opacity: 0 }, 
+                        { y: 0, opacity: 1, duration: 0.5, stagger: 0.06, ease: 'power3.out', delay: 0.2 }
+                    );
+                } else {
+                    closeMenu();
+                }
+            });
+
+            menuOverlay.addEventListener('click', closeMenu);
+        }
+
+        // Category trigger scrolling to category widget
+        const categoriesTrigger = document.querySelector('.categories-trigger');
+        if (categoriesTrigger) {
+            categoriesTrigger.addEventListener('click', () => {
+                const widget = document.getElementById('categories-sidebar-widget');
+                if (widget) {
+                    lenis.scrollTo(widget, { offset: -100 });
+                }
+            });
+        }
+
+        // Render Storefront Grid Cards based on filters & sorting
+        function renderProductsGrid() {
+            const gridContainer = document.getElementById('products-grid-container');
+            if (!gridContainer) return;
+
+            const currentLang = localStorage.getItem('preferred_language') || 'id';
+            const dict = translations[currentLang] || translations['id'];
+
+            // 1. Filter products
+            let filteredList = Object.values(productsData).filter(prod => {
+                // Category match
+                if (selectedCategory !== 'all' && prod.category !== selectedCategory) return false;
+                // Tag match
+                if (selectedTag !== 'all' && !prod.tags.includes(selectedTag)) return false;
+                // Price match
+                if (prod.priceNumeric > maxFilterPrice) return false;
+                return true;
+            });
+
+            // 2. Sort products
+            if (activeSorting === 'low-high') {
+                filteredList.sort((a, b) => a.priceNumeric - b.priceNumeric);
+            } else if (activeSorting === 'high-low') {
+                filteredList.sort((a, b) => b.priceNumeric - a.priceNumeric);
+            } else {
+                // Sort by default (ID order)
+                filteredList.sort((a, b) => a.id - b.id);
+            }
+
+            // 3. Paginate
+            const totalProducts = filteredList.length;
+            const totalPages = Math.ceil(totalProducts / productsPerPage);
+            if (currentPage > totalPages) currentPage = Math.max(1, totalPages);
+            
+            const startIdx = (currentPage - 1) * productsPerPage;
+            const endIdx = startIdx + productsPerPage;
+            const paginatedList = filteredList.slice(startIdx, endIdx);
+
+            // Update result counter text
+            const resultsCounter = document.getElementById('toolbar-results-count');
+            if (resultsCounter) {
+                if (totalProducts === 0) {
+                    resultsCounter.textContent = currentLang === 'en' ? "Showing 0 of 0 results" : "Menampilkan 0 hasil";
+                } else {
+                    const startCount = startIdx + 1;
+                    const endCount = Math.min(endIdx, totalProducts);
+                    resultsCounter.textContent = currentLang === 'en' 
+                        ? `Showing ${startCount}–${endCount} of ${totalProducts} results`
+                        : `Menampilkan ${startCount}–${endCount} dari ${totalProducts} hasil`;
+                }
+            }
+
+            // Render HTML
+            gridContainer.innerHTML = "";
+            if (paginatedList.length === 0) {
+                gridContainer.innerHTML = `<div style="grid-column: 1/-1; padding: 40px; text-align: center; color: var(--muted-text); font-family: var(--font-condensed); letter-spacing: 0.05em;">${currentLang === 'en' ? 'NO PRODUCTS MATCH THIS FILTER' : 'TIDAK ADA PRODUK YANG COCOK'}</div>`;
+            } else {
+                paginatedList.forEach(prod => {
+                    const card = document.createElement('div');
+                    card.className = "product-card";
+                    
+                    const badgeText = prod.id === 1 ? (dict['product_new'] || 'BARU') : (prod.id === 2 ? (dict['product_popular'] || 'POPULER') : '');
+                    const badgeHtml = badgeText ? `<span class="card-badge">${badgeText}</span>` : '';
+
+                    card.innerHTML = `
+                        <div class="product-preview">
+                            ${badgeHtml}
+                            <div style="width:100%; height:100%; display:flex; justify-content:center; align-items:center; background: linear-gradient(135deg, rgba(20,22,22,0.8), rgba(6,8,8,0.9)); position:relative;">
+                                <div style="position:absolute; width:100%; height:100%; opacity:0.15; background-image:radial-gradient(var(--accent-color) 1px, transparent 1px); background-size:15px 15px;"></div>
+                                <i data-lucide="${prod.icon}" style="width:48px;height:48px;color:var(--accent-color);z-index:2;"></i>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">${(currentLang === 'en' ? prod.title_en : prod.title_id) || dict[prod.titleKey] || prod.titleKey}</h3>
+                            <div class="product-price-tag">${prod.priceString}</div>
+                            <div class="product-buttons">
+                                <button class="btn-store-detail" onclick="openDetails(${prod.id})">${dict['btn_details'] || 'DETAIL'}</button>
+                                <button class="btn-store-buy" onclick="triggerDirectBuy(${prod.id})">${dict['btn_buy'] || 'BELI'}</button>
+                            </div>
+                        </div>
+                    `;
+                    gridContainer.appendChild(card);
+                });
+            }
+
+            // Render Pagination Buttons
+            renderPagination(totalPages);
+            lucide.createIcons();
+        }
+
+        // Render Pagination buttons
+        function renderPagination(totalPages) {
+            const paginationBox = document.getElementById('shop-pagination-box');
+            if (!paginationBox) return;
+
+            if (totalPages <= 1) {
+                paginationBox.style.display = 'none';
+                return;
+            }
+
+            paginationBox.style.display = 'flex';
+            paginationBox.innerHTML = '';
+
+            // Previous arrow
+            const prev = document.createElement('a');
+            prev.href = '#';
+            prev.className = 'page-num-btn';
+            prev.innerHTML = '<i data-lucide="chevron-left" style="width: 14px; height: 14px;"></i>';
+            if (currentPage === 1) {
+                prev.style.pointerEvents = 'none';
+                prev.style.opacity = '0.3';
+            } else {
+                prev.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    currentPage--;
+                    renderProductsGrid();
+                    lenis.scrollTo('.shop-layout-container', { offset: -100 });
+                });
+            }
+            paginationBox.appendChild(prev);
+
+            // Numbers
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement('a');
+                btn.href = '#';
+                btn.className = `page-num-btn${i === currentPage ? ' active' : ''}`;
+                btn.textContent = i;
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    currentPage = i;
+                    renderProductsGrid();
+                    lenis.scrollTo('.shop-layout-container', { offset: -100 });
+                });
+                paginationBox.appendChild(btn);
+            }
+
+            // Next arrow
+            const next = document.createElement('a');
+            next.href = '#';
+            next.className = 'page-num-btn';
+            next.innerHTML = '<i data-lucide="chevron-right" style="width: 14px; height: 14px;"></i>';
+            if (currentPage === totalPages) {
+                next.style.pointerEvents = 'none';
+                next.style.opacity = '0.3';
+            } else {
+                next.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    currentPage++;
+                    renderProductsGrid();
+                    lenis.scrollTo('.shop-layout-container', { offset: -100 });
+                });
+            }
+            paginationBox.appendChild(next);
+        }
+
+        // Active Category filtering
+        const catLinks = document.querySelectorAll('.category-link');
+        catLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                catLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+
+                selectedCategory = link.getAttribute('data-category');
+                currentPage = 1;
+                renderProductsGrid();
+            });
+        });
+
+        // Active Tag filtering
+        const tagBtns = document.querySelectorAll('.tag-btn');
+        tagBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tagBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                selectedTag = btn.getAttribute('data-tag');
+                currentPage = 1;
+                renderProductsGrid();
+            });
+        });
+
+        // Price filter ranges slider label updater
+        window.updatePriceSliderVal = function(val) {
+            maxFilterPrice = parseInt(val);
+            const label = document.getElementById('price-slider-label');
+            if (label) {
+                const displayK = maxFilterPrice / 1000;
+                label.textContent = `Price: Rp 50k — Rp ${displayK}k`;
+            }
+        };
+
+        window.applyPriceFilter = function() {
+            currentPage = 1;
+            renderProductsGrid();
+        };
+
+        // Sort handler
+        window.handleSort = function(val) {
+            activeSorting = val;
+            currentPage = 1;
+            renderProductsGrid();
+        };
+
+        // Cart functions
+        window.addToCart = function(id) {
+            const product = productsData[id];
+            const inCartIdx = cart.findIndex(item => item.id === id);
+
+            if (inCartIdx > -1) {
+                cart[inCartIdx].quantity += 1;
+            } else {
+                cart.push({
+                    id: id,
+                    product: product,
+                    quantity: 1
+                });
+            }
+            
+            // Micro glow animation
+            const cartWidget = document.getElementById('cart-widget-box');
+            if (cartWidget) {
+                gsap.fromTo(cartWidget, 
+                    { boxShadow: '0 0 0px var(--accent-glow)' },
+                    { boxShadow: '0 0 20px var(--accent-color)', duration: 0.3, yoyo: true, repeat: 1 }
+                );
+            }
+
+            renderCart();
+        };
+
+        window.removeFromCart = function(id) {
+            cart = cart.filter(item => item.id !== id);
+            renderCart();
+        };
+
+        function renderCart() {
+            const cartContainer = document.getElementById('cart-items-list-container');
+            const subtotalEl = document.getElementById('cart-subtotal-val');
+            const checkoutBtn = document.getElementById('cart-checkout-btn');
+            
+            const currentLang = localStorage.getItem('preferred_language') || 'id';
+            const dict = translations[currentLang] || translations['id'];
+
+            if (cart.length === 0) {
+                cartContainer.innerHTML = `<p class="cart-empty-text">${dict['widget_cart_empty'] || "Belum ada produk di keranjang."}</p>`;
+                subtotalEl.textContent = "Rp 0";
+                checkoutBtn.disabled = true;
+                return;
+            }
+
+            // Render list
+            cartContainer.innerHTML = "";
+            let subtotal = 0;
+
+            cart.forEach(item => {
+                const itemTotal = item.product.priceNumeric * item.quantity;
+                subtotal += itemTotal;
+
+                const itemRow = document.createElement('div');
+                itemRow.className = "cart-item-row";
+                itemRow.innerHTML = `
+                    <div class="cart-item-info">
+                        <span class="cart-item-name">${dict[item.product.titleKey] || item.product.titleKey} x${item.quantity}</span>
+                        <span class="cart-item-price">Rp ${(itemTotal).toLocaleString('id-ID')}</span>
+                    </div>
+                    <button class="cart-item-remove" onclick="removeFromCart(${item.id})">
+                        <i data-lucide="trash-2" style="width:14px;height:14px;"></i>
+                    </button>
+                `;
+                cartContainer.appendChild(itemRow);
+            });
+
+            subtotalEl.textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
+            checkoutBtn.disabled = false;
+            lucide.createIcons();
+        }
+
+        // Details Modal Operations
+        const detailsModal = document.getElementById('modal-details');
+        
+        window.openDetails = function(id) {
+            currentActiveProductId = id;
+            const product = productsData[id];
+            
+            const currentLang = localStorage.getItem('preferred_language') || 'id';
+            const dict = translations[currentLang] || translations['id'];
+
+            const banner = document.getElementById('modal-banner');
+            banner.className = `detail-preview-banner ${product.class}`;
+            banner.innerHTML = `<div class="preview-decorations"></div><div class="preview-icon-wrapper"><i data-lucide="${product.icon}" style="width:36px;height:36px;"></i></div>`;
+            const categoryKey = product.catKey || 'filter_' + product.category;
+            document.getElementById('modal-cat').setAttribute('data-translate', categoryKey);
+            document.getElementById('modal-cat').textContent = dict[categoryKey] || product.category || "";
+            
+            const title = (currentLang === 'en' ? product.title_en : product.title_id) || dict[product.titleKey] || product.titleKey;
+            document.getElementById('modal-title').textContent = title;
+            
+            const desc = (currentLang === 'en' ? product.desc_en : product.desc_id) || dict[product.descKey] || product.descKey;
+            document.getElementById('modal-desc').textContent = desc;
+ 
+            document.getElementById('modal-price').textContent = product.priceString;
+ 
+            const list = document.getElementById('modal-features');
+            list.innerHTML = "";
+            const rawFeatures = (currentLang === 'en' ? product.features_en : product.features_id) || dict[product.featuresKey] || "";
+            const featuresArr = rawFeatures.split(/[•|]/).map(f => f.trim()).filter(f => f);
+            
+            featuresArr.forEach(feature => {
+                const li = document.createElement('li');
+                li.innerHTML = `<i data-lucide="check-circle" style="width:16px;height:16px;"></i> <span>${feature}</span>`;
+                list.appendChild(li);
+            });
+
+            const checkoutBtn = document.getElementById('modal-checkout-btn');
+            checkoutBtn.onclick = () => {
+                closeDetails();
+                setTimeout(() => {
+                    triggerDirectBuy(id);
+                }, 400);
+            };
+
+            lucide.createIcons();
+
+            detailsModal.classList.add('active');
+            gsap.fromTo(detailsModal.querySelector('.modal-box'), 
+                { scale: 0.9, y: 20, opacity: 0 }, 
+                { scale: 1, y: 0, opacity: 1, duration: 0.4, ease: 'power3.out' }
+            );
+        };
+
+        window.closeDetails = function() {
+            gsap.to(detailsModal.querySelector('.modal-box'), {
+                scale: 0.9, y: 20, opacity: 0, duration: 0.3, ease: 'power2.in',
+                onComplete: () => {
+                    detailsModal.classList.remove('active');
+                }
+            });
+        };
+
+        window.closeDetailsOutside = function(e) {
+            if (e.target === detailsModal) {
+                closeDetails();
+            }
+        };
+
+        // Checkout Modal Operations
+        const checkoutModal = document.getElementById('modal-checkout');
+        const loadingModal = document.getElementById('modal-loading');
+        const successModal = document.getElementById('modal-success');
+
+        window.triggerDirectBuy = function(id) {
+            const product = productsData[id];
+            if (product && product.paymentLink) {
+                const loadingModal = document.getElementById('modal-loading');
+                if (loadingModal) loadingModal.classList.add('active');
+                setTimeout(() => {
+                    window.location.href = product.paymentLink;
+                }, 1000);
+            } else {
+                addToCart(id);
+                startCheckout(id);
+            }
+        };
+
+
+
+        window.closeSuccess = function() {
+            gsap.to(successModal.querySelector('.modal-box'), {
+                scale: 0.9, y: 20, opacity: 0, duration: 0.3, ease: 'power2.in',
+                onComplete: () => {
+                    successModal.classList.remove('active');
+                }
+            });
+        };
+
+        // Scroll to Top action in footer
+        const toTopBtn = document.querySelector('.to-top-btn');
+        if (toTopBtn) {
+            toTopBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                lenis.scrollTo(0);
+            });
+        }
+
+        // Listen for language changes to update translation rendering
+        window.addEventListener('languageChanged', (e) => {
+            renderProductsGrid();
+            renderCart();
+        });
+
+        async function fetchProducts() {
+            try {
+                const response = await fetch('api/get_products.php');
+                if (!response.ok) {
+                    throw new Error("HTTP " + response.status);
+                }
+                const data = await response.json();
+                if (data && Object.keys(data).length > 0) {
+                    for (const key in productsData) {
+                        delete productsData[key];
+                    }
+                    Object.assign(productsData, data);
+                }
+            } catch (error) {
+                console.warn("Database offline or local file mode. Loading default static product.", error);
+            }
+        }
+
+        // Initial setup
         window.addEventListener('load', () => {
             const preloader = document.querySelector('.preloader');
             
-            setTimeout(() => {
+            setTimeout(async () => {
                 if (preloader) {
+                    // Dynamically fetch catalog from database before showing
+                    await fetchProducts();
+
                     preloader.classList.add('fade-out');
                     
-                    // Entrance animations for coming soon page
                     setTimeout(() => {
+                        renderProductsGrid();
+                        
                         const tl = gsap.timeline();
-                        tl.from('.cs-logo', { y: -30, opacity: 0, duration: 0.8, ease: 'power3.out' })
-                          .from('.cs-back-btn', { y: -30, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6')
-                          .from('.cs-badge', { x: -30, opacity: 0, duration: 0.6, ease: 'power3.out' }, '-=0.4')
-                          .from('.cs-title', { y: 50, opacity: 0, duration: 1, ease: 'power4.out' }, '-=0.4')
-                          .from('.cs-desc', { y: 30, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6')
-                          .from('.cs-status-box', { scale: 0.95, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6')
-                          .from('.cs-footer', { y: 30, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6');
+                        // Fix sidebar FOUC opacity to make it fully show up
+                        tl.fromTo('.sidebar', { x: -80, opacity: 0 }, { x: 0, opacity: 1, duration: 1, ease: 'power3.out' })
+                          .from('.shop-topbar', { y: -30, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6')
+                          .from('.shop-cover-banner', { opacity: 0, scale: 0.95, duration: 0.8, ease: 'power3.out' }, '-=0.6')
+                          .from('.shop-layout-container', { y: 30, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6')
+                          .from('.footer-section', { y: 30, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6');
+
+                        // Check for DOKU redirect URL status parameter
+                        const urlParams = new URLSearchParams(window.location.search);
+                        if (urlParams.get('status') === 'success') {
+                            setTimeout(() => {
+                                const successModal = document.getElementById('modal-success');
+                                if (successModal) {
+                                    successModal.classList.add('active');
+                                    // Change success message translation to reflect coffee treat
+                                    const messageEl = document.getElementById('success-message');
+                                    const currentLang = localStorage.getItem('preferred_language') || 'id';
+                                    if (currentLang === 'en') {
+                                        messageEl.innerHTML = "Thank you so much! Your coffee treat transaction was completed successfully. I truly appreciate your support!";
+                                    } else {
+                                        messageEl.innerHTML = "Terima kasih banyak! Transaksi traktir kopi Anda telah berhasil diselesaikan secara nyata. Saya sangat menghargai dukungan Anda!";
+                                    }
+                                    gsap.fromTo(successModal.querySelector('.modal-box'), 
+                                        { scale: 0.9, y: 20, opacity: 0 }, 
+                                        { scale: 1, y: 0, opacity: 1, duration: 0.4, ease: 'power3.out' }
+                                    );
+                                }
+                            }, 500);
+                        }
                     }, 400);
                 }
-            }, 1000); // Shorter preloader on subpages for better UX
+            }, 1000);
         });
-
-        // Initialize Lucide icons
-        if (typeof lucide !== 'undefined') {
-            lucide.createIcons();
-        }
     </script>
+    <script src="https://cdn-reach.hostinger.com/js/embed.js"></script>
 </body>
 </html>

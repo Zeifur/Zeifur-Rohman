@@ -250,7 +250,63 @@ const translations = {
         // Blog Excerpt Post 5
         blog_post5_title: "KUMPULAN KUTIPAN KREATIF UNTUK MEMICU INSPIRASI DAN SEMANGAT BERKARYA",
         blog_post5_excerpt: "Kata-kata memiliki kekuatan luar biasa untuk mengubah cara pandang kita. Temukan kurasi kutipan pilihan tentang desain visual, teknologi, dan seni yang siap memicu gairah berkarya Anda.",
-        blog_post5_body: '<p>Kata-kata yang tepat pada waktu yang tepat memiliki kekuatan luar biasa untuk memantik inspirasi dan membangkitkan kembali semangat berkarya yang sempat meredup. Sebagai seorang kreator, ada kalanya kita menghadapi kebuntuan kreatif (creative block). Di saat seperti itu, merenungkan pandangan dari para tokoh seni, teknologi, dan desain dapat membuka perspektif baru.</p><blockquote>"Desain adalah perantara antara informasi dan pemahaman. Teknologi adalah alatnya, tetapi jiwa seni di dalamnya yang membuatnya abadi."</blockquote><p>Dalam tulisan ini, saya mengumpulkan beberapa kutipan favorit yang selalu menemani perjalanan saya sebagai developer dan desainer. Dari filosofi kesederhanaan minimalis hingga keberanian untuk mencoba hal baru, setiap kutipan membawa pesan mendalam. Simpanlah kutipan-kutipan ini di meja kerja Anda sebagai pengingat harian akan alasan mengapa Anda mulai berkarya sejak awal.</p>'
+        blog_post5_body: '<p>Kata-kata yang tepat pada waktu yang tepat memiliki kekuatan luar biasa untuk memantik inspirasi dan membangkitkan kembali semangat berkarya yang sempat meredup. Sebagai seorang kreator, ada kalanya kita menghadapi kebuntuan kreatif (creative block). Di saat seperti itu, merenungkan pandangan dari para tokoh seni, teknologi, dan desain dapat membuka perspektif baru.</p><blockquote>"Desain adalah perantara antara informasi dan pemahaman. Teknologi adalah alatnya, tetapi jiwa seni di dalamnya yang membuatnya abadi."</blockquote><p>Dalam tulisan ini, saya mengumpulkan beberapa kutipan favorit yang selalu menemani perjalanan saya sebagai developer dan desainer. Dari filosofi kesederhanaan minimalis hingga keberanian untuk mencoba hal baru, setiap kutipan membawa pesan mendalam. Simpanlah kutipan-kutipan ini di meja kerja Anda sebagai pengingat harian akan alasan mengapa Anda mulai berkarya sejak awal.</p>',
+
+        // Store Translations
+        store_title: "TOKO KREATIF",
+        store_subtitle: "PRODUK DIGITAL PILIHAN",
+        store_desc: "Tingkatkan produktivitas dan alur kerja kreatif Anda dengan koleksi eksklusif template website premium, aset visual branding, UI kit, dan preset profesional garapan saya.",
+        filter_all: "SEMUA",
+        filter_templates: "TEMPLATE WEB",
+        filter_branding: "ASET BRANDING",
+        filter_presets: "PRESET & UI KIT",
+        btn_details: "DETAIL PRODUK",
+        btn_buy: "BELI SEKARANG",
+        product_new: "BARU",
+        product_popular: "POPULER",
+        checkout_title: "Pembayaran Aman DOKU",
+        checkout_desc: "Lengkapi data diri Anda untuk pengiriman aset digital. Setelah mengklik tombol bayar, Anda akan dialihkan secara aman ke gerbang pembayaran DOKU.",
+        label_name: "Nama Lengkap",
+        label_email: "Alamat Email",
+        label_wa: "Nomor WhatsApp",
+        btn_pay: "BAYAR SEKARANG",
+        payment_success_title: "PEMBAYARAN SIMULASI BERHASIL",
+        payment_success_desc: "Terima kasih! Kami telah mensimulasikan checkout DOKU Anda dengan sukses. Link download produk digital telah dikirimkan ke email Anda.",
+        close_modal: "TUTUP",
+        back_to_shop: "KEMBALI KE TOKO",
+        
+        // Products
+        p1_title: "Traktir Kopi Kreatif",
+        p1_desc: "Dukung karya dan kreativitas saya dengan mentraktir secangkir kopi hangat senilai Rp 10.000 melalui gerbang pembayaran DOKU.",
+        p1_features: "Secangkir Kopi Hangat • Dukungan Kreator • DOKU Gateway Aktif • Ucapan Terima Kasih",
+        
+        p2_title: "Portfolio Kreatif Minimalis",
+        p2_desc: "Template website portofolio premium dengan desain sinematik yang dirancang khusus untuk web developer, desainer visual, dan fotografer. Menampilkan transisi halaman ultra-mulus, scroll-driven animation, dan form kontak terenkripsi.",
+        p2_features: "Transisi GSAP Premium • Desain Gelap Sinematik • Optimasi SEO & CWV • Form Kontak Fungsional",
+        
+        p3_title: "Preset Lightroom Sinematik",
+        p3_desc: "Paket preset Adobe Lightroom (format .XMP dan .DNG) premium hasil kurasi fotografer BNSP. Diformulasikan khusus untuk memberikan tone warna hangat, kontras sinematik yang elegan pada foto wisuda, olahraga outdoor, dan dokumentasi petualangan.",
+        p3_features: "12 Presets (.XMP & .DNG) • Tone Hangat & Cinematic • Cocok untuk Wisuda & Sport • Panduan Instalasi",
+        
+        p4_title: "Visual Branding & UI Kit",
+        p4_desc: "Kumpulan template logo vektor, panduan gaya branding, palet warna adaptif, dan aset UI kit minimalis siap pakai dalam format Figma, SVG, dan EPS. Solusi instan untuk membangun identitas visual bisnis Anda secara profesional.",
+        p4_features: "25+ Elemen UI Kreatif • Vektor Logo Dapat Diedit • Panduan Tipografi Lengkap • Aset Siap Ekspor",
+
+        // Store Widgets & UI Elements
+        widget_cart: "KERANJANG BELANJA",
+        widget_cart_empty: "Belum ada produk di keranjang.",
+        widget_price_filter: "FILTER HARGA",
+        widget_popular_products: "PRODUK POPULER",
+        widget_tags: "TAG POPULER",
+        widget_categories: "KATEGORI PRODUK",
+        cart_total: "Subtotal",
+        btn_checkout: "SELESAIKAN PEMBAYARAN",
+        btn_filter: "FILTER",
+        showing_results: "Menampilkan 1-4 dari 4 hasil",
+        sort_by: "Urutan",
+        sort_latest: "Terbaru",
+        sort_price_low: "Harga: Rendah ke Tinggi",
+        sort_price_high: "Harga: Tinggi ke Rendah"
     },
     en: {
         // Hero Section
@@ -503,7 +559,63 @@ const translations = {
         // Blog Excerpt Post 5
         blog_post5_title: "CREATIVE QUOTES COLLECTION TO SPARK INSPIRATION AND PASSION FOR WORK",
         blog_post5_excerpt: "Words have the incredible power to change our perspective. Discover a curated list of selected quotes on visual design, technology, and art that are ready to ignite your passion.",
-        blog_post5_body: '<p>The right words at the right time have the power to ignite inspiration and revive a creative spark that may have dimmed. As creators, we all face creative blocks at some point. During these times, reflecting on perspectives from figures in art, technology, and design can open new horizons.</p><blockquote>"Design is the intermediary between information and understanding. Technology is the tool, but the artistic soul within is what makes it timeless."</blockquote><p>In this post, I have compiled some of my favorite quotes that have accompanied my journey as a developer and designer. From the philosophy of minimalist simplicity to the courage of trying new things, each quote carries a profound message. Keep these quotes on your desk as a daily reminder of why you started creating in the first place.</p>'
+        blog_post5_body: '<p>The right words at the right time have the power to ignite inspiration and revive a creative spark that may have dimmed. As creators, we all face creative blocks at some point. During these times, reflecting on perspectives from figures in art, technology, and design can open new horizons.</p><blockquote>"Design is the intermediary between information and understanding. Technology is the tool, but the artistic soul within is what makes it timeless."</blockquote><p>In this post, I have compiled some of my favorite quotes that have accompanied my journey as a developer and designer. From the philosophy of minimalist simplicity to the courage of trying new things, each quote carries a profound message. Keep these quotes on your desk as a daily reminder of why you started creating in the first place.</p>',
+
+        // Store Translations
+        store_title: "CREATIVE STORE",
+        store_subtitle: "CURATED DIGITAL PRODUCTS",
+        store_desc: "Enhance your workflow and creative productivity with my premium collection of custom website templates, visual branding assets, UI kits, and professional presets.",
+        filter_all: "ALL",
+        filter_templates: "WEB TEMPLATES",
+        filter_branding: "BRANDING ASSETS",
+        filter_presets: "PRESETS & UI KITS",
+        btn_details: "VIEW DETAILS",
+        btn_buy: "BUY NOW",
+        product_new: "NEW",
+        product_popular: "POPULAR",
+        checkout_title: "Secure DOKU Payment",
+        checkout_desc: "Fill in your details for digital asset delivery. After clicking pay, you will be redirected to the secure DOKU payment portal.",
+        label_name: "Full Name",
+        label_email: "Email Address",
+        label_wa: "WhatsApp Number",
+        btn_pay: "PAY NOW WITH DOKU",
+        payment_success_title: "SIMULATED PAYMENT SUCCESSFUL",
+        payment_success_desc: "Thank you! We have successfully simulated your DOKU checkout. The download link has been sent to your email address.",
+        close_modal: "CLOSE",
+        back_to_shop: "BACK TO SHOP",
+        
+        // Products
+        p1_title: "Buy Me a Coffee",
+        p1_desc: "Support my creative projects and work by buying me a warm cup of coffee worth Rp 10,000 via DOKU Payment Gateway.",
+        p1_features: "One Hot Cup of Coffee • Creator Support • Live DOKU Gateway • Heartfelt Appreciation",
+        
+        p2_title: "Minimalist Creative Portfolio",
+        p2_desc: "A premium cinematic web portfolio template designed for web developers, visual designers, and photographers. Features high-end page transitions, scroll-driven animations, and encrypted contact forms.",
+        p2_features: "Cinematic GSAP Transitions • Dark Aesthetic Layout • SEO & Web Vitals Ready • Functional Contact Form",
+        
+        p3_title: "Cinematic Lightroom Presets",
+        p3_desc: "A collection of premium Adobe Lightroom presets (.XMP and .DNG) curated by a certified professional photographer. Designed to give warm tones and sophisticated cinematic contrast for graduation photos, outdoor sports, and travel documentation.",
+        p3_features: "12 Presets (.XMP & .DNG) • Warm Cinematic Tone • Great for Grads & Sports • Installation Guide",
+        
+        p4_title: "Visual Branding & UI Kit",
+        p4_desc: "A bundle of minimalist vector logo templates, brand visual guidelines, adaptive color palettes, and UI kit components in Figma, SVG, and EPS formats. The instant solution to brand your startup or agency.",
+        p4_features: "25+ UI Components • Editable Vector Logos • Typography Styling Guide • Ready-to-Export Assets",
+
+        // Store Widgets & UI Elements
+        widget_cart: "SHOPPING CART",
+        widget_cart_empty: "No products in the cart.",
+        widget_price_filter: "FILTER BY PRICE",
+        widget_popular_products: "POPULAR PRODUCTS",
+        widget_tags: "POPULAR TAGS",
+        widget_categories: "PRODUCT CATEGORIES",
+        cart_total: "Subtotal",
+        btn_checkout: "PROCEED TO CHECKOUT",
+        btn_filter: "FILTER",
+        showing_results: "Showing 1-4 of 4 results",
+        sort_by: "Sort By",
+        sort_latest: "Latest",
+        sort_price_low: "Price: Low to High",
+        sort_price_high: "Price: High to Low"
     }
 };
 
