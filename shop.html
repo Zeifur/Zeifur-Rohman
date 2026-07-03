@@ -1183,6 +1183,92 @@
                 width: 100%;
             }
         }
+
+        /* Special Coffee Treat Section at the bottom */
+        .coffee-treat-section {
+            padding: 0 45px 50px 45px;
+            z-index: 5;
+            position: relative;
+        }
+        .coffee-treat-card {
+            background: rgba(20, 22, 22, 0.4);
+            border: 1px solid var(--border-color);
+            border-radius: 0 0 32px 0;
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+        .coffee-treat-card:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 30px var(--accent-glow);
+        }
+        .coffee-treat-icon-box {
+            width: 70px;
+            height: 70px;
+            background: rgba(152,0,0,0.1);
+            border: 1px solid rgba(152,0,0,0.3);
+            border-radius: 0 0 16px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--accent-color);
+            flex-shrink: 0;
+            box-shadow: 0 0 15px rgba(152,0,0,0.2);
+        }
+        .coffee-treat-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+            list-style: none;
+            padding: 0;
+        }
+        .coffee-treat-features li {
+            font-family: var(--font-condensed);
+            font-size: 0.75rem;
+            color: var(--muted-text);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .coffee-treat-features li i {
+            color: var(--accent-color);
+        }
+        .coffee-treat-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+        @media (max-width: 900px) {
+            .coffee-treat-section {
+                padding: 0 20px 40px 20px;
+            }
+            .coffee-treat-card {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 30px;
+                gap: 25px;
+            }
+            .coffee-treat-actions {
+                align-items: stretch;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+        @media (max-width: 500px) {
+            .coffee-treat-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1486,6 +1572,32 @@
             </aside>
         </section>
 
+        <!-- SECTION: COFFEE TREAT (Traktir Kopi) -->
+        <section class="coffee-treat-section" id="coffee-treat-section" style="display: none;">
+            <div class="coffee-treat-card">
+                <div style="position:absolute; width:100%; height:100%; opacity:0.05; background-image:radial-gradient(var(--accent-color) 1px, transparent 1px); background-size:15px 15px; top: 0; left: 0; pointer-events: none;"></div>
+                <div style="display: flex; align-items: center; gap: 25px; z-index: 2; flex-wrap: wrap;">
+                    <div class="coffee-treat-icon-box">
+                        <i data-lucide="coffee" style="width:36px; height:36px;"></i>
+                    </div>
+                    <div>
+                        <h2 style="font-family: var(--font-heading); font-size: 1.3rem; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;" id="coffee-title">TRAKTIR KOPI KREATIF</h2>
+                        <p style="font-family: var(--font-body); font-size: 0.95rem; color: var(--muted-text); line-height: 1.6; max-width: 700px;" id="coffee-desc">Dukung karya dan kreativitas saya dengan mentraktir secangkir kopi hangat senilai Rp 10.000 melalui gerbang pembayaran DOKU.</p>
+                        <ul class="coffee-treat-features" id="coffee-features">
+                            <!-- Features will be loaded here dynamically -->
+                        </ul>
+                    </div>
+                </div>
+                <div class="coffee-treat-actions" style="z-index: 2;">
+                    <span style="font-family: var(--font-condensed); font-size: 1.4rem; font-weight: 900; color: var(--accent-color); text-shadow: 0 0 10px rgba(152,0,0,0.2);" id="coffee-price">Rp 10.000</span>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button class="btn-store-detail" onclick="openDetails(1)" style="min-width: 100px; padding: 12px 20px;">DETAIL</button>
+                        <button class="btn-store-buy" onclick="triggerDirectBuy(1)" style="min-width: 100px; padding: 12px 20px;">TRAKTIR KOPI</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- SECTION: FOOTER (Matching blog.html footer) -->
         <footer id="contact" class="footer-section" style="margin-top: 80px; position: relative; z-index: 10;">
             <div class="footer-grid-bg"></div>
@@ -1767,6 +1879,7 @@
 
             // 1. Filter products
             let filteredList = Object.values(productsData).filter(prod => {
+                if (prod.id === 1) return false; // Exclude Traktir Kopi from storefront grid
                 // Category match
                 if (selectedCategory !== 'all' && prod.category !== selectedCategory) return false;
                 // Tag match
@@ -1844,7 +1957,83 @@
 
             // Render Pagination Buttons
             renderPagination(totalPages);
+
+            // Render Coffee Treat & Update Categories dynamically
+            renderCoffeeTreat();
+            updateCategoryCounts();
+
             lucide.createIcons();
+        }
+
+        // Render special coffee treat banner dynamically at the bottom
+        function renderCoffeeTreat() {
+            const coffeeSection = document.getElementById('coffee-treat-section');
+            if (!coffeeSection) return;
+
+            const prod = productsData[1];
+            if (!prod) {
+                coffeeSection.style.display = 'none';
+                return;
+            }
+
+            const currentLang = localStorage.getItem('preferred_language') || 'id';
+            const dict = translations[currentLang] || translations['id'];
+
+            const title = (currentLang === 'en' ? prod.title_en : prod.title_id) || prod.title_id;
+            const desc = (currentLang === 'en' ? prod.desc_en : prod.desc_id) || prod.desc_id;
+            
+            document.getElementById('coffee-title').textContent = title;
+            document.getElementById('coffee-desc').textContent = desc;
+            document.getElementById('coffee-price').textContent = prod.priceString;
+
+            // Load features list
+            const list = document.getElementById('coffee-features');
+            list.innerHTML = "";
+            const rawFeatures = (currentLang === 'en' ? prod.features_en : prod.features_id) || "";
+            const featuresArr = rawFeatures.split(/[•|]/).map(f => f.trim()).filter(f => f);
+            
+            featuresArr.forEach(feature => {
+                const li = document.createElement('li');
+                li.innerHTML = `<i data-lucide="check-circle" style="width:14px;height:14px;vertical-align:middle;display:inline-block;"></i> <span>${feature}</span>`;
+                list.appendChild(li);
+            });
+
+            // Set button texts
+            const btnDetail = coffeeSection.querySelector('.coffee-treat-actions button[onclick="openDetails(1)"]');
+            if (btnDetail) {
+                btnDetail.textContent = dict['btn_details'] || 'DETAIL';
+            }
+            const btnBuy = coffeeSection.querySelector('.coffee-treat-actions button[onclick="triggerDirectBuy(1)"]');
+            if (btnBuy) {
+                btnBuy.textContent = currentLang === 'en' ? 'TREAT COFFEE' : 'TRAKTIR KOPI';
+            }
+
+            coffeeSection.style.display = 'block';
+        }
+
+        // Dynamic category count calculation
+        function updateCategoryCounts() {
+            let counts = { all: 0, templates: 0, branding: 0, presets: 0 };
+            Object.values(productsData).forEach(prod => {
+                if (prod.id === 1) return; // Exclude Traktir Kopi from counts
+                counts.all++;
+                if (counts[prod.category] !== undefined) {
+                    counts[prod.category]++;
+                }
+            });
+
+            // Update DOM
+            const allLink = document.querySelector('.category-link[data-category="all"] span:not([data-translate])');
+            if (allLink) allLink.textContent = `(${counts.all})`;
+            
+            const tempEl = document.getElementById('cat-count-templates');
+            if (tempEl) tempEl.textContent = `(${counts.templates})`;
+            
+            const brandEl = document.getElementById('cat-count-branding');
+            if (brandEl) brandEl.textContent = `(${counts.branding})`;
+            
+            const presetEl = document.getElementById('cat-count-presets');
+            if (presetEl) presetEl.textContent = `(${counts.presets})`;
         }
 
         // Render Pagination buttons

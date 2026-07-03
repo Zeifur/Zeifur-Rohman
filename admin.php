@@ -77,24 +77,33 @@ if ($isLoggedIn && $db) {
     // 2. DELETE PRODUCT
     if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['id'])) {
         $id = intval($_GET['id']);
-        $stmt = $db->prepare("DELETE FROM `products` WHERE `id` = ?");
-        $stmt->bind_param("i", $id);
-        if ($stmt->execute()) {
-            $crudSuccess = 'Produk berhasil dihapus!';
+        if ($id === 1) {
+            $crudError = 'Produk Traktir Kopi adalah produk sistem dan tidak dapat dihapus.';
         } else {
-            $crudError = 'Gagal menghapus produk: ' . $stmt->error;
+            $stmt = $db->prepare("DELETE FROM `products` WHERE `id` = ?");
+            $stmt->bind_param("i", $id);
+            if ($stmt->execute()) {
+                $crudSuccess = 'Produk berhasil dihapus!';
+            } else {
+                $crudError = 'Gagal menghapus produk: ' . $stmt->error;
+            }
+            $stmt->close();
         }
-        $stmt->close();
     }
 }
 
 // Fetch products list if logged in
 $products = [];
+$coffeeProduct = null;
 if ($isLoggedIn && $db) {
     $res = $db->query("SELECT * FROM `products` ORDER BY `id` DESC");
     if ($res) {
         while ($row = $res->fetch_assoc()) {
-            $products[] = $row;
+            if (intval($row['id']) === 1) {
+                $coffeeProduct = $row;
+            } else {
+                $products[] = $row;
+            }
         }
         $res->free();
     }
@@ -652,10 +661,36 @@ if ($isLoggedIn && $db) {
             <div class="dashboard-grid">
                 <!-- Left: Catalog List & Integrations Guide -->
                 <div>
+                    <!-- Special Coffee Treat Settings Card -->
+                    <?php if ($coffeeProduct): ?>
+                        <div class="dashboard-card" style="border-left: 4px solid #d97706; background: rgba(217, 119, 6, 0.03);">
+                            <div class="card-header" style="border-bottom-color: rgba(217, 119, 6, 0.15); margin-bottom: 20px; padding-bottom: 12px;">
+                                <h3 class="card-title" style="color: #f59e0b;"><i data-lucide="coffee"></i> Pengaturan Donasi Traktir Kopi</h3>
+                                <span class="tbl-badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.25);">Produk Donasi / Sistem</span>
+                            </div>
+                            <div style="display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+                                <div style="flex-grow: 1; min-width: 250px;">
+                                    <h4 style="color: #fff; font-size: 1rem; margin-bottom: 6px; font-weight: 700;"><?php echo htmlspecialchars($coffeeProduct['title_id']); ?> / <?php echo htmlspecialchars($coffeeProduct['title_en']); ?></h4>
+                                    <p style="font-size: 0.85rem; color: var(--muted-text); line-height: 1.5; margin-bottom: 12px;"><?php echo htmlspecialchars($coffeeProduct['desc_id']); ?></p>
+                                    <div style="display: flex; gap: 20px; font-size: 0.8rem; color: var(--muted-text); flex-wrap: wrap;">
+                                        <span><strong>Harga:</strong> <span style="color: #fff; font-weight: 600;"><?php echo htmlspecialchars($coffeeProduct['price_string']); ?></span></span>
+                                        <span><strong>Ikon:</strong> <code style="color: #f59e0b;"><?php echo htmlspecialchars($coffeeProduct['icon_name']); ?></code></span>
+                                        <span><strong>Link DOKU:</strong> <a href="<?php echo htmlspecialchars($coffeeProduct['payment_link']); ?>" target="_blank" style="color: #f59e0b; text-decoration: none; border-bottom: 1px dotted #f59e0b;"><?php echo htmlspecialchars($coffeeProduct['payment_link']); ?></a></span>
+                                    </div>
+                                </div>
+                                <div style="flex-shrink: 0;">
+                                    <button class="btn-primary" onclick="editProduct(<?php echo htmlspecialchars(json_encode($coffeeProduct)); ?>)" style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); color: #fbbf24; padding: 10px 18px; border-radius: 4px; font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 8px; cursor: pointer; width: auto; box-shadow: none;">
+                                        <i data-lucide="edit-3" style="width:14px;height:14px;"></i> EDIT TRAKTIR KOPI
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
                     <!-- Product Catalog List -->
                     <div class="dashboard-card">
                         <div class="card-header">
-                            <h3 class="card-title"><i data-lucide="package" style="color:var(--accent-color);"></i> Daftar Produk Aktif</h3>
+                            <h3 class="card-title"><i data-lucide="package" style="color:var(--accent-color);"></i> Daftar Produk Jualan Aktif</h3>
                         </div>
                         <div class="product-table-wrapper">
                             <?php if (empty($products)): ?>
