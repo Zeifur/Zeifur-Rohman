@@ -115,6 +115,11 @@ if ($isLoggedIn && $db) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Zeifur Rohman</title>
+    <!-- Theme & Web App Colors for macOS Safari and Mobile Browser Header -->
+    <meta name="theme-color" content="#980000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="msapplication-navbutton-color" content="#980000">
     <link rel="icon" type="image/x-icon" href="assets/logo.ico">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
