@@ -2798,6 +2798,8 @@
                 scale: 0.9, y: 20, opacity: 0, duration: 0.3, ease: 'power2.in',
                 onComplete: () => {
                     detailsModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                    if (typeof lenis !== 'undefined') lenis.start();
                 }
             });
         };
@@ -2827,13 +2829,13 @@
             }
         };
 
-
-
         window.closeSuccess = function() {
             gsap.to(successModal.querySelector('.modal-box'), {
                 scale: 0.9, y: 20, opacity: 0, duration: 0.3, ease: 'power2.in',
                 onComplete: () => {
                     successModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                    if (typeof lenis !== 'undefined') lenis.start();
                 }
             });
         };
@@ -2881,9 +2883,14 @@
                     await fetchProducts();
 
                     preloader.classList.add('fade-out');
-                    
                     setTimeout(() => {
-                        renderProductsGrid();
+                        preloader.style.display = 'none';
+                        document.body.style.overflow = '';
+                        document.documentElement.style.overflow = '';
+                        if (typeof lenis !== 'undefined') lenis.start();
+                    }, 400);
+
+                    renderProductsGrid();
                         
                         const tl = gsap.timeline();
                         // Fix sidebar FOUC opacity to make it fully show up

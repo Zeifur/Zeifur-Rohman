@@ -105,12 +105,18 @@
     box-sizing: border-box;
 }
 
+html {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
     font-family: var(--font-body);
     line-height: 1.6;
     overflow-x: hidden; /* Safe only on body element, doesn't block sticky child */
+    overflow-y: auto;
     margin: 0; /* Ensure no body margin */
 }
 

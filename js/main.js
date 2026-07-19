@@ -146,14 +146,20 @@ window.addEventListener('load', () => {
                 }
                 
                 // Allow scrolling after preloader is gone
-                document.body.style.overflow = 'auto';
+                document.body.style.overflow = '';
+                if (window.lenis) window.lenis.start();
             }, 400);
+        } else {
+            document.body.style.overflow = '';
+            if (window.lenis) window.lenis.start();
         }
-    }, 1500); // Shorter load time for professional snappy feel
+    }, 1200);
 });
 
-// Disable scroll during preloader
-document.body.style.overflow = 'hidden';
+// Ensure body scroll is unlocked if preloader is not present or active
+if (!document.querySelector('.preloader')) {
+    document.body.style.overflow = '';
+}
 
 // Mobile Sub-nav Sticky Logic: switch from absolute (bottom of hero) to fixed (below top navbar)
 const subNav = document.querySelector('.hero-split .sub-nav');
