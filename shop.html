@@ -313,6 +313,304 @@
             border-color: var(--accent-color);
         }
 
+        /* CapKarya Web Showcase Section Styles */
+        .web-works-section {
+            padding: 45px 45px 15px 45px;
+            z-index: 5;
+            position: relative;
+        }
+
+        .section-header-box {
+            margin-bottom: 25px;
+        }
+
+        .section-sub {
+            font-family: var(--font-condensed);
+            font-size: 0.78rem;
+            font-weight: 900;
+            letter-spacing: 0.22em;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .section-main-title {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            margin: 0;
+        }
+
+        .section-main-title span {
+            color: var(--accent-color);
+        }
+
+        .capkarya-showcase-card {
+            background: rgba(20, 22, 22, 0.45);
+            border: 1px solid var(--border-color);
+            border-radius: 0 0 32px 0;
+            padding: 35px;
+            backdrop-filter: blur(12px);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .capkarya-showcase-card:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 15px 40px var(--accent-glow);
+        }
+
+        .capkarya-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .capkarya-preview-box {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .capkarya-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--accent-color);
+            color: #fff;
+            font-family: var(--font-condensed);
+            font-size: 0.68rem;
+            font-weight: 900;
+            padding: 5px 12px;
+            border-radius: 2px;
+            letter-spacing: 0.12em;
+            z-index: 10;
+            box-shadow: 0 0 12px rgba(152,0,0,0.6);
+            text-transform: uppercase;
+        }
+
+        .capkarya-img-frame {
+            position: relative;
+            width: 100%;
+            height: 340px;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #060808;
+        }
+
+        .capkarya-main-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            transition: transform 0.6s ease;
+        }
+
+        .capkarya-showcase-card:hover .capkarya-main-img {
+            transform: scale(1.03);
+        }
+
+        .capkarya-thumb-bar {
+            display: flex;
+            gap: 12px;
+        }
+
+        .thumb-btn {
+            background: rgba(6, 8, 8, 0.7);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--muted-text);
+            font-family: var(--font-condensed);
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            flex: 1;
+        }
+
+        .thumb-btn img {
+            width: 36px;
+            height: 24px;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+
+        .thumb-btn.active, .thumb-btn:hover {
+            border-color: var(--accent-color);
+            color: #fff;
+            background: rgba(152,0,0,0.1);
+        }
+
+        .capkarya-content-box {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .capkarya-header-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .capkarya-logo-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            border: 1px solid var(--accent-color);
+            box-shadow: 0 0 15px rgba(152,0,0,0.3);
+            object-fit: cover;
+        }
+
+        .capkarya-title {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: -0.01em;
+            margin: 0;
+        }
+
+        .capkarya-subtitle {
+            font-family: var(--font-condensed);
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .capkarya-desc {
+            font-family: var(--font-body);
+            font-size: 0.92rem;
+            line-height: 1.6;
+            color: var(--muted-text);
+            margin: 0;
+        }
+
+        .capkarya-features-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .capkarya-features-list li {
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            color: #efefef;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .capkarya-features-list li i {
+            color: var(--accent-color);
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .capkarya-tags-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag-pill {
+            font-family: var(--font-condensed);
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--muted-text);
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 4px 10px;
+            border-radius: 2px;
+            letter-spacing: 0.05em;
+        }
+
+        .capkarya-actions-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 5px;
+            flex-wrap: wrap;
+        }
+
+        .btn-capkarya-visit {
+            background: var(--accent-color);
+            border: 1px solid var(--accent-color);
+            color: #fff;
+            font-family: var(--font-condensed);
+            font-size: 0.8rem;
+            font-weight: 900;
+            padding: 12px 24px;
+            border-radius: 2px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.08em;
+            transition: var(--transition-smooth);
+            text-transform: uppercase;
+        }
+
+        .btn-capkarya-visit:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+            box-shadow: 0 0 20px rgba(152,0,0,0.4);
+        }
+
+        .btn-capkarya-detail {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            font-family: var(--font-condensed);
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 12px 20px;
+            border-radius: 2px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.08em;
+            transition: var(--transition-smooth);
+            text-transform: uppercase;
+        }
+
+        .btn-capkarya-detail:hover {
+            border-color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        @media (max-width: 1024px) {
+            .web-works-section {
+                padding: 30px 20px 10px 20px;
+            }
+            .capkarya-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            .capkarya-img-frame {
+                height: 240px;
+            }
+        }
+
         /* Product Grid */
         .store-grid {
             display: grid;
@@ -1452,7 +1750,84 @@
             </div>
         </section>
 
-        <!-- Two-column Layout Container -->
+        <!-- SECTION 1: KARYA WEBSITES & WEB APPS (Featured Showcase) -->
+        <section class="web-works-section" id="web-works-section">
+            <div class="section-header-box">
+                <span class="section-sub" data-translate="capkarya_sec_subtitle">APLIKASI WEB INTERAKTIF KARYA ZEIFUR ROHMAN</span>
+                <h2 class="section-main-title" data-translate="capkarya_sec_title">KARYA WEBSITES & WEB APPS<span>.</span></h2>
+            </div>
+
+            <!-- CapKarya Featured Showcase Card -->
+            <div class="capkarya-showcase-card">
+                <div class="capkarya-grid">
+                    <!-- Left: Visual Screenshot Preview Display -->
+                    <div class="capkarya-preview-box">
+                        <span class="capkarya-badge" data-translate="badge_karya_web">WEB APP KARYA</span>
+                        <div class="capkarya-img-frame">
+                            <img src="assets/images/capkarya-display-1.png" alt="CapKarya by Zeifur Rohman" class="capkarya-main-img" id="capkarya-preview-img">
+                        </div>
+                        <!-- Thumbnail Switcher -->
+                        <div class="capkarya-thumb-bar">
+                            <button class="thumb-btn active" onclick="switchCapKaryaImg('assets/images/capkarya-display-1.png', this)">
+                                <img src="assets/images/capkarya-display-1.png" alt="Landing">
+                                <span>Layar Utama</span>
+                            </button>
+                            <button class="thumb-btn" onclick="switchCapKaryaImg('assets/images/capkarya-display-2.png', this)">
+                                <img src="assets/images/capkarya-display-2.png" alt="Editor">
+                                <span>Editor Canvas</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right: Content & Description -->
+                    <div class="capkarya-content-box">
+                        <div class="capkarya-header-row">
+                            <img src="assets/images/capkarya-logo.png" alt="CapKarya Logo" class="capkarya-logo-icon">
+                            <div>
+                                <h3 class="capkarya-title" data-translate="capkarya_title">CapKarya by Zeifur Rohman</h3>
+                                <span class="capkarya-subtitle" data-translate="capkarya_sub">Web App Generator Logo Monogram Instan untuk UMKM & Kreator</span>
+                            </div>
+                        </div>
+
+                        <p class="capkarya-desc" data-translate="capkarya_desc">
+                            CapKarya adalah aplikasi web generator logo monogram & identitas visual instan berbasis browser yang dirancang khusus oleh Zeifur Rohman untuk membantu UMKM, pebisnis, dan kreator menciptakan cap identitas/monogram kelas premium secara presisi dalam hitungan detik tanpa perlu keahlian desain rumit.
+                        </p>
+
+                        <!-- Feature Pills -->
+                        <ul class="capkarya-features-list">
+                            <li><i data-lucide="zap"></i> <span data-translate="capkarya_feat1">Editor Monogram Presisi 320x320px dengan Kontrol DPAD & Magnet</span></li>
+                            <li><i data-lucide="type"></i> <span data-translate="capkarya_feat2">Kustomisasi Inisial 2-3 Huruf & Tagline Slogan Usaha</span></li>
+                            <li><i data-lucide="sliders"></i> <span data-translate="capkarya_feat3">Kontrol Rotasi Sudut, Skala Ukuran, & Orientasi Canvas</span></li>
+                            <li><i data-lucide="bookmark"></i> <span data-translate="capkarya_feat4">Fitur Simpan Desain Favorit & Ekspor Aset Instan</span></li>
+                            <li><i data-lucide="sparkles"></i> <span data-translate="capkarya_feat5">100% Gratis Digunakan untuk Memajukan Identitas UMKM</span></li>
+                        </ul>
+
+                        <!-- Tech Badges -->
+                        <div class="capkarya-tags-row">
+                            <span class="tag-pill">Web App</span>
+                            <span class="tag-pill">JavaScript</span>
+                            <span class="tag-pill">Canvas Editor</span>
+                            <span class="tag-pill">Monogram Generator</span>
+                            <span class="tag-pill">UMKM Tool</span>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="capkarya-actions-row">
+                            <button class="btn-capkarya-visit" onclick="window.open('https://grey-newt-892825.hostingersite.com/', '_blank')">
+                                <i data-lucide="external-link" style="width:16px;height:16px;"></i>
+                                <span data-translate="btn_open_capkarya">BUKA WEB APP CAPKARYA</span>
+                            </button>
+                            <button class="btn-capkarya-detail" onclick="openDetails(2)">
+                                <i data-lucide="info" style="width:16px;height:16px;"></i>
+                                <span data-translate="btn_capkarya_details">DETAIL APLIKASI</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: PRODUK DIGITAL UTAMA (Products for Sale) -->
         <section class="shop-layout-container">
             <!-- Left Main Column (70%) -->
             <div class="shop-main-column">
@@ -1533,11 +1908,11 @@
                         </div>
                         <div class="popular-item" onclick="openDetails(2)">
                             <div class="popular-preview">
-                                <i data-lucide="globe" style="width:18px;height:18px;"></i>
+                                <img src="assets/images/capkarya-logo.png" style="width:22px;height:22px;border-radius:4px;object-fit:cover;">
                             </div>
                             <div class="popular-meta">
-                                <h4 class="popular-name">Website IKAFASYA UIN</h4>
-                                <span class="popular-price" style="color:var(--accent-color);font-weight:700;">GRATIS (FREE DEMO)</span>
+                                <h4 class="popular-name">CapKarya Generator</h4>
+                                <span class="popular-price" style="color:var(--accent-color);font-weight:700;">GRATIS (WEB APP)</span>
                             </div>
                         </div>
                         <div class="popular-item" onclick="openDetails(4)">
@@ -1759,7 +2134,23 @@
             lenis.raf(time);
             requestAnimationFrame(raf);
         }
-        requestAnimationFrame(raf);
+        // Image preview switcher for CapKarya showcase
+        window.switchCapKaryaImg = function(imgSrc, btn) {
+            const previewImg = document.getElementById('capkarya-preview-img');
+            if (previewImg) {
+                gsap.to(previewImg, {
+                    opacity: 0,
+                    duration: 0.15,
+                    onComplete: () => {
+                        previewImg.src = imgSrc;
+                        gsap.to(previewImg, { opacity: 1, duration: 0.25 });
+                    }
+                });
+            }
+            const buttons = document.querySelectorAll('.thumb-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+        };
 
         // Store Product Database
         const productsData = {
@@ -1781,35 +2172,19 @@
             },
             2: {
                 id: 2,
-                title_id: "Website IKAFASYA UIN Malang",
-                title_en: "IKAFASYA UIN Malang Web Directory",
-                desc_id: "Portal direktori jaringan alumni UIN Malang dengan antarmuka modern, responsif, dan sistem database terintegrasi. Anda dapat menguji dan mengakses website ini secara gratis.",
-                desc_en: "Official alumni directory platform for UIN Malang with modern responsive interface and database integration. Free to explore and visit live demo.",
-                features_id: "Portal Direktori Alumni | Database Terintegrasi | Layout UI Responsif | Akses Live Website Demo",
-                features_en: "Alumni Directory Portal | Integrated Database | Responsive UI Layout | Live Website Demo Access",
+                title_id: "CapKarya by Zeifur Rohman",
+                title_en: "CapKarya by Zeifur Rohman",
+                desc_id: "CapKarya adalah aplikasi web generator logo monogram & identitas visual instan berbasis browser yang dirancang khusus oleh Zeifur Rohman untuk membantu UMKM, pebisnis, dan kreator menciptakan cap identitas/monogram kelas premium secara presisi dalam hitungan detik.",
+                desc_en: "CapKarya is an instant browser-based monogram logo & visual identity web application designed by Zeifur Rohman to empower small businesses, entrepreneurs, and creators to generate premium monogram logos in seconds.",
+                features_id: "Editor Monogram Presisi 320x320px | Kustomisasi Inisial 2-3 Huruf & Tagline | Kontrol Rotasi, Skala & DPAD | Simpan Desain Favorit & Ekspor Aset | 100% Gratis Tanpa Registrasi Rumit",
+                features_en: "320x320px Precision Monogram Canvas | 2-Letter/3-Letter Monogram & Tagline Builder | Rotation, Scale & DPAD Controls | Favorite Design Saver & Instant Export | 100% Free Without Complex Registration",
                 priceNumeric: 0,
-                priceString: "GRATIS (FREE DEMO)",
+                priceString: "GRATIS (WEB APP)",
                 class: "preview-branding",
-                icon: "globe",
+                icon: "sparkles",
                 category: "free-web",
-                tags: ["Web Dev", "PHP", "Bootstrap"],
-                webLink: "https://zeifurrohman.com/#portofolio"
-            },
-            3: {
-                id: 3,
-                title_id: "Website IKDAR Malang",
-                title_en: "IKDAR Malang Association Web",
-                desc_id: "Platform profil asosiasi dakwah dengan direktori anggota dan integrasi agenda kegiatan secara real-time. Gratis diakses sebagai karya showcase website.",
-                desc_en: "Dakwah association profile platform with member directory and real-time agenda integration. Free to access as a live web showcase.",
-                features_id: "Platform Profil Organisasi | Manajemen Keanggotaan | Integrasi Agenda Real-Time | Akses Demo Website Langsung",
-                features_en: "Organization Profile Platform | Member Directory System | Real-time Agenda Integration | Live Website Demo Access",
-                priceNumeric: 0,
-                priceString: "GRATIS (FREE DEMO)",
-                class: "preview-templates",
-                icon: "layout",
-                category: "free-web",
-                tags: ["Web Dev", "JavaScript", "CSS3"],
-                webLink: "https://zeifurrohman.com/#portofolio"
+                tags: ["Web Dev", "JavaScript", "Canvas Editor"],
+                webLink: "https://grey-newt-892825.hostingersite.com/"
             },
             4: {
                 id: 4,
