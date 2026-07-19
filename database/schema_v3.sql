@@ -20,9 +20,10 @@ CREATE TABLE IF NOT EXISTS `products` (
   `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Seed default coffee treat product into the table
+-- Seed default catalog products into the table
 INSERT INTO `products` (`id`, `title_id`, `title_en`, `desc_id`, `desc_en`, `features_id`, `features_en`, `price`, `price_string`, `class_name`, `icon_name`, `category_name`, `tags`, `payment_link`) 
-VALUES (
+VALUES 
+(
   1, 
   'Traktir Kopi Kreatif', 
   'Buy Me a Coffee', 
@@ -34,7 +35,88 @@ VALUES (
   'Rp 10.000', 
   'preview-presets', 
   'coffee', 
-  'templates', 
-  'React,Vite,GSAP', 
+  'coffee', 
+  'Coffee,Support', 
   'https://pay.doku.com/p-link/p/nU6Twy06pX'
-) ON DUPLICATE KEY UPDATE `id` = `id`;
+),
+(
+  2,
+  'Website IKAFASYA UIN Malang',
+  'IKAFASYA UIN Malang Web Directory',
+  'Portal direktori jaringan alumni UIN Malang dengan antarmuka modern, responsif, dan sistem database terintegrasi. Anda dapat menguji dan mengakses website ini secara gratis.',
+  'Official alumni directory platform for UIN Malang with modern responsive interface and database integration. Free to explore and visit live demo.',
+  'Portal Direktori Alumni | Database Terintegrasi | Layout UI Responsif | Akses Live Website Demo',
+  'Alumni Directory Portal | Integrated Database | Responsive UI Layout | Live Website Demo Access',
+  0.00,
+  'GRATIS (FREE DEMO)',
+  'preview-branding',
+  'globe',
+  'free-web',
+  'Web Dev,PHP,Bootstrap',
+  'https://zeifurrohman.com/#portofolio'
+),
+(
+  3,
+  'Website IKDAR Malang',
+  'IKDAR Malang Association Web',
+  'Platform profil asosiasi dakwah dengan direktori anggota dan integrasi agenda kegiatan secara real-time. Gratis diakses sebagai karya showcase website.',
+  'Dakwah association profile platform with member directory and real-time agenda integration. Free to access as a live web showcase.',
+  'Platform Profil Organisasi | Manajemen Keanggotaan | Integrasi Agenda Real-Time | Akses Demo Website Langsung',
+  'Organization Profile Platform | Member Directory System | Real-time Agenda Integration | Live Website Demo Access',
+  0.00,
+  'GRATIS (FREE DEMO)',
+  'preview-templates',
+  'layout',
+  'free-web',
+  'Web Dev,JavaScript,CSS3',
+  'https://zeifurrohman.com/#portofolio'
+),
+(
+  4,
+  'Zeifur Studio - Premium Web Template',
+  'Zeifur Studio - Premium Web Template',
+  'Template website portofolio premium dengan desain sinematik yang dirancang khusus untuk web developer, desainer visual, dan fotografer. Menampilkan transisi GSAP ultra-mulus, SEO ready, dan kode sumber lengkap.',
+  'A premium cinematic web portfolio template designed for web developers, visual designers, and photographers. Features high-end GSAP transitions, SEO optimizations, and complete source code.',
+  'Transisi GSAP Sinematik | Optimasi SEO & CWV | Form Kontak Fungsional | Source Code & Dokumentasi',
+  'Cinematic GSAP Transitions | SEO & CWV Optimized | Functional Contact Form | Complete Source Code & Docs',
+  250000.00,
+  'Rp 250.000',
+  'preview-templates',
+  'monitor',
+  'templates',
+  'React,GSAP,Vite',
+  'https://pay.doku.com/p-link/p/nU6Twy06pX'
+),
+(
+  5,
+  'Cinematic Lightroom Presets (Wisuda & Sport)',
+  'Cinematic Lightroom Presets (Graduation & Sports)',
+  'Paket 12 preset Adobe Lightroom (.XMP & .DNG) premium hasil kurasi fotografer tersertifikasi BNSP untuk tone warna hangat sinematik pada foto wisuda, olahraga outdoor, dan dokumentasi travel.',
+  'A collection of 12 premium Adobe Lightroom presets (.XMP & .DNG) curated by a certified BNSP photographer for warm cinematic tones on graduation, sports, and travel photos.',
+  '12 Presets (.XMP & .DNG) | Tone Hangat & Cinematic | Formulasi Wisuda & Sport | Panduan Instalasi',
+  '12 Presets (.XMP & .DNG) | Warm Cinematic Tone | Graduation & Sports Formula | Installation Guide',
+  75000.00,
+  'Rp 75.000',
+  'preview-presets',
+  'sliders',
+  'presets',
+  'Presets,Lightroom',
+  'https://pay.doku.com/p-link/p/nU6Twy06pX'
+),
+(
+  6,
+  'Visual Branding & Complete UI Kit Bundle',
+  'Visual Branding & Complete UI Kit Bundle',
+  'Bundle template logo vektor, brand visual guidelines, palet warna adaptif, dan 30+ komponen UI kit minimalis siap pakai dalam format Figma, SVG, dan EPS.',
+  'A bundle of vector logo templates, brand visual guidelines, adaptive color palettes, and 30+ minimalist UI kit components in Figma, SVG, and EPS formats.',
+  '30+ Komponen UI Figma | Vektor Logo Dapat Diedit | Panduan Tipografi Lengkap | Aset Siap Ekspor',
+  '30+ Figma UI Components | Editable Vector Logo Assets | Complete Typography Guide | Ready-to-Export Assets',
+  150000.00,
+  'Rp 150.000',
+  'preview-branding',
+  'palette',
+  'branding',
+  'Figma,Branding',
+  'https://pay.doku.com/p-link/p/nU6Twy06pX'
+)
+ON DUPLICATE KEY UPDATE `id` = `id`;

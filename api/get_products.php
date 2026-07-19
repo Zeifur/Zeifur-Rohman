@@ -38,7 +38,8 @@ if ($result) {
             "icon" => $row['icon_name'],
             "category" => $row['category_name'],
             "tags" => array_values($tagsArray),
-            "paymentLink" => $row['payment_link']
+            "paymentLink" => $row['payment_link'],
+            "webLink" => $row['payment_link']
         ];
     }
     $result->free();

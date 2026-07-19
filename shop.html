@@ -1439,16 +1439,16 @@
             </div>
         </div>
 
-        <!-- Widescreen Hero Cover Banner (Matching layout in reference 2) -->
+        <!-- Widescreen Hero Cover Banner -->
         <section class="shop-cover-banner">
             <div class="shop-cover-overlay"></div>
             <div class="shop-cover-content">
                 <div class="shop-cover-accent"></div>
                 <div class="shop-cover-title">
-                    <span class="title-sub" data-translate="store_subtitle">PRODUK DIGITAL PILIHAN</span>
+                    <span class="title-sub" data-translate="store_subtitle">PRODUK DIGITAL & KARYA WEB</span>
                     <h1 class="title-main">SHOP<span>.</span></h1>
                 </div>
-                <p class="shop-cover-desc" data-translate="store_desc">Tingkatkan produktivitas dan alur kerja kreatif Anda dengan koleksi eksklusif template website premium, aset visual branding, UI kit, dan preset profesional garapan saya.</p>
+                <p class="shop-cover-desc" data-translate="store_desc">Eksplorasi karya website gratis hasil garapan saya yang dapat diakses langsung, template web premium, aset visual branding, UI kit, serta preset profesional.</p>
             </div>
         </section>
 
@@ -1531,6 +1531,24 @@
                                 <span class="popular-price">Rp 10.000</span>
                             </div>
                         </div>
+                        <div class="popular-item" onclick="openDetails(2)">
+                            <div class="popular-preview">
+                                <i data-lucide="globe" style="width:18px;height:18px;"></i>
+                            </div>
+                            <div class="popular-meta">
+                                <h4 class="popular-name">Website IKAFASYA UIN</h4>
+                                <span class="popular-price" style="color:var(--accent-color);font-weight:700;">GRATIS (FREE DEMO)</span>
+                            </div>
+                        </div>
+                        <div class="popular-item" onclick="openDetails(4)">
+                            <div class="popular-preview">
+                                <i data-lucide="monitor" style="width:18px;height:18px;"></i>
+                            </div>
+                            <div class="popular-meta">
+                                <h4 class="popular-name">Zeifur Web Template</h4>
+                                <span class="popular-price">Rp 250.000</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -1542,8 +1560,8 @@
                     </div>
                     <div class="tags-cloud" id="tags-cloud-container">
                         <button class="tag-btn active" data-tag="all" data-translate="tag_all">Semua</button>
+                        <button class="tag-btn" data-tag="Web Dev">Web Dev</button>
                         <button class="tag-btn" data-tag="React">React</button>
-                        <button class="tag-btn" data-tag="Vite">Vite</button>
                         <button class="tag-btn" data-tag="GSAP">GSAP</button>
                         <button class="tag-btn" data-tag="Figma">Figma</button>
                         <button class="tag-btn" data-tag="Presets">Presets</button>
@@ -1558,12 +1576,16 @@
                     </div>
                     <div class="categories-list" id="categories-list-container">
                         <a href="#" class="category-link active" data-category="all">
-                            <span data-translate="filter_all">SEMUA</span>
-                            <span>(1)</span>
+                            <span data-translate="filter_all">SEMUA PRODUK</span>
+                            <span id="cat-count-all">(0)</span>
+                        </a>
+                        <a href="#" class="category-link" data-category="free-web">
+                            <span data-translate="filter_free_web">KARYA WEB (FREE)</span>
+                            <span id="cat-count-free-web">(0)</span>
                         </a>
                         <a href="#" class="category-link" data-category="templates">
                             <span data-translate="filter_templates">TEMPLATE WEB</span>
-                            <span id="cat-count-templates">(1)</span>
+                            <span id="cat-count-templates">(0)</span>
                         </a>
                         <a href="#" class="category-link" data-category="branding">
                             <span data-translate="filter_branding">ASET BRANDING</span>
@@ -1743,16 +1765,98 @@
         const productsData = {
             1: {
                 id: 1,
-                titleKey: "p1_title",
-                descKey: "p1_desc",
-                featuresKey: "p1_features",
-                catKey: "filter_templates",
+                title_id: "Traktir Kopi Kreatif",
+                title_en: "Buy Me a Coffee",
+                desc_id: "Dukung karya dan kreativitas saya dengan mentraktir secangkir kopi hangat senilai Rp 10.000 melalui gerbang pembayaran DOKU / QRIS.",
+                desc_en: "Support my creative projects and work by buying me a warm cup of coffee worth Rp 10,000 via DOKU / QRIS Gateway.",
+                features_id: "Secangkir Kopi Hangat | Dukungan Kreator | DOKU & QRIS Gateway | Ucapan Terima Kasih",
+                features_en: "One Hot Cup of Coffee | Creator Support | DOKU & QRIS Gateway | Heartfelt Appreciation",
                 priceNumeric: 10000,
                 priceString: "Rp 10.000",
                 class: "preview-presets",
                 icon: "coffee",
+                category: "coffee",
+                tags: ["Coffee", "Support"],
+                paymentLink: "https://pay.doku.com/p-link/p/nU6Twy06pX"
+            },
+            2: {
+                id: 2,
+                title_id: "Website IKAFASYA UIN Malang",
+                title_en: "IKAFASYA UIN Malang Web Directory",
+                desc_id: "Portal direktori jaringan alumni UIN Malang dengan antarmuka modern, responsif, dan sistem database terintegrasi. Anda dapat menguji dan mengakses website ini secara gratis.",
+                desc_en: "Official alumni directory platform for UIN Malang with modern responsive interface and database integration. Free to explore and visit live demo.",
+                features_id: "Portal Direktori Alumni | Database Terintegrasi | Layout UI Responsif | Akses Live Website Demo",
+                features_en: "Alumni Directory Portal | Integrated Database | Responsive UI Layout | Live Website Demo Access",
+                priceNumeric: 0,
+                priceString: "GRATIS (FREE DEMO)",
+                class: "preview-branding",
+                icon: "globe",
+                category: "free-web",
+                tags: ["Web Dev", "PHP", "Bootstrap"],
+                webLink: "https://zeifurrohman.com/#portofolio"
+            },
+            3: {
+                id: 3,
+                title_id: "Website IKDAR Malang",
+                title_en: "IKDAR Malang Association Web",
+                desc_id: "Platform profil asosiasi dakwah dengan direktori anggota dan integrasi agenda kegiatan secara real-time. Gratis diakses sebagai karya showcase website.",
+                desc_en: "Dakwah association profile platform with member directory and real-time agenda integration. Free to access as a live web showcase.",
+                features_id: "Platform Profil Organisasi | Manajemen Keanggotaan | Integrasi Agenda Real-Time | Akses Demo Website Langsung",
+                features_en: "Organization Profile Platform | Member Directory System | Real-time Agenda Integration | Live Website Demo Access",
+                priceNumeric: 0,
+                priceString: "GRATIS (FREE DEMO)",
+                class: "preview-templates",
+                icon: "layout",
+                category: "free-web",
+                tags: ["Web Dev", "JavaScript", "CSS3"],
+                webLink: "https://zeifurrohman.com/#portofolio"
+            },
+            4: {
+                id: 4,
+                title_id: "Zeifur Studio - Premium Web Template",
+                title_en: "Zeifur Studio - Premium Web Template",
+                desc_id: "Template website portofolio premium dengan desain sinematik yang dirancang khusus untuk web developer, desainer visual, dan fotografer. Menampilkan transisi GSAP ultra-mulus, SEO ready, dan kode sumber lengkap.",
+                desc_en: "A premium cinematic web portfolio template designed for web developers, visual designers, and photographers. Features high-end GSAP transitions, SEO optimizations, and complete source code.",
+                features_id: "Transisi GSAP Sinematik | Optimasi SEO & CWV | Form Kontak Fungsional | Source Code & Dokumentasi",
+                features_en: "Cinematic GSAP Transitions | SEO & CWV Optimized | Functional Contact Form | Complete Source Code & Docs",
+                priceNumeric: 250000,
+                priceString: "Rp 250.000",
+                class: "preview-templates",
+                icon: "monitor",
                 category: "templates",
-                tags: ["React", "Vite", "GSAP"],
+                tags: ["React", "GSAP", "Vite"],
+                paymentLink: "https://pay.doku.com/p-link/p/nU6Twy06pX"
+            },
+            5: {
+                id: 5,
+                title_id: "Cinematic Lightroom Presets (Wisuda & Sport)",
+                title_en: "Cinematic Lightroom Presets (Graduation & Sports)",
+                desc_id: "Paket 12 preset Adobe Lightroom (.XMP & .DNG) premium hasil kurasi fotografer tersertifikasi BNSP untuk tone warna hangat sinematik pada foto wisuda, olahraga outdoor, dan dokumentasi travel.",
+                desc_en: "A collection of 12 premium Adobe Lightroom presets (.XMP & .DNG) curated by a certified BNSP photographer for warm cinematic tones on graduation, sports, and travel photos.",
+                features_id: "12 Presets (.XMP & .DNG) | Tone Hangat & Cinematic | Formulasi Wisuda & Sport | Panduan Instalasi",
+                features_en: "12 Presets (.XMP & .DNG) | Warm Cinematic Tone | Graduation & Sports Formula | Installation Guide",
+                priceNumeric: 75000,
+                priceString: "Rp 75.000",
+                class: "preview-presets",
+                icon: "sliders",
+                category: "presets",
+                tags: ["Presets", "Lightroom"],
+                paymentLink: "https://pay.doku.com/p-link/p/nU6Twy06pX"
+            },
+            6: {
+                id: 6,
+                title_id: "Visual Branding & Complete UI Kit Bundle",
+                title_en: "Visual Branding & Complete UI Kit Bundle",
+                desc_id: "Bundle template logo vektor, brand visual guidelines, palet warna adaptif, dan 30+ komponen UI kit minimalis siap pakai dalam format Figma, SVG, dan EPS.",
+                desc_en: "A bundle of vector logo templates, brand visual guidelines, adaptive color palettes, and 30+ minimalist UI kit components in Figma, SVG, and EPS formats.",
+                features_id: "30+ Komponen UI Figma | Vektor Logo Dapat Diedit | Panduan Tipografi Lengkap | Aset Siap Ekspor",
+                features_en: "30+ Figma UI Components | Editable Vector Logo Assets | Complete Typography Guide | Ready-to-Export Assets",
+                priceNumeric: 150000,
+                priceString: "Rp 150.000",
+                class: "preview-branding",
+                icon: "palette",
+                category: "branding",
+                tags: ["Figma", "Branding"],
                 paymentLink: "https://pay.doku.com/p-link/p/nU6Twy06pX"
             }
         };
@@ -1765,7 +1869,7 @@
         let maxFilterPrice = 300000;
         let activeSorting = "latest";
         let currentPage = 1;
-        const productsPerPage = 3;
+        const productsPerPage = 6;
 
         // Custom Cursor Logic
         const cursor = document.querySelector('.cursor');
@@ -1937,8 +2041,24 @@
                     const card = document.createElement('div');
                     card.className = "product-card";
                     
-                    const badgeText = prod.id === 1 ? (dict['product_new'] || 'BARU') : (prod.id === 2 ? (dict['product_popular'] || 'POPULER') : '');
+                    let badgeText = "";
+                    if (prod.priceNumeric === 0 || prod.category === 'free-web') {
+                        badgeText = dict['badge_karya_web'] || 'KARYA WEB';
+                    } else if (prod.id === 4) {
+                        badgeText = dict['badge_premium'] || 'PREMIUM';
+                    } else if (prod.id === 5) {
+                        badgeText = dict['product_popular'] || 'POPULER';
+                    } else if (prod.id === 6) {
+                        badgeText = dict['product_new'] || 'BARU';
+                    }
                     const badgeHtml = badgeText ? `<span class="card-badge">${badgeText}</span>` : '';
+
+                    const isFree = prod.priceNumeric === 0 || prod.category === 'free-web';
+                    const priceDisplay = isFree ? (dict['price_free'] || 'GRATIS (FREE DEMO)') : prod.priceString;
+                    const priceColor = isFree ? 'style="color: var(--accent-color); font-weight: 800;"' : '';
+                    
+                    const buyBtnText = isFree ? (dict['btn_visit_website'] || 'AKSES WEBSITE') : (dict['btn_buy'] || 'BELI');
+                    const buyAction = isFree && prod.webLink ? `window.open('${prod.webLink}', '_blank')` : `triggerDirectBuy(${prod.id})`;
 
                     card.innerHTML = `
                         <div class="product-preview">
@@ -1949,11 +2069,11 @@
                             </div>
                         </div>
                         <div class="product-info">
-                            <h3 class="product-name">${(currentLang === 'en' ? prod.title_en : prod.title_id) || dict[prod.titleKey] || prod.titleKey}</h3>
-                            <div class="product-price-tag">${prod.priceString}</div>
+                            <h3 class="product-name">${(currentLang === 'en' ? prod.title_en : prod.title_id) || dict[prod.titleKey] || prod.title_id || prod.titleKey}</h3>
+                            <div class="product-price-tag" ${priceColor}>${priceDisplay}</div>
                             <div class="product-buttons">
                                 <button class="btn-store-detail" onclick="openDetails(${prod.id})">${dict['btn_details'] || 'DETAIL'}</button>
-                                <button class="btn-store-buy" onclick="triggerDirectBuy(${prod.id})">${dict['btn_buy'] || 'BELI'}</button>
+                                <button class="btn-store-buy" onclick="${buyAction}">${buyBtnText}</button>
                             </div>
                         </div>
                     `;
@@ -2019,7 +2139,7 @@
 
         // Dynamic category count calculation
         function updateCategoryCounts() {
-            let counts = { all: 0, templates: 0, branding: 0, presets: 0 };
+            let counts = { all: 0, 'free-web': 0, templates: 0, branding: 0, presets: 0 };
             Object.values(productsData).forEach(prod => {
                 if (prod.id === 1) return; // Exclude Traktir Kopi from counts
                 counts.all++;
@@ -2029,9 +2149,12 @@
             });
 
             // Update DOM
-            const allLink = document.querySelector('.category-link[data-category="all"] span:not([data-translate])');
-            if (allLink) allLink.textContent = `(${counts.all})`;
-            
+            const allEl = document.getElementById('cat-count-all');
+            if (allEl) allEl.textContent = `(${counts.all})`;
+
+            const freeWebEl = document.getElementById('cat-count-free-web');
+            if (freeWebEl) freeWebEl.textContent = `(${counts['free-web']})`;
+
             const tempEl = document.getElementById('cat-count-templates');
             if (tempEl) tempEl.textContent = `(${counts.templates})`;
             
@@ -2236,24 +2359,27 @@
         window.openDetails = function(id) {
             currentActiveProductId = id;
             const product = productsData[id];
+            if (!product) return;
             
             const currentLang = localStorage.getItem('preferred_language') || 'id';
             const dict = translations[currentLang] || translations['id'];
 
             const banner = document.getElementById('modal-banner');
-            banner.className = `detail-preview-banner ${product.class}`;
-            banner.innerHTML = `<div class="preview-decorations"></div><div class="preview-icon-wrapper"><i data-lucide="${product.icon}" style="width:36px;height:36px;"></i></div>`;
+            banner.className = `detail-preview-banner ${product.class || 'preview-templates'}`;
+            banner.innerHTML = `<div class="preview-decorations"></div><div class="preview-icon-wrapper"><i data-lucide="${product.icon || 'globe'}" style="width:36px;height:36px;"></i></div>`;
+            
             const categoryKey = product.catKey || 'filter_' + product.category;
             document.getElementById('modal-cat').setAttribute('data-translate', categoryKey);
             document.getElementById('modal-cat').textContent = dict[categoryKey] || product.category || "";
             
-            const title = (currentLang === 'en' ? product.title_en : product.title_id) || dict[product.titleKey] || product.titleKey;
+            const title = (currentLang === 'en' ? product.title_en : product.title_id) || dict[product.titleKey] || product.title_id || product.titleKey;
             document.getElementById('modal-title').textContent = title;
             
-            const desc = (currentLang === 'en' ? product.desc_en : product.desc_id) || dict[product.descKey] || product.descKey;
+            const desc = (currentLang === 'en' ? product.desc_en : product.desc_id) || dict[product.descKey] || product.desc_id || product.descKey;
             document.getElementById('modal-desc').textContent = desc;
  
-            document.getElementById('modal-price').textContent = product.priceString;
+            const isFree = product.priceNumeric === 0 || product.category === 'free-web';
+            document.getElementById('modal-price').textContent = isFree ? (dict['price_free'] || 'GRATIS (FREE DEMO)') : product.priceString;
  
             const list = document.getElementById('modal-features');
             list.innerHTML = "";
@@ -2267,12 +2393,21 @@
             });
 
             const checkoutBtn = document.getElementById('modal-checkout-btn');
-            checkoutBtn.onclick = () => {
-                closeDetails();
-                setTimeout(() => {
-                    triggerDirectBuy(id);
-                }, 400);
-            };
+            if (isFree && product.webLink) {
+                checkoutBtn.innerHTML = `<i data-lucide="external-link" style="width:16px;height:16px;"></i> <span>${dict['btn_visit_website'] || 'AKSES WEBSITE LANGSUNG'}</span>`;
+                checkoutBtn.onclick = () => {
+                    closeDetails();
+                    window.open(product.webLink, '_blank');
+                };
+            } else {
+                checkoutBtn.innerHTML = `<i data-lucide="shopping-cart" style="width:16px;height:16px;"></i> <span>${dict['btn_buy'] || 'BELI SEKARANG'}</span>`;
+                checkoutBtn.onclick = () => {
+                    closeDetails();
+                    setTimeout(() => {
+                        triggerDirectBuy(id);
+                    }, 400);
+                };
+            }
 
             lucide.createIcons();
 

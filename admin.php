@@ -41,15 +41,15 @@ if ($isLoggedIn && $db) {
         $features_id = trim($_POST['features_id'] ?? '');
         $features_en = trim($_POST['features_en'] ?? '');
         $price = floatval($_POST['price'] ?? 0);
-        $price_string = "Rp " . number_format($price, 0, ',', '.');
+        $price_string = ($price == 0) ? 'GRATIS (FREE DEMO)' : ("Rp " . number_format($price, 0, ',', '.'));
         $class_name = trim($_POST['class_name'] ?? 'preview-presets');
         $icon_name = trim($_POST['icon_name'] ?? 'coffee');
         $category_name = trim($_POST['category_name'] ?? 'templates');
         $tags = trim($_POST['tags'] ?? 'Vite,GSAP');
         $payment_link = trim($_POST['payment_link'] ?? '');
         
-        if (empty($title_id) || empty($title_en) || empty($desc_id) || empty($desc_en) || $price <= 0 || empty($payment_link)) {
-            $crudError = 'Judul, deskripsi, harga, dan payment link wajib diisi.';
+        if (empty($title_id) || empty($title_en) || empty($desc_id) || empty($desc_en) || $price < 0 || empty($payment_link)) {
+            $crudError = 'Judul, deskripsi, harga, dan payment link / demo link wajib diisi.';
         } else {
             if ($action === 'add') {
                 $stmt = $db->prepare("INSERT INTO `products` (`title_id`, `title_en`, `desc_id`, `desc_en`, `features_id`, `features_en`, `price`, `price_string`, `class_name`, `icon_name`, `category_name`, `tags`, `payment_link`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -825,6 +825,7 @@ if ($isLoggedIn && $db) {
                                 <div class="form-group">
                                     <label for="category_name">Kategori</label>
                                     <select id="category_name" name="category_name" class="form-input" style="background:#000;">
+                                        <option value="free-web">KARYA WEB (FREE DEMO)</option>
                                         <option value="templates">TEMPLATE WEB</option>
                                         <option value="branding">ASET BRANDING</option>
                                         <option value="presets">PRESET & UI KIT</option>
