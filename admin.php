@@ -93,6 +93,8 @@ if ($isLoggedIn && $db) {
                 $stmt->bind_param("ssssssdsssssss", $title_id, $title_en, $desc_id, $desc_en, $features_id, $features_en, $price, $price_string, $class_name, $icon_name, $category_name, $tags, $payment_link, $image_url);
                 if ($stmt->execute()) {
                     $crudSuccess = 'Produk berhasil ditambahkan!';
+                    @$db->query("UPDATE `products` SET `image` = `image_url` WHERE `image_url` IS NOT NULL AND `image_url` != ''");
+                    @$db->query("UPDATE `products` SET `image_url` = `image` WHERE `image` IS NOT NULL AND `image` != '' AND (`image_url` IS NULL OR `image_url` = '')");
                 } else {
                     $crudError = 'Gagal menambahkan produk: ' . $stmt->error;
                 }
@@ -102,9 +104,9 @@ if ($isLoggedIn && $db) {
                 
                 // If editing and no new image upload/URL provided, keep existing image_url from DB
                 if (empty($image_url)) {
-                    $existingCheck = $db->query("SELECT `image_url` FROM `products` WHERE `id` = $id");
+                    $existingCheck = $db->query("SELECT * FROM `products` WHERE `id` = $id");
                     if ($existingCheck && $row = $existingCheck->fetch_assoc()) {
-                        $image_url = $row['image_url'] ?? '';
+                        $image_url = !empty($row['image_url']) ? $row['image_url'] : ($row['image'] ?? '');
                     }
                 }
                 
@@ -112,6 +114,9 @@ if ($isLoggedIn && $db) {
                 $stmt->bind_param("ssssssdsssssssi", $title_id, $title_en, $desc_id, $desc_en, $features_id, $features_en, $price, $price_string, $class_name, $icon_name, $category_name, $tags, $payment_link, $image_url, $id);
                 if ($stmt->execute()) {
                     $crudSuccess = 'Produk berhasil diperbarui!';
+                    // Sync image and image_url columns if both exist in MySQL database
+                    @$db->query("UPDATE `products` SET `image` = `image_url` WHERE `image_url` IS NOT NULL AND `image_url` != ''");
+                    @$db->query("UPDATE `products` SET `image_url` = `image` WHERE `image` IS NOT NULL AND `image` != '' AND (`image_url` IS NULL OR `image_url` = '')");
                 } else {
                     $crudError = 'Gagal memperbarui produk: ' . $stmt->error;
                 }

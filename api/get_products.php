@@ -24,6 +24,13 @@ if ($result) {
         $tagsArray = array_map('trim', explode(',', $row['tags']));
         $tagsArray = array_filter($tagsArray);
         
+        $img = "";
+        if (!empty($row['image_url'])) {
+            $img = $row['image_url'];
+        } elseif (!empty($row['image'])) {
+            $img = $row['image'];
+        }
+        
         $products[$id] = [
             "id" => $id,
             "title_id" => $row['title_id'],
@@ -40,7 +47,8 @@ if ($result) {
             "tags" => array_values($tagsArray),
             "paymentLink" => $row['payment_link'],
             "webLink" => $row['payment_link'],
-            "image" => !empty($row['image_url']) ? $row['image_url'] : ""
+            "image" => $img,
+            "image_url" => $img
         ];
     }
     $result->free();

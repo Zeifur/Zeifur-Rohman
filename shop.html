@@ -2531,13 +2531,14 @@
                         buyAction = `window.open('${prod.dokuStoreUrl || prod.paymentLink}', '_blank', 'noopener,noreferrer')`;
                     }
 
-                    const previewContentHtml = prod.image
-                        ? `<div style="width:100%; height:100%; display:flex; justify-content:center; align-items:center; background:#08090a; padding:15px; position:relative;">
-                             <img src="${prod.image}" alt="${prod.title_id}" style="max-height:100%; max-width:100%; object-fit:contain; filter:drop-shadow(0 8px 16px rgba(0,0,0,0.6)); border-radius:6px; transition:transform 0.3s ease;" class="card-cover-img">
+                    const prodImgSrc = prod.image || prod.image_url || "";
+                    const previewContentHtml = prodImgSrc
+                        ? `<div style="width:100%; height:100%; display:flex; justify-content:center; align-items:center; background:#08090a; position:relative; overflow:hidden;">
+                             <img src="${prodImgSrc}" alt="${prod.title_id || 'Produk'}" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" class="card-cover-img" onerror="this.onerror=null; this.parentElement.innerHTML='<div style=\'width:100%;height:100%;display:flex;justify-content:center;align-items:center;background:linear-gradient(135deg, rgba(20,22,22,0.8), rgba(6,8,8,0.9));\'><i data-lucide=\'${prod.icon || 'package'}\' style=\'width:48px;height:48px;color:var(--accent-color);\'></i></div>'; lucide.createIcons();">
                            </div>`
                         : `<div style="width:100%; height:100%; display:flex; justify-content:center; align-items:center; background: linear-gradient(135deg, rgba(20,22,22,0.8), rgba(6,8,8,0.9)); position:relative;">
                              <div style="position:absolute; width:100%; height:100%; opacity:0.15; background-image:radial-gradient(var(--accent-color) 1px, transparent 1px); background-size:15px 15px;"></div>
-                             <i data-lucide="${prod.icon}" style="width:48px;height:48px;color:var(--accent-color);z-index:2;"></i>
+                             <i data-lucide="${prod.icon || 'package'}" style="width:48px;height:48px;color:var(--accent-color);z-index:2;"></i>
                            </div>`;
 
                     card.innerHTML = `
@@ -3125,6 +3126,16 @@
                         delete productsData[key];
                     }
                     Object.assign(productsData, data);
+
+                    // Update CapKarya showcase image dynamically if custom image exists in database
+                    const capKaryaProd = Object.values(productsData).find(p => p.id === 2 || (p.title_id && p.title_id.toLowerCase().includes('capkarya')));
+                    if (capKaryaProd) {
+                        const capImg = capKaryaProd.image || capKaryaProd.image_url;
+                        if (capImg) {
+                            const capImgEl = document.getElementById('capkarya-preview-img');
+                            if (capImgEl) capImgEl.src = capImg;
+                        }
+                    }
                 }
             } catch (error) {
                 console.warn("Database offline or local file mode. Loading default static product.", error);
