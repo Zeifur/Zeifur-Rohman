@@ -185,7 +185,7 @@ const translations = {
         menu_link_clients: "MITRA & TESTIMONI",
         menu_link_portfolio: "PORTOFOLIO Karya",
         menu_link_blog: "BLOG KREATIF",
-        menu_link_shop: "TOKO KREATIF",
+        menu_link_shop: "PRODUK KREATIF",
         menu_contact_subtitle: "HUBUNGI SAYA",
         
         // Sub-nav & Menu Links (Sticky bar & Menu panel)
@@ -198,7 +198,7 @@ const translations = {
         sub_clients: "MITRA",
         sub_portfolio: "PORTOFOLIO",
 
-        // Coming Soon Pages (blog.html & shop.html)
+        // Coming Soon Pages (blog & shop)
         cs_back: "KEMBALI KE BERANDA",
         cs_badge: "SEGERA HADIR",
         cs_copy: "© 2026 Zeifur Rohman / All rights reserved.",
@@ -206,7 +206,7 @@ const translations = {
         blog_cover_title_sub: "OLEH ZEIFUR ROHMAN",
         blog_desc: "Wawasan mendalam, panduan teknis, dan eksplorasi kreatif seputar pengembangan web modern, filosofi branding visual, dan karya seni fotografi profesional oleh Zeifur Rohman.",
         cs_status_blog: "TAHAP SEKARANG: PENGEMBANGAN",
-        shop_desc: "Saya sedang mengurasi storefront toko digital premium yang menampilkan template website berkualitas tinggi, aset branding visual orisinal, UI kit, dan preset profesional. Nantikan pembaruannya.",
+        shop_desc: "Eksplorasi karya website gratis hasil garapan saya yang dapat diakses langsung, template web premium, aset visual branding, UI kit, serta preset profesional.",
         cs_status_shop: "TAHAP SEKARANG: KURASI ASET",
         // Blog Page Translations
         blog_about_author_title: "TENTANG PENULIS",
@@ -294,7 +294,7 @@ const translations = {
         payment_success_title: "PEMBAYARAN SIMULASI BERHASIL",
         payment_success_desc: "Terima kasih! Kami telah mensimulasikan checkout DOKU Anda dengan sukses. Link download produk digital telah dikirimkan ke email Anda.",
         close_modal: "TUTUP",
-        back_to_shop: "KEMBALI KE TOKO",
+        back_to_shop: "KEMBALI KE PRODUK KREATIF",
         
         // Products
         p1_title: "Traktir Kopi Kreatif",
@@ -515,7 +515,7 @@ const translations = {
         menu_link_clients: "PARTNERS & TESTIMONIALS",
         menu_link_portfolio: "PORTFOLIO WORK",
         menu_link_blog: "BLOG",
-        menu_link_shop: "SHOP",
+        menu_link_shop: "CREATIVE PRODUCTS",
         menu_contact_subtitle: "GET IN TOUCH",
         
         // Sub-nav & Menu Links (Sticky bar & Menu panel)
