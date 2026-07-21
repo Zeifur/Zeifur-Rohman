@@ -31,6 +31,18 @@ $crudError = '';
 $crudSuccess = '';
 
 if ($isLoggedIn && $db) {
+    // Auto-migration: Check if image_url column exists in products table, add if missing
+    $colCheck = $db->query("SHOW COLUMNS FROM `products` LIKE 'image_url'");
+    if ($colCheck && $colCheck->num_rows === 0) {
+        @$db->query("ALTER TABLE `products` ADD COLUMN `image_url` VARCHAR(255) NULL AFTER `payment_link`");
+    }
+
+    // Ensure upload directory exists
+    $uploadDir = 'uploads/products/';
+    if (!file_exists($uploadDir)) {
+        @mkdir($uploadDir, 0777, true);
+    }
+
     // 1. ADD / EDIT PRODUCT
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         $action = $_POST['action'];
@@ -47,13 +59,32 @@ if ($isLoggedIn && $db) {
         $category_name = trim($_POST['category_name'] ?? 'templates');
         $tags = trim($_POST['tags'] ?? 'Vite,GSAP');
         $payment_link = trim($_POST['payment_link'] ?? '');
+        $image_url = trim($_POST['image_url_text'] ?? '');
+        
+        // Handle File Upload if provided
+        if (isset($_FILES['product_image']) && $_FILES['product_image']['error'] === UPLOAD_ERR_OK) {
+            $fileTmpPath = $_FILES['product_image']['tmp_name'];
+            $fileName = $_FILES['product_image']['name'];
+            $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+            
+            $allowedExtensions = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'svg'];
+            if (in_array($fileExtension, $allowedExtensions)) {
+                $newFileName = 'prod_' . time() . '_' . substr(md5(uniqid()), 0, 8) . '.' . $fileExtension;
+                $destPath = $uploadDir . $newFileName;
+                if (move_uploaded_file($fileTmpPath, $destPath)) {
+                    $image_url = $destPath;
+                }
+            } else {
+                $crudError = 'Format file gambar tidak didukung. Gunakan JPG, PNG, WEBP, GIF, atau SVG.';
+            }
+        }
         
         if (empty($title_id) || empty($title_en) || empty($desc_id) || empty($desc_en) || $price < 0 || empty($payment_link)) {
             $crudError = 'Judul, deskripsi, harga, dan payment link / demo link wajib diisi.';
         } else {
             if ($action === 'add') {
-                $stmt = $db->prepare("INSERT INTO `products` (`title_id`, `title_en`, `desc_id`, `desc_en`, `features_id`, `features_en`, `price`, `price_string`, `class_name`, `icon_name`, `category_name`, `tags`, `payment_link`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                $stmt->bind_param("ssssssdssssss", $title_id, $title_en, $desc_id, $desc_en, $features_id, $features_en, $price, $price_string, $class_name, $icon_name, $category_name, $tags, $payment_link);
+                $stmt = $db->prepare("INSERT INTO `products` (`title_id`, `title_en`, `desc_id`, `desc_en`, `features_id`, `features_en`, `price`, `price_string`, `class_name`, `icon_name`, `category_name`, `tags`, `payment_link`, `image_url`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param("ssssssdsssssss", $title_id, $title_en, $desc_id, $desc_en, $features_id, $features_en, $price, $price_string, $class_name, $icon_name, $category_name, $tags, $payment_link, $image_url);
                 if ($stmt->execute()) {
                     $crudSuccess = 'Produk berhasil ditambahkan!';
                 } else {
@@ -62,8 +93,17 @@ if ($isLoggedIn && $db) {
                 $stmt->close();
             } elseif ($action === 'edit') {
                 $id = intval($_POST['id']);
-                $stmt = $db->prepare("UPDATE `products` SET `title_id` = ?, `title_en` = ?, `desc_id` = ?, `desc_en` = ?, `features_id` = ?, `features_en` = ?, `price` = ?, `price_string` = ?, `class_name` = ?, `icon_name` = ?, `category_name` = ?, `tags` = ?, `payment_link` = ? WHERE `id` = ?");
-                $stmt->bind_param("ssssssdssssssi", $title_id, $title_en, $desc_id, $desc_en, $features_id, $features_en, $price, $price_string, $class_name, $icon_name, $category_name, $tags, $payment_link, $id);
+                
+                // If editing and no new image upload/URL provided, keep existing image_url from DB
+                if (empty($image_url)) {
+                    $existingCheck = $db->query("SELECT `image_url` FROM `products` WHERE `id` = $id");
+                    if ($existingCheck && $row = $existingCheck->fetch_assoc()) {
+                        $image_url = $row['image_url'] ?? '';
+                    }
+                }
+                
+                $stmt = $db->prepare("UPDATE `products` SET `title_id` = ?, `title_en` = ?, `desc_id` = ?, `desc_en` = ?, `features_id` = ?, `features_en` = ?, `price` = ?, `price_string` = ?, `class_name` = ?, `icon_name` = ?, `category_name` = ?, `tags` = ?, `payment_link` = ?, `image_url` = ? WHERE `id` = ?");
+                $stmt->bind_param("ssssssdsssssssi", $title_id, $title_en, $desc_id, $desc_en, $features_id, $features_en, $price, $price_string, $class_name, $icon_name, $category_name, $tags, $payment_link, $image_url, $id);
                 if ($stmt->execute()) {
                     $crudSuccess = 'Produk berhasil diperbarui!';
                 } else {
@@ -715,8 +755,12 @@ if ($isLoggedIn && $db) {
                                             <tr>
                                                 <td>
                                                     <div class="tbl-product-meta">
-                                                        <div class="tbl-product-icon">
-                                                            <i data-lucide="<?php echo htmlspecialchars($prod['icon_name']); ?>" style="width:16px;height:16px;"></i>
+                                                        <div class="tbl-product-icon" style="overflow:hidden; border-radius:6px; background:#111; width:40px; height:40px;">
+                                                            <?php if (!empty($prod['image_url'])): ?>
+                                                                <img src="<?php echo htmlspecialchars($prod['image_url']); ?>" alt="Thumb" style="width:100%;height:100%;object-fit:cover;">
+                                                            <?php else: ?>
+                                                                <i data-lucide="<?php echo htmlspecialchars($prod['icon_name']); ?>" style="width:18px;height:18px;"></i>
+                                                            <?php endif; ?>
                                                         </div>
                                                         <div>
                                                             <strong style="color:#fff;"><?php echo htmlspecialchars($prod['title_id']); ?></strong>
@@ -774,7 +818,7 @@ if ($isLoggedIn && $db) {
                         <div class="card-header">
                             <h3 class="card-title" id="form-card-title"><i data-lucide="plus-circle" style="color:var(--accent-color);"></i> Tambah Produk Baru</h3>
                         </div>
-                        <form method="POST" action="admin.php" id="crud-product-form">
+                        <form method="POST" action="admin.php" id="crud-product-form" enctype="multipart/form-data">
                             <input type="hidden" name="action" id="form-action" value="add">
                             <input type="hidden" name="id" id="form-product-id" value="">
 
@@ -865,6 +909,30 @@ if ($isLoggedIn && $db) {
                                 <input type="text" id="tags" name="tags" class="form-input" placeholder="Vite,GSAP,React">
                             </div>
 
+                            <!-- Product Image Upload & URL -->
+                            <div class="form-group" style="background: rgba(0,0,0,0.35); border: 1px dashed var(--border-color); padding: 18px; border-radius: 0 0 14px 0; margin-bottom: 25px;">
+                                <label style="color:#fff; font-weight:700; display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+                                    <i data-lucide="image" style="width:16px;height:16px;color:var(--accent-color);"></i> Gambar Display Produk (Tampilan Jualan)
+                                </label>
+                                <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap;">
+                                    <div id="image-preview-container" style="width:80px; height:80px; background:rgba(0,0,0,0.6); border:1px solid var(--border-color); border-radius:10px; display:flex; justify-content:center; align-items:center; overflow:hidden; flex-shrink:0; position:relative;">
+                                        <img id="img-preview" src="" alt="Preview" style="width:100%; height:100%; object-fit:cover; display:none;">
+                                        <div id="img-placeholder-box" style="text-align:center;">
+                                            <i data-lucide="image" style="width:24px; height:24px; color:var(--muted-text);"></i>
+                                            <div style="font-size:0.65rem; color:var(--muted-text); margin-top:2px;">No Image</div>
+                                        </div>
+                                    </div>
+                                    <div style="flex-grow:1; min-width:200px;">
+                                        <label for="product_image" style="font-size:0.78rem; color:var(--text-main); font-weight:500;">Upload File Gambar Baru</label>
+                                        <input type="file" id="product_image" name="product_image" accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml" class="form-input" style="padding:8px 12px; font-size:0.8rem; margin-top:4px;" onchange="previewSelectedImage(this)">
+                                        <div style="font-size:0.7rem; color:var(--muted-text); margin-top:3px;">Format: JPG, PNG, WEBP, SVG (Otomatis disimpan di server)</div>
+
+                                        <label for="image_url_text" style="font-size:0.78rem; color:var(--text-main); font-weight:500; margin-top:12px; display:block;">Atau URL / Path Asset Gambar</label>
+                                        <input type="text" id="image_url_text" name="image_url_text" class="form-input" placeholder="Contoh: assets/images/ebook/ebook-cover-1.png" style="margin-top:4px;" oninput="previewUrlImage(this.value)">
+                                    </div>
+                                </div>
+                            </div>
+
                             <!-- DOKU Payment URL -->
                             <div class="form-group" style="margin-bottom: 30px;">
                                 <label for="payment_link" style="color:#ff6b6b;font-weight:700;">DOKU Payment Link / Multiple Payment URL</label>
@@ -898,6 +966,43 @@ if ($isLoggedIn && $db) {
             }
         });
 
+        function updateImagePreview(src) {
+            const imgPreview = document.getElementById('img-preview');
+            const placeholderBox = document.getElementById('img-placeholder-box');
+            if (src && src.trim() !== '') {
+                imgPreview.src = src;
+                imgPreview.style.display = 'block';
+                if (placeholderBox) placeholderBox.style.display = 'none';
+            } else {
+                imgPreview.src = '';
+                imgPreview.style.display = 'none';
+                if (placeholderBox) placeholderBox.style.display = 'block';
+            }
+        }
+
+        function previewSelectedImage(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    updateImagePreview(e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function previewUrlImage(url) {
+            if (url && url.trim() !== '') {
+                updateImagePreview(url);
+            } else {
+                const fileInput = document.getElementById('product_image');
+                if (fileInput && fileInput.files && fileInput.files[0]) {
+                    previewSelectedImage(fileInput);
+                } else {
+                    updateImagePreview('');
+                }
+            }
+        }
+
         // Edit mode configuration
         function editProduct(product) {
             document.getElementById('form-card-title').innerHTML = '<i data-lucide="edit-3" style="color:var(--accent-color);"></i> Edit Produk: ' + product.title_id;
@@ -910,8 +1015,8 @@ if ($isLoggedIn && $db) {
             document.getElementById('desc_en').value = product.desc_en;
             
             // Re-join pipe separated lists for text inputs
-            document.getElementById('features_id').value = product.features_id.replace(/ \| /g, ' | ');
-            document.getElementById('features_en').value = product.features_en.replace(/ \| /g, ' | ');
+            document.getElementById('features_id').value = product.features_id ? product.features_id.replace(/ \| /g, ' | ') : '';
+            document.getElementById('features_en').value = product.features_en ? product.features_en.replace(/ \| /g, ' | ') : '';
             
             document.getElementById('price').value = parseInt(product.price);
             document.getElementById('category_name').value = product.category_name;
@@ -919,6 +1024,11 @@ if ($isLoggedIn && $db) {
             document.getElementById('class_name').value = product.class_name;
             document.getElementById('tags').value = product.tags;
             document.getElementById('payment_link').value = product.payment_link;
+            
+            const imageUrl = product.image_url || '';
+            document.getElementById('image_url_text').value = imageUrl;
+            document.getElementById('product_image').value = '';
+            updateImagePreview(imageUrl);
             
             document.getElementById('btn-submit-form').innerHTML = '<i data-lucide="refresh-cw" style="width:16px;height:16px;"></i> UPDATE PRODUK';
             document.getElementById('btn-cancel-edit').style.display = 'block';
@@ -932,6 +1042,7 @@ if ($isLoggedIn && $db) {
             document.getElementById('form-action').value = 'add';
             document.getElementById('form-product-id').value = '';
             document.getElementById('crud-product-form').reset();
+            updateImagePreview('');
             
             document.getElementById('btn-submit-form').innerHTML = '<i data-lucide="save" style="width:16px;height:16px;"></i> SIMPAN PRODUK';
             document.getElementById('btn-cancel-edit').style.display = 'none';

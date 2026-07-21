@@ -16,12 +16,13 @@ CREATE TABLE IF NOT EXISTS `products` (
   `category_name` VARCHAR(50) NOT NULL DEFAULT 'templates',
   `tags` VARCHAR(255) NOT NULL DEFAULT 'Vite,GSAP',
   `payment_link` TEXT NOT NULL,
+  `image_url` VARCHAR(255) DEFAULT NULL,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Seed default catalog products into the table
-INSERT INTO `products` (`id`, `title_id`, `title_en`, `desc_id`, `desc_en`, `features_id`, `features_en`, `price`, `price_string`, `class_name`, `icon_name`, `category_name`, `tags`, `payment_link`) 
+INSERT INTO `products` (`id`, `title_id`, `title_en`, `desc_id`, `desc_en`, `features_id`, `features_en`, `price`, `price_string`, `class_name`, `icon_name`, `category_name`, `tags`, `payment_link`, `image_url`) 
 VALUES 
 (
   1, 
@@ -37,7 +38,8 @@ VALUES
   'coffee', 
   'coffee', 
   'Coffee,Support,Donation', 
-  'https://pay.doku.com/p-link/p/TraktirKopi'
+  'https://pay.doku.com/p-link/p/TraktirKopi',
+  NULL
 ),
 (
   7,
@@ -53,6 +55,7 @@ VALUES
   'book-open',
   'ebooks',
   'Ebook,PDF,Branding,Personal Brand',
-  'https://dashboard.doku.com/retail/merchant/ZeifurRohmanFreelanc6206/EbookPersonalBrandingAnakMudadiEraDigital-849405b25d1d4b8f'
+  'https://dashboard.doku.com/retail/merchant/ZeifurRohmanFreelanc6206/EbookPersonalBrandingAnakMudadiEraDigital-849405b25d1d4b8f',
+  'assets/images/ebook/ebook-cover-1.png'
 )
 ON DUPLICATE KEY UPDATE `id` = `id`;

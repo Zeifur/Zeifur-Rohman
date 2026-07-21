@@ -39,7 +39,8 @@ if ($result) {
             "category" => $row['category_name'],
             "tags" => array_values($tagsArray),
             "paymentLink" => $row['payment_link'],
-            "webLink" => $row['payment_link']
+            "webLink" => $row['payment_link'],
+            "image" => !empty($row['image_url']) ? $row['image_url'] : ""
         ];
     }
     $result->free();
