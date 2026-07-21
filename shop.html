@@ -1170,8 +1170,9 @@
 
         @media (max-width: 850px) {
             .modal-overlay {
-                padding: 16px 10px !important;
-                align-items: flex-start !important;
+                padding: 10px 8px !important;
+                align-items: center !important;
+                justify-content: center !important;
                 overflow-y: auto !important;
                 -webkit-overflow-scrolling: touch !important;
             }
@@ -1180,41 +1181,89 @@
                 display: flex !important;
                 flex-direction: column !important;
                 grid-template-columns: 1fr !important;
-                max-height: none !important;
+                max-height: 96vh !important;
                 height: auto !important;
-                overflow: visible !important;
-                margin: 20px auto 40px auto !important;
-                border-radius: 20px !important;
-                width: 96% !important;
-                max-width: 520px !important;
+                overflow-y: auto !important;
+                margin: auto !important;
+                border-radius: 16px !important;
+                width: 98% !important;
+                max-width: 480px !important;
             }
 
             .modal-box-split .detail-preview-banner {
                 min-height: auto !important;
                 height: auto !important;
-                padding: 35px 15px 20px !important;
+                padding: 20px 10px 10px !important;
                 border-right: none !important;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
             }
 
             .modal-box-split #detail-modal-img {
-                max-height: 240px !important;
+                max-height: 140px !important;
             }
 
             .modal-box-split .detail-body {
-                padding: 24px 20px 30px !important;
+                padding: 14px 16px 18px !important;
                 overflow: visible !important;
                 overflow-y: visible !important;
                 max-height: none !important;
                 height: auto !important;
             }
 
+            .modal-box-split .detail-cat {
+                font-size: 0.65rem !important;
+                margin-bottom: 4px !important;
+                letter-spacing: 0.15em !important;
+            }
+
+            .modal-box-split .detail-title {
+                font-size: 1.1rem !important;
+                margin-bottom: 6px !important;
+                line-height: 1.25 !important;
+            }
+
+            .modal-box-split .detail-desc {
+                font-size: 0.78rem !important;
+                line-height: 1.38 !important;
+                margin-bottom: 10px !important;
+            }
+
+            .modal-box-split .detail-features-title {
+                font-size: 0.7rem !important;
+                margin-bottom: 6px !important;
+                letter-spacing: 0.08em !important;
+            }
+
+            .modal-box-split .features-list {
+                margin-bottom: 10px !important;
+            }
+
+            .modal-box-split .features-list li {
+                font-size: 0.75rem !important;
+                margin-bottom: 4px !important;
+                line-height: 1.3 !important;
+            }
+
+            .modal-box-split .detail-footer {
+                padding-top: 10px !important;
+                gap: 8px !important;
+            }
+
+            .modal-box-split .detail-price {
+                font-size: 1.2rem !important;
+            }
+
+            .modal-box-split #modal-checkout-btn {
+                padding: 8px 18px !important;
+                font-size: 0.78rem !important;
+            }
+
             .modal-close-btn {
-                position: fixed !important;
-                top: 20px !important;
-                right: 20px !important;
-                width: 38px !important;
-                height: 38px !important;
+                position: absolute !important;
+                top: 10px !important;
+                right: 10px !important;
+                width: 32px !important;
+                height: 32px !important;
                 background: rgba(0,0,0,0.75) !important;
                 border: 1px solid rgba(255,255,255,0.25) !important;
                 box-shadow: 0 4px 15px rgba(0,0,0,0.5) !important;
