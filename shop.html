@@ -1141,51 +1141,6 @@
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), 0 0 50px rgba(152, 0, 0, 0.25) !important;
         }
 
-        @media (max-width: 850px) {
-            .modal-overlay {
-                padding: 12px !important;
-                align-items: flex-start !important;
-            }
-
-            .modal-box-split {
-                grid-template-columns: 1fr !important;
-                max-height: 88vh !important;
-                overflow-y: auto !important;
-                -webkit-overflow-scrolling: touch !important;
-                margin: auto 0 !important;
-                border-radius: 20px !important;
-                width: 96% !important;
-            }
-
-            .modal-box-split .detail-preview-banner {
-                min-height: auto !important;
-                height: auto !important;
-                padding: 30px 15px 20px !important;
-                border-right: none !important;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-            }
-
-            .modal-box-split #detail-modal-img {
-                max-height: 260px !important;
-            }
-
-            .modal-box-split .detail-body {
-                padding: 25px 20px 30px !important;
-                overflow-y: visible !important;
-                max-height: none !important;
-            }
-
-            .modal-close-btn {
-                top: 12px !important;
-                right: 12px !important;
-                width: 34px !important;
-                height: 34px !important;
-                background: rgba(0,0,0,0.6) !important;
-                border: 1px solid rgba(255,255,255,0.2) !important;
-                z-index: 100 !important;
-            }
-        }
-
         .modal-box-split .detail-preview-banner {
             height: 100% !important;
             min-height: 440px !important;
@@ -1210,6 +1165,61 @@
             overflow-y: auto !important;
             max-height: 85vh !important;
             background: #0c0e12 !important;
+            -webkit-overflow-scrolling: touch !important;
+        }
+
+        @media (max-width: 850px) {
+            .modal-overlay {
+                padding: 16px 10px !important;
+                align-items: flex-start !important;
+                overflow-y: auto !important;
+                -webkit-overflow-scrolling: touch !important;
+            }
+
+            .modal-box-split {
+                display: flex !important;
+                flex-direction: column !important;
+                grid-template-columns: 1fr !important;
+                max-height: none !important;
+                height: auto !important;
+                overflow: visible !important;
+                margin: 20px auto 40px auto !important;
+                border-radius: 20px !important;
+                width: 96% !important;
+                max-width: 520px !important;
+            }
+
+            .modal-box-split .detail-preview-banner {
+                min-height: auto !important;
+                height: auto !important;
+                padding: 35px 15px 20px !important;
+                border-right: none !important;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+            }
+
+            .modal-box-split #detail-modal-img {
+                max-height: 240px !important;
+            }
+
+            .modal-box-split .detail-body {
+                padding: 24px 20px 30px !important;
+                overflow: visible !important;
+                overflow-y: visible !important;
+                max-height: none !important;
+                height: auto !important;
+            }
+
+            .modal-close-btn {
+                position: fixed !important;
+                top: 20px !important;
+                right: 20px !important;
+                width: 38px !important;
+                height: 38px !important;
+                background: rgba(0,0,0,0.75) !important;
+                border: 1px solid rgba(255,255,255,0.25) !important;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.5) !important;
+                z-index: 1000 !important;
+            }
         }
 
         .modal-close-btn {
@@ -3018,6 +3028,7 @@
 
             if (lenis) lenis.stop();
             document.body.style.overflow = 'hidden';
+            detailsModal.scrollTop = 0;
             detailsModal.classList.add('active');
             gsap.fromTo(detailsModal.querySelector('.modal-box'), 
                 { scale: 0.9, y: 20, opacity: 0 }, 
