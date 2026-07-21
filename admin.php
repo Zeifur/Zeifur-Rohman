@@ -806,14 +806,6 @@ if ($isLoggedIn && $db) {
                         <div class="card-header">
                             <h3 class="card-title"><i data-lucide="help-circle" style="color:var(--accent-color);"></i> Panduan Integrasi DOKU</h3>
                         </div>
-                        <div class="instruction-box">
-                            <h4><i data-lucide="link" style="width:16px;height:16px;"></i> Success Redirect URL</h4>
-                            <p>Saat Anda membuat **Payment Link** atau **Multiple Payment** baru di dashboard DOKU Merchant, atur kolom **Redirect URL** / **Callback URL** agar pembeli otomatis kembali ke website Anda saat transaksi lunas:</p>
-                            <div class="code-snippet-box">
-                                <span id="success-url">https://zeifurrohman.com/shop?status=success</span>
-                                <button class="btn-copy" onclick="copyText('success-url')">Salin URL</button>
-                            </div>
-                        </div>
                         <div class="instruction-box" style="margin-bottom:0; background:rgba(255,255,255,0.01); border-left-color:var(--muted-text);">
                             <h4><i data-lucide="check-circle-2" style="width:16px;height:16px;"></i> Cara Integrasi Produk Baru</h4>
                             <p style="margin-bottom:8px;">1. Masuk ke dashboard merchant DOKU Anda, lalu buat link pembayaran untuk produk baru Anda.</p>
@@ -973,15 +965,6 @@ if ($isLoggedIn && $db) {
 
     <script>
         lucide.createIcons();
-
-        // Update Success URL to current hostname dynamically
-        document.addEventListener('DOMContentLoaded', () => {
-            const successEl = document.getElementById('success-url');
-            if (successEl) {
-                const domain = window.location.origin + window.location.pathname.replace('admin.php', 'shop?status=success');
-                successEl.textContent = domain;
-            }
-        });
 
         function updateImagePreview(src) {
             const imgPreview = document.getElementById('img-preview');

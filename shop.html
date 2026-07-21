@@ -2210,49 +2210,7 @@
 
 
 
-    <!-- Modal 3: Payment Loading State -->
-    <div id="modal-loading" class="modal-overlay">
-        <div class="modal-box" style="max-width: 400px; background: rgba(20, 22, 22, 0.95);">
-            <div class="status-content-box">
-                <div class="spinner"></div>
-                <h3 style="font-family:var(--font-heading);font-weight:900;color:#fff;margin-bottom:10px;" data-translate="connecting_doku">Menghubungkan ke DOKU...</h3>
-                <p style="font-size:0.85rem;color:var(--muted-text);" data-translate="connecting_doku_desc">Mempersiapkan transaksi aman. Jangan tutup halaman ini.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal 4: Payment Success & Product Delivery -->
-    <div id="modal-success" class="modal-overlay">
-        <div class="modal-box" style="max-width: 520px;">
-            <div class="status-content-box">
-                <div class="success-icon-box">
-                    <i data-lucide="check-circle-2" style="width:40px;height:40px;"></i>
-                </div>
-                <h3 class="success-title" id="success-title" style="font-family:var(--font-heading);font-weight:900;color:#fff;margin:12px 0 8px 0;">PEMBAYARAN BERHASIL!</h3>
-                <p id="success-message" class="success-desc" style="font-size:0.9rem;color:var(--muted-text);line-height:1.6;margin-bottom:20px;">
-                    Terima kasih atas pembelian Anda! Ebook PDF digital Anda telah siap dan dapat langsung diunduh di bawah ini.
-                </p>
-
-                <!-- Product Delivery Download Actions -->
-                <div id="success-delivery-box" style="display:flex; flex-direction:column; gap:10px; width:100%; margin-bottom:15px;">
-                    <a id="success-download-btn" href="assets/ebooks/personal-branding-anak-muda-di-digital.pdf" download="Ebook_Personal_Branding_Zeifur_Rohman.pdf" class="btn-capkarya-launch" style="display:flex; align-items:center; justify-content:center; gap:8px; padding:14px 20px; text-decoration:none; width:100%; box-sizing:border-box; font-size:0.85rem;">
-                        <i data-lucide="download" style="width:18px;height:18px;"></i>
-                        <span id="success-download-text">DOWNLOAD EBOOK PDF (INSTAN)</span>
-                    </a>
-                    <a id="success-preview-btn" href="assets/ebooks/personal-branding-anak-muda-di-digital.pdf" target="_blank" class="btn-capkarya-info" style="display:flex; align-items:center; justify-content:center; gap:8px; padding:12px 20px; text-decoration:none; width:100%; box-sizing:border-box; font-size:0.8rem;">
-                        <i data-lucide="file-text" style="width:16px;height:16px;"></i>
-                        <span>BACA / PRATINJAU DOKUMEN ONLINE</span>
-                    </a>
-                </div>
-
-                <button class="btn-success-close" onclick="closeSuccess()" style="width:100%; padding:10px; font-family:var(--font-condensed); font-weight:700; font-size:0.75rem; background:transparent; border:1px solid rgba(255,255,255,0.1); color:var(--muted-text); border-radius:2px; cursor:pointer;" data-translate="back_to_shop">
-                    KEMBALI KE TOKO
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal 5: Fullscreen Image Lightbox -->
+    <!-- Modal 3: Fullscreen Image Lightbox -->
     <div id="modal-lightbox" class="modal-overlay" onclick="closeLightbox(event)" style="z-index:9999; background:rgba(0,0,0,0.92); backdrop-filter:blur(15px);">
         <button class="modal-close-btn" onclick="closeLightboxDirect()" style="top:25px; right:25px; width:44px; height:44px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#fff; font-size:1.2rem; z-index:10000;">
             <i data-lucide="x" style="width:24px;height:24px;"></i>
@@ -3101,50 +3059,6 @@
             }
         };
 
-        // Ebook Delivery & Checkout Helper
-        window.openEbookDelivery = function(id = 7) {
-            const product = productsData[id] || productsData[7];
-            const successModal = document.getElementById('modal-success');
-            if (!successModal) return;
-
-            const currentLang = localStorage.getItem('preferred_language') || 'id';
-
-            const titleEl = document.getElementById('success-title');
-            if (titleEl) {
-                titleEl.textContent = currentLang === 'en' 
-                    ? "EBOOK READY FOR DOWNLOAD!" 
-                    : "PEMBAYARAN BERHASIL! EBOOK SIAP DIUNDUH";
-            }
-
-            const msgEl = document.getElementById('success-message');
-            if (msgEl) {
-                msgEl.innerHTML = currentLang === 'en'
-                    ? `Thank you for your purchase! Your ebook <strong>"${product.title_en || product.title_id}"</strong> by Zeifur Rohman is ready. Click below to download or read the PDF file.`
-                    : `Terima kasih atas pembelian Anda! Ebook PDF <strong>"${product.title_id}"</strong> karya Zeifur Rohman telah siap. Klik tombol di bawah ini untuk mengunduh PDF secara instan atau membacanya secara online.`;
-            }
-
-            const downloadBtn = document.getElementById('success-download-btn');
-            if (downloadBtn) {
-                downloadBtn.href = product.downloadUrl || 'assets/ebooks/personal-branding-anak-muda-di-digital.pdf';
-                downloadBtn.setAttribute('download', 'Ebook_Personal_Branding_Zeifur_Rohman.pdf');
-            }
-
-            const previewBtn = document.getElementById('success-preview-btn');
-            if (previewBtn) {
-                previewBtn.href = product.downloadUrl || 'assets/ebooks/personal-branding-anak-muda-di-digital.pdf';
-                previewBtn.setAttribute('target', '_blank');
-                previewBtn.setAttribute('rel', 'noopener noreferrer');
-            }
-
-            if (lenis) lenis.stop();
-            document.body.style.overflow = 'hidden';
-            successModal.classList.add('active');
-            gsap.fromTo(successModal.querySelector('.modal-box'), 
-                { scale: 0.9, y: 20, opacity: 0 }, 
-                { scale: 1, y: 0, opacity: 1, duration: 0.4, ease: 'power3.out' }
-            );
-        };
-
         window.triggerDirectBuy = function(id) {
             const product = productsData[id];
             if (!product) return;
@@ -3152,16 +3066,6 @@
             const targetUrl = product.dokuStoreUrl || product.paymentLink || "https://dashboard.doku.com/retail/merchant/ZeifurRohmanFreelanc6206/EbookPersonalBrandingAnakMudadiEraDigital-849405b25d1d4b8f";
 
             window.open(targetUrl, '_blank', 'noopener,noreferrer');
-        };
-
-        window.closeSuccess = function() {
-            gsap.to(successModal.querySelector('.modal-box'), {
-                scale: 0.9, y: 20, opacity: 0, duration: 0.3, ease: 'power2.in',
-                onComplete: () => {
-                    successModal.classList.remove('active');
-                    window.forceUnlockScroll();
-                }
-            });
         };
 
         // Scroll to Top action in footer
@@ -3232,21 +3136,6 @@
                         .from('.shop-cover-banner', { opacity: 0, scale: 0.95, duration: 0.8, ease: 'power3.out' }, '-=0.6')
                         .from('.shop-layout-container', { y: 30, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6')
                         .from('.footer-section', { y: 30, opacity: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6');
-
-                    // Check for DOKU redirect URL status parameter or verified session
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const isPaymentSuccess = urlParams.get('status') === 'success' || 
-                                             urlParams.get('payment') === 'success' || 
-                                             urlParams.get('order') === 'success' || 
-                                             urlParams.get('transaction') === 'success' ||
-                                             sessionStorage.getItem('pending_ebook_payment') === 'true';
-
-                    if (isPaymentSuccess) {
-                        setTimeout(() => {
-                            sessionStorage.removeItem('pending_ebook_payment');
-                            openEbookDelivery(7);
-                        }, 600);
-                    }
                 }
             }, 1000);
         });
