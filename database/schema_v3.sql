@@ -40,6 +40,22 @@ VALUES
   'Coffee,Support,Donation', 
   'https://pay.doku.com/p-link/p/TraktirKopi',
   NULL
+(
+  2,
+  'CapKarya by Zeifur Rohman (Web App Monogram)',
+  'CapKarya by Zeifur Rohman (Monogram Web App)',
+  'Aplikasi web generator logo monogram & identitas visual instan berbasis browser yang dirancang khusus oleh Zeifur Rohman untuk membantu UMKM, pebisnis, dan kreator menciptakan cap identitas/monogram kelas premium secara presisi.',
+  'Instant browser-based monogram logo & visual identity web application designed by Zeifur Rohman to empower small businesses, entrepreneurs, and creators to generate premium monogram logos in seconds.',
+  'Editor Monogram Presisi 320x320px | Kustomisasi Inisial 2-3 Huruf & Tagline | Kontrol Rotasi Sudut & Skala Ukuran | Simpan Desain Favorit & Ekspor Aset | 100% Gratis Digunakan',
+  '320x320px Precision Monogram Canvas | 2-3 Letter Monogram & Tagline Builder | Rotation Angle & Scale Controls | Local Favorites Saver & Asset Export | 100% Free to Use',
+  0.00,
+  'GRATIS (FREE DEMO)',
+  'preview-template-1',
+  'globe',
+  'free-web',
+  'CapKarya,WebApp,Monogram,Generator',
+  'http://capkarya.great-site.net',
+  'assets/images/capkarya-display-1.png'
 ),
 (
   7,

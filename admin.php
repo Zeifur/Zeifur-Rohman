@@ -37,6 +37,12 @@ if ($isLoggedIn && $db) {
         @$db->query("ALTER TABLE `products` ADD COLUMN `image_url` VARCHAR(255) NULL AFTER `payment_link`");
     }
 
+    // Auto-seed CapKarya if missing from products table
+    $capCheck = $db->query("SELECT `id` FROM `products` WHERE `id` = 2 OR `title_id` LIKE '%CapKarya%'");
+    if ($capCheck && $capCheck->num_rows === 0) {
+        @$db->query("INSERT INTO `products` (`id`, `title_id`, `title_en`, `desc_id`, `desc_en`, `features_id`, `features_en`, `price`, `price_string`, `class_name`, `icon_name`, `category_name`, `tags`, `payment_link`, `image_url`) VALUES (2, 'CapKarya by Zeifur Rohman (Web App Monogram)', 'CapKarya by Zeifur Rohman (Monogram Web App)', 'Aplikasi web generator logo monogram & identitas visual instan berbasis browser yang dirancang khusus oleh Zeifur Rohman untuk membantu UMKM, pebisnis, dan kreator menciptakan cap identitas/monogram kelas premium secara presisi.', 'Instant browser-based monogram logo & visual identity web application designed by Zeifur Rohman to empower small businesses, entrepreneurs, and creators to generate premium monogram logos in seconds.', 'Editor Monogram Presisi 320x320px | Kustomisasi Inisial 2-3 Huruf & Tagline | Kontrol Rotasi Sudut & Skala Ukuran | Simpan Desain Favorit & Ekspor Aset | 100% Gratis Digunakan', '320x320px Precision Monogram Canvas | 2-3 Letter Monogram & Tagline Builder | Rotation Angle & Scale Controls | Local Favorites Saver & Asset Export | 100% Free to Use', 0.00, 'GRATIS (FREE DEMO)', 'preview-template-1', 'globe', 'free-web', 'CapKarya,WebApp,Monogram,Generator', 'http://capkarya.great-site.net', 'assets/images/capkarya-display-1.png')");
+    }
+
     // Ensure upload directory exists
     $uploadDir = 'uploads/products/';
     if (!file_exists($uploadDir)) {
@@ -672,7 +678,16 @@ if ($isLoggedIn && $db) {
             <div class="stats-row">
                 <div class="stat-item">
                     <div class="stat-val"><?php echo count($products); ?></div>
-                    <div class="stat-lbl">Total Produk</div>
+                    <div class="stat-lbl">Total Item</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-val">
+                        <?php 
+                        $karyaWeb = array_filter($products, function($p) { return $p['category_name'] === 'free-web'; });
+                        echo count($karyaWeb);
+                        ?>
+                    </div>
+                    <div class="stat-lbl">Karya Web</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-val">
@@ -691,15 +706,6 @@ if ($isLoggedIn && $db) {
                         ?>
                     </div>
                     <div class="stat-lbl">Presets</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-val">
-                        <?php 
-                        $brand = array_filter($products, function($p) { return $p['category_name'] === 'branding'; });
-                        echo count($brand);
-                        ?>
-                    </div>
-                    <div class="stat-lbl">Branding</div>
                 </div>
             </div>
 
@@ -867,9 +873,9 @@ if ($isLoggedIn && $db) {
 
                                 <!-- Category Selection -->
                                 <div class="form-group">
-                                    <label for="category_name">Kategori</label>
+                                    <label for="category_name">Kategori Item</label>
                                     <select id="category_name" name="category_name" class="form-input" style="background:#000;">
-                                        <option value="free-web">KARYA WEB (FREE DEMO)</option>
+                                        <option value="free-web">KARYA WEB (WEB APP / DEMO GRATIS)</option>
                                         <option value="templates">TEMPLATE WEB</option>
                                         <option value="branding">ASET BRANDING</option>
                                         <option value="presets">PRESET & UI KIT</option>
@@ -882,11 +888,16 @@ if ($isLoggedIn && $db) {
                                 <div class="form-group">
                                     <label for="icon_name">Nama Ikon Lucide</label>
                                     <select id="icon_name" name="icon_name" class="form-input" style="background:#000;">
-                                        <option value="coffee">coffee (Kopi)</option>
+                                        <option value="globe">globe (Web / Global)</option>
+                                        <option value="external-link">external-link (Tautan Demo)</option>
                                         <option value="code-2">code-2 (Kode Program)</option>
                                         <option value="layout">layout (Tampilan Layout)</option>
-                                        <option value="sliders">sliders (Presets/Parameter)</option>
-                                        <option value="figma">figma (Figma design)</option>
+                                        <option value="monitor">monitor (Layar Desktop)</option>
+                                        <option value="smartphone">smartphone (Mobile App)</option>
+                                        <option value="sparkles">sparkles (Fitur Inovatif)</option>
+                                        <option value="coffee">coffee (Kopi / Donasi)</option>
+                                        <option value="sliders">sliders (Presets)</option>
+                                        <option value="figma">figma (Design Asset)</option>
                                         <option value="shield-check">shield-check (Tameng Sukses)</option>
                                     </select>
                                 </div>
@@ -906,13 +917,13 @@ if ($isLoggedIn && $db) {
                             <!-- Product tags -->
                             <div class="form-group">
                                 <label for="tags">Tags / Label (Pisahkan dengan Koma)</label>
-                                <input type="text" id="tags" name="tags" class="form-input" placeholder="Vite,GSAP,React">
+                                <input type="text" id="tags" name="tags" class="form-input" placeholder="CapKarya,WebApp,Monogram,React">
                             </div>
 
                             <!-- Product Image Upload & URL -->
                             <div class="form-group" style="background: rgba(0,0,0,0.35); border: 1px dashed var(--border-color); padding: 18px; border-radius: 0 0 14px 0; margin-bottom: 25px;">
                                 <label style="color:#fff; font-weight:700; display:flex; align-items:center; gap:8px; margin-bottom:12px;">
-                                    <i data-lucide="image" style="width:16px;height:16px;color:var(--accent-color);"></i> Gambar Display Produk (Tampilan Jualan)
+                                    <i data-lucide="image" style="width:16px;height:16px;color:var(--accent-color);"></i> Gambar Display Produk / Screenshot Website Karya
                                 </label>
                                 <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap;">
                                     <div id="image-preview-container" style="width:80px; height:80px; background:rgba(0,0,0,0.6); border:1px solid var(--border-color); border-radius:10px; display:flex; justify-content:center; align-items:center; overflow:hidden; flex-shrink:0; position:relative;">
@@ -923,20 +934,21 @@ if ($isLoggedIn && $db) {
                                         </div>
                                     </div>
                                     <div style="flex-grow:1; min-width:200px;">
-                                        <label for="product_image" style="font-size:0.78rem; color:var(--text-main); font-weight:500;">Upload File Gambar Baru</label>
+                                        <label for="product_image" style="font-size:0.78rem; color:var(--text-main); font-weight:500;">Upload File Gambar / Screenshot Baru</label>
                                         <input type="file" id="product_image" name="product_image" accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml" class="form-input" style="padding:8px 12px; font-size:0.8rem; margin-top:4px;" onchange="previewSelectedImage(this)">
                                         <div style="font-size:0.7rem; color:var(--muted-text); margin-top:3px;">Format: JPG, PNG, WEBP, SVG (Otomatis disimpan di server)</div>
 
                                         <label for="image_url_text" style="font-size:0.78rem; color:var(--text-main); font-weight:500; margin-top:12px; display:block;">Atau URL / Path Asset Gambar</label>
-                                        <input type="text" id="image_url_text" name="image_url_text" class="form-input" placeholder="Contoh: assets/images/ebook/ebook-cover-1.png" style="margin-top:4px;" oninput="previewUrlImage(this.value)">
+                                        <input type="text" id="image_url_text" name="image_url_text" class="form-input" placeholder="Contoh: assets/images/capkarya-display-1.png" style="margin-top:4px;" oninput="previewUrlImage(this.value)">
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- DOKU Payment URL -->
+                            <!-- Link URL / DOKU Payment URL -->
                             <div class="form-group" style="margin-bottom: 30px;">
-                                <label for="payment_link" style="color:#ff6b6b;font-weight:700;">DOKU Payment Link / Multiple Payment URL</label>
-                                <input type="url" id="payment_link" name="payment_link" class="form-input" required placeholder="https://pay.doku.com/p-link/p/...">
+                                <label for="payment_link" style="color:#ff6b6b;font-weight:700;">Link URL Website / Demo Karya ATAU Link DOKU Payment</label>
+                                <input type="url" id="payment_link" name="payment_link" class="form-input" required placeholder="Contoh: http://capkarya.great-site.net atau https://pay.doku.com/p-link/p/...">
+                                <div style="font-size:0.72rem; color:var(--muted-text); margin-top:4px;">* Untuk Karya Web, isi dengan URL website karya Anda (misal: <code>http://capkarya.great-site.net</code>). Untuk produk jualan, isi link DOKU Payment.</div>
                             </div>
 
                             <div style="display:flex;gap:15px;">
