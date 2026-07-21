@@ -1936,28 +1936,11 @@
 
             <!-- Right Sidebar Widgets Column (30%) -->
             <aside class="shop-sidebar-column">
-                <!-- Widget 01: Cart (Keranjang) -->
-                <div class="sidebar-widget" id="cart-widget-box">
-                    <div class="widget-header">
-                        <h3 class="widget-title" data-translate="widget_cart">KERANJANG BELANJA</h3>
-                        <span class="widget-number">01.</span>
-                    </div>
-                    <div class="cart-widget-items" id="cart-items-list-container">
-                        <!-- Cart lists injected here -->
-                        <p class="cart-empty-text" data-translate="widget_cart_empty">Belum ada produk di keranjang.</p>
-                    </div>
-                    <div class="cart-widget-total">
-                        <span data-translate="cart_total">Subtotal</span>
-                        <span id="cart-subtotal-val">Rp 0</span>
-                    </div>
-                    <button class="btn-cart-checkout" id="cart-checkout-btn" disabled onclick="triggerCartCheckout()" data-translate="btn_checkout">SELESAIKAN PEMBAYARAN</button>
-                </div>
-
-                <!-- Widget 02: Filter by Price -->
+                <!-- Widget 01: Filter by Price -->
                 <div class="sidebar-widget">
                     <div class="widget-header">
                         <h3 class="widget-title" data-translate="widget_price_filter">FILTER HARGA</h3>
-                        <span class="widget-number">02.</span>
+                        <span class="widget-number">01.</span>
                     </div>
                     <div class="price-filter-box">
                         <input type="range" min="50000" max="300000" step="10000" value="300000" class="price-slider" id="price-range-slider" oninput="updatePriceSliderVal(this.value)">
@@ -1969,11 +1952,11 @@
                     </div>
                 </div>
 
-                <!-- Widget 03: Popular Products (Sidebar rows) -->
+                <!-- Widget 02: Popular Products (Sidebar rows) -->
                 <div class="sidebar-widget">
                     <div class="widget-header">
                         <h3 class="widget-title" data-translate="widget_popular_products">PRODUK POPULER</h3>
-                        <span class="widget-number">03.</span>
+                        <span class="widget-number">02.</span>
                     </div>
                     <div class="popular-list">
                         <div class="popular-item" onclick="openDetails(7)">
@@ -1997,11 +1980,11 @@
                     </div>
                 </div>
 
-                <!-- Widget 04: Product Tags -->
+                <!-- Widget 03: Product Tags -->
                 <div class="sidebar-widget">
                     <div class="widget-header">
                         <h3 class="widget-title" data-translate="widget_tags">TAG POPULER</h3>
-                        <span class="widget-number">04.</span>
+                        <span class="widget-number">03.</span>
                     </div>
                     <div class="tags-cloud" id="tags-cloud-container">
                         <button class="tag-btn active" data-tag="all" data-translate="tag_all">Semua</button>
@@ -2012,11 +1995,11 @@
                     </div>
                 </div>
 
-                <!-- Widget 05: Product Categories list -->
+                <!-- Widget 04: Product Categories list -->
                 <div class="sidebar-widget" id="categories-sidebar-widget">
                     <div class="widget-header">
                         <h3 class="widget-title" data-translate="widget_categories">KATEGORI PRODUK</h3>
-                        <span class="widget-number">05.</span>
+                        <span class="widget-number">04.</span>
                     </div>
                     <div class="categories-list" id="categories-list-container">
                         <a href="#" class="category-link active" data-category="all">
@@ -2156,7 +2139,7 @@
 
                 <div class="detail-footer">
                     <div id="modal-price" class="detail-price"></div>
-                    <button id="modal-checkout-btn" class="btn-store-buy" style="padding: 12px 30px;"><i data-lucide="shopping-cart" style="width:16px;height:16px;"></i> <span data-translate="btn_buy">BELI SEKARANG</span></button>
+                    <button id="modal-checkout-btn" class="btn-store-buy" style="padding: 12px 30px;"><i data-lucide="shopping-bag" style="width:16px;height:16px;"></i> <span data-translate="btn_buy">BELI SEKARANG</span></button>
                 </div>
             </div>
         </div>
@@ -3012,7 +2995,7 @@
                     window.open(product.dokuStoreUrl || product.paymentLink, '_blank', 'noopener,noreferrer');
                 };
             } else {
-                checkoutBtn.innerHTML = `<i data-lucide="shopping-cart" style="width:18px;height:18px;"></i> <span>${dict['btn_buy'] || 'BELI SEKARANG'}</span>`;
+                checkoutBtn.innerHTML = `<i data-lucide="shopping-bag" style="width:18px;height:18px;"></i> <span>${dict['btn_buy'] || 'BELI SEKARANG'}</span>`;
                 checkoutBtn.style.background = 'linear-gradient(135deg, #980000, #c40000)';
                 checkoutBtn.style.color = '#ffffff';
                 checkoutBtn.style.fontWeight = '900';
@@ -3128,7 +3111,6 @@
         // Listen for language changes to update translation rendering
         window.addEventListener('languageChanged', (e) => {
             renderProductsGrid();
-            renderCart();
         });
 
         async function fetchProducts() {
