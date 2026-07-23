@@ -283,6 +283,16 @@ function switchLayer(id) {
         }
     });
 
+    // Update Desktop Topbar active link state
+    document.querySelectorAll('.desktop-topbar .topbar-link').forEach(topLink => {
+        if (!topLink.classList.contains('highlight-pill')) {
+            topLink.classList.remove('active');
+            if (topLink.getAttribute('href') === '#' + id) {
+                topLink.classList.add('active');
+            }
+        }
+    });
+
     subLinks.forEach(link => {
         link.classList.remove('active');
         if (link.getAttribute('href') === '#' + id) {
