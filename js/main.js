@@ -249,8 +249,8 @@ ScrollTrigger.create({
 contentSections.forEach((section) => {
     ScrollTrigger.create({
         trigger: section,
-        start: 'top 50%',
-        end: 'bottom 50%',
+        start: 'top 20%',
+        end: 'bottom 20%',
         onEnter: () => switchLayer(section.id),
         onEnterBack: () => switchLayer(section.id)
     });

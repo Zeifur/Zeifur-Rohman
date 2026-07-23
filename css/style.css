@@ -620,6 +620,7 @@ body.menu-open .menu-toggle:hover .close-icon {
 
 /* Sub Nav */
 .sub-nav {
+    position: -webkit-sticky;
     position: sticky;
     top: 0;
     width: calc(100% - var(--sidebar-width));
@@ -1200,6 +1201,7 @@ body.scrolled-past-hero .sub-links a.active > span:first-child {
 }
 
 .fixed-left-panel {
+    position: -webkit-sticky;
     position: sticky;
     top: 61px;
     width: 56.25vh; /* IG Story aspect ratio (9:16) based on 100vh height */
