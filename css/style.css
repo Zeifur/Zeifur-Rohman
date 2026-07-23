@@ -107,7 +107,6 @@
 
 html {
     overflow-x: clip;
-    overflow-y: auto;
 }
 
 body {
@@ -116,7 +115,6 @@ body {
     font-family: var(--font-body);
     line-height: 1.6;
     overflow-x: clip;
-    overflow-y: auto;
     margin: 0; /* Ensure no body margin */
 }
 
@@ -1204,6 +1202,7 @@ body.scrolled-past-hero .sub-links a.active > span:first-child {
     position: -webkit-sticky;
     position: sticky;
     top: 61px;
+    align-self: flex-start; /* Fixes position: sticky inside display: flex in Safari */
     width: 56.25vh; /* IG Story aspect ratio (9:16) based on 100vh height */
     max-width: 450px;
     min-width: 320px;
