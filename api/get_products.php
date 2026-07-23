@@ -31,14 +31,6 @@ if ($result) {
             $img = $row['image'];
         }
         
-        $priceStr = $row['price_string'];
-        $isComingSoon = (
-            strpos(strtoupper($priceStr), 'COMING SOON') !== false || 
-            strpos(strtoupper($priceStr), 'SEGERA HADIR') !== false || 
-            floatval($row['price']) > 0 ||
-            $id === 7
-        );
-
         $products[$id] = [
             "id" => $id,
             "title_id" => $row['title_id'],
@@ -48,8 +40,7 @@ if ($result) {
             "features_id" => $row['features_id'],
             "features_en" => $row['features_en'],
             "priceNumeric" => floatval($row['price']),
-            "priceString" => $priceStr,
-            "isComingSoon" => $isComingSoon,
+            "priceString" => $row['price_string'],
             "class" => $row['class_name'],
             "icon" => $row['icon_name'],
             "category" => $row['category_name'],

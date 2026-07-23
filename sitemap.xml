@@ -7,14 +7,14 @@
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://zeifurrohman.com/blog.html</loc>
-        <lastmod>2026-06-01</lastmod>
+        <loc>https://zeifurrohman.com/blog</loc>
+        <lastmod>2026-07-23</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://zeifurrohman.com/shop.html</loc>
-        <lastmod>2026-06-01</lastmod>
+        <loc>https://zeifurrohman.com/product</loc>
+        <lastmod>2026-07-23</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>

@@ -40,6 +40,7 @@ VALUES
   'Coffee,Support,Donation', 
   'https://pay.doku.com/p-link/p/TraktirKopi',
   NULL
+),
 (
   2,
   'CapKarya by Zeifur Rohman (Web App Monogram)',
@@ -66,7 +67,7 @@ VALUES
   'Chapter 1: Kenali Dirimu Sebelum Branding ke Dunia | Chapter 2: Optimasi Profil LinkedIn yang Bikin Recruiter Kepincut | Chapter 3: Konten LinkedIn & IG yang Bikin Kamu Dikenal Ahli | Chapter 4: Bangun Jaringan & Dapat Peluang dari Personal Brand | Chapter 5: Jaga Konsistensi & Terus Tumbuh Sebagai Brand | Format PDF HD 43+ Halaman | Akses Download Langsung & Update Selamanya',
   'Chapter 1: Know Yourself Before Branding to the World | Chapter 2: LinkedIn Profile Optimization for Recruiters | Chapter 3: LinkedIn & IG Content Strategy to Stand Out | Chapter 4: Build Network & Unlock Career Opportunities | Chapter 5: Consistency & Long-Term Growth | 43+ Pages HD PDF Format | Lifetime Download Access',
   49000.00,
-  'SEGERA HADIR (COMING SOON)',
+  'Rp 49.000',
   'preview-presets',
   'book-open',
   'ebooks',
