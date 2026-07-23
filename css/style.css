@@ -665,6 +665,21 @@ body.menu-open .menu-toggle:hover .close-icon {
     display: flex;
     align-items: center;
     gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.sub-links a.highlight-nav-link {
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 4px 12px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.sub-links a.highlight-nav-link:hover {
+    border-color: var(--accent-color);
+    background: var(--accent-color);
+    color: #ffffff;
 }
 
 .nav-controls-minimal {
@@ -1186,12 +1201,12 @@ body.scrolled-past-hero .sub-links a.active > span:first-child {
 
 .fixed-left-panel {
     position: sticky;
-    top: 0;
+    top: 61px;
     width: 56.25vh; /* IG Story aspect ratio (9:16) based on 100vh height */
     max-width: 450px;
     min-width: 320px;
     flex-shrink: 0; /* Locked size, no shrinking */
-    height: 100vh;
+    height: calc(100vh - 61px);
     overflow: hidden;
     background: var(--secondary-bg);
     border-right: 1px solid var(--border-color);
