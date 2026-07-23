@@ -754,7 +754,7 @@ body.scrolled-past-hero .sub-links a.active > span:first-child {
 .hero-split {
     position: relative;
     height: 100vh;
-    padding-left: 0; /* Reset padding because parent scrolling-right-panel already has the sidebar offset */
+    padding-left: var(--sidebar-width);
     display: flex;
     align-items: center;
     overflow: hidden;
@@ -771,7 +771,7 @@ body.scrolled-past-hero .sub-links a.active > span:first-child {
 }
 .hero-corner-bracket.top-left {
     top: 40px;
-    left: 40px;
+    left: calc(var(--sidebar-width) + 40px);
     border-right: none;
     border-bottom: none;
 }
@@ -783,7 +783,7 @@ body.scrolled-past-hero .sub-links a.active > span:first-child {
 }
 .hero-corner-bracket.bottom-left {
     bottom: 130px;
-    left: 40px;
+    left: calc(var(--sidebar-width) + 40px);
     border-right: none;
     border-top: none;
 }
@@ -792,12 +792,6 @@ body.scrolled-past-hero .sub-links a.active > span:first-child {
     right: 40px;
     border-left: none;
     border-top: none;
-}
-
-@media (min-width: 1025px) {
-    .hero-split .hero-bg-wrapper {
-        display: none !important;
-    }
 }
 
 .hero-bg-wrapper {
