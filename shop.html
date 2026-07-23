@@ -2028,7 +2028,7 @@
                             </div>
                             <div class="popular-meta">
                                 <h4 class="popular-name">Ebook Personal Branding</h4>
-                                <span class="popular-price" style="color:var(--accent-color);font-weight:700;">Rp 49.000</span>
+                                <span class="popular-price" style="color:var(--accent-color);font-weight:700;" data-translate="price_coming_soon">SEGERA HADIR</span>
                             </div>
                         </div>
                         <div class="popular-item" onclick="openDetails(1)">
@@ -2219,6 +2219,18 @@
             <img id="lightbox-img" src="" alt="Enlarged View" style="max-width:90vw; max-height:82vh; object-fit:contain; border-radius:10px; box-shadow:0 20px 60px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.15);">
             <div id="lightbox-caption" style="margin-top:15px; color:var(--muted-text); font-family:var(--font-condensed); font-size:0.85rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;"></div>
         </div>
+    <!-- Modal 4: Coming Soon Notice -->
+    <div id="modal-coming-soon" class="modal-overlay" onclick="closeComingSoonOutside(event)" style="z-index:10001;">
+        <div class="modal-box" style="max-width: 480px; width: 90%; padding: 40px 30px; text-align: center; background: #090a0d; border: 1px solid rgba(152, 0, 0, 0.45); box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 40px rgba(152, 0, 0, 0.3); border-radius: 20px;">
+            <button class="modal-close-btn" onclick="closeComingSoon()"><i data-lucide="x" style="width:18px;height:18px;"></i></button>
+            <div style="width: 70px; height: 70px; margin: 0 auto 20px; background: rgba(152,0,0,0.15); border: 1px solid rgba(152,0,0,0.4); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 25px rgba(152,0,0,0.3);">
+                <i data-lucide="sparkles" style="width:36px; height:36px; color:#c40000;"></i>
+            </div>
+            <span style="font-family: var(--font-condensed); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.15em; color: #c40000; text-transform: uppercase;" data-translate="badge_coming_soon">SEGERA HADIR</span>
+            <h2 id="cs-product-title" style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 900; color: #fff; margin: 10px 0 15px; text-transform: uppercase; letter-spacing: 0.03em;" data-translate="coming_soon_modal_title">SEGERA HADIR (COMING SOON)</h2>
+            <p id="cs-product-desc" style="font-family: var(--font-body); font-size: 0.9rem; color: var(--muted-text); line-height: 1.6; margin-bottom: 25px;" data-translate="coming_soon_modal_desc">Produk digital ini sedang dalam proses finalisasi dan akan segera dirilis dalam waktu dekat. Terima kasih atas antusiasme dan dukungan Anda!</p>
+            <button onclick="closeComingSoon()" class="btn-store-buy" style="width: 100%; padding: 14px; background: linear-gradient(135deg, #980000, #c40000); border: none; font-weight: 800; letter-spacing: 0.05em; border-radius: 8px; cursor: pointer;" data-translate="coming_soon_modal_btn">SIAP, SAYA NANTIKAN</button>
+        </div>
     </div>
 
     <!-- JS Libraries -->
@@ -2268,6 +2280,7 @@
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 if (typeof closeDetails === 'function') closeDetails();
+                if (typeof closeComingSoon === 'function') closeComingSoon();
                 if (typeof closeSuccess === 'function') closeSuccess();
                 window.forceUnlockScroll();
             }
@@ -2326,7 +2339,8 @@
                 features_id: "Chapter 1: Kenali Dirimu Sebelum Branding ke Dunia | Chapter 2: Optimasi Profil LinkedIn yang Bikin Recruiter Kepincut | Chapter 3: Konten LinkedIn & IG yang Bikin Kamu Dikenal Ahli | Chapter 4: Bangun Jaringan & Dapat Peluang dari Personal Brand | Chapter 5: Jaga Konsistensi & Terus Tumbuh Sebagai Brand | Format PDF HD 43+ Halaman | Akses Download Langsung & Update Selamanya",
                 features_en: "Chapter 1: Know Yourself Before Branding to the World | Chapter 2: LinkedIn Profile Optimization for Recruiters | Chapter 3: LinkedIn & IG Content Strategy to Stand Out | Chapter 4: Build Network & Unlock Career Opportunities | Chapter 5: Consistency & Long-Term Growth | 43+ Pages HD PDF Format | Lifetime Download Access",
                 priceNumeric: 49000,
-                priceString: "Rp 49.000",
+                priceString: "SEGERA HADIR (COMING SOON)",
+                isComingSoon: true,
                 class: "preview-presets",
                 icon: "book-open",
                 category: "ebooks",
@@ -2523,8 +2537,12 @@
                     const card = document.createElement('div');
                     card.className = "product-card";
                     
+                    const isComingSoon = prod.isComingSoon || prod.priceNumeric > 0 || prod.category === 'ebooks' || (prod.priceString && (prod.priceString.includes('COMING SOON') || prod.priceString.includes('SEGERA HADIR')));
+                    
                     let badgeText = "";
-                    if (prod.id === 7) {
+                    if (isComingSoon) {
+                        badgeText = dict['badge_coming_soon'] || 'SEGERA HADIR';
+                    } else if (prod.id === 7) {
                         badgeText = 'EBOOK UTAMA';
                     } else if (prod.priceNumeric === 0 || prod.category === 'free-web') {
                         badgeText = dict['badge_karya_web'] || 'KARYA WEB';
@@ -2535,16 +2553,30 @@
                     } else if (prod.id === 6) {
                         badgeText = dict['product_new'] || 'BARU';
                     }
-                    const badgeHtml = badgeText ? `<span class="card-badge">${badgeText}</span>` : '';
+                    const badgeStyle = isComingSoon ? 'style="background: linear-gradient(135deg, #980000, #c40000); color: #fff; font-weight: 800;"' : '';
+                    const badgeHtml = badgeText ? `<span class="card-badge" ${badgeStyle}>${badgeText}</span>` : '';
 
-                    const isFree = prod.priceNumeric === 0 || prod.category === 'free-web';
-                    const priceDisplay = isFree ? (dict['price_free'] || 'GRATIS (FREE DEMO)') : prod.priceString;
-                    const priceColor = isFree ? 'style="color: var(--accent-color); font-weight: 800;"' : '';
+                    const isFree = !isComingSoon && (prod.priceNumeric === 0 || prod.category === 'free-web');
+                    let priceDisplay = "";
+                    if (isComingSoon) {
+                        priceDisplay = dict['price_coming_soon'] || 'SEGERA HADIR';
+                    } else if (isFree) {
+                        priceDisplay = dict['price_free'] || 'GRATIS (FREE DEMO)';
+                    } else {
+                        priceDisplay = prod.priceString;
+                    }
+
+                    const priceColor = isComingSoon 
+                        ? 'style="color: var(--accent-color); font-weight: 800; letter-spacing: 0.05em;"' 
+                        : (isFree ? 'style="color: var(--accent-color); font-weight: 800;"' : '');
                     
                     let buyBtnText = dict['btn_buy'] || 'BELI SEKARANG';
                     let buyAction = `triggerDirectBuy(${prod.id})`;
 
-                    if (isFree && prod.webLink) {
+                    if (isComingSoon) {
+                        buyBtnText = dict['btn_coming_soon'] || 'SEGERA HADIR';
+                        buyAction = `triggerDirectBuy(${prod.id})`;
+                    } else if (isFree && prod.webLink) {
                         buyBtnText = dict['btn_visit_website'] || 'AKSES WEBSITE';
                         buyAction = `window.open('${prod.webLink}', '_blank', 'noopener,noreferrer')`;
                     } else if (prod.id === 7 || prod.dokuStoreUrl) {
@@ -2968,8 +3000,14 @@
             const desc = (currentLang === 'en' ? product.desc_en : product.desc_id) || dict[product.descKey] || product.desc_id || product.descKey;
             document.getElementById('modal-desc').textContent = desc;
 
-            const isFree = product.priceNumeric === 0 || product.category === 'free-web';
-            document.getElementById('modal-price').textContent = isFree && product.category !== 'coffee' ? (dict['price_free'] || 'GRATIS (FREE DEMO)') : product.priceString;
+            const isComingSoon = product.isComingSoon || product.priceNumeric > 0 || product.category === 'ebooks' || (product.priceString && (product.priceString.includes('COMING SOON') || product.priceString.includes('SEGERA HADIR')));
+            const isFree = !isComingSoon && (product.priceNumeric === 0 || product.category === 'free-web');
+
+            if (isComingSoon) {
+                document.getElementById('modal-price').textContent = dict['price_coming_soon'] || 'SEGERA HADIR (COMING SOON)';
+            } else {
+                document.getElementById('modal-price').textContent = isFree && product.category !== 'coffee' ? (dict['price_free'] || 'GRATIS (FREE DEMO)') : product.priceString;
+            }
 
             const list = document.getElementById('modal-features');
             list.innerHTML = "";
@@ -2983,7 +3021,20 @@
             });
 
             const checkoutBtn = document.getElementById('modal-checkout-btn');
-            if (product.category === 'coffee') {
+            if (isComingSoon) {
+                checkoutBtn.innerHTML = `<i data-lucide="clock" style="width:18px;height:18px;"></i> <span>${dict['btn_coming_soon'] || 'SEGERA HADIR (COMING SOON)'}</span>`;
+                checkoutBtn.style.background = 'linear-gradient(135deg, #980000, #c40000)';
+                checkoutBtn.style.color = '#ffffff';
+                checkoutBtn.style.fontWeight = '900';
+                checkoutBtn.style.boxShadow = '0 6px 22px rgba(152, 0, 0, 0.5)';
+                checkoutBtn.style.border = 'none';
+                checkoutBtn.onclick = () => {
+                    closeDetails();
+                    setTimeout(() => {
+                        openComingSoonModal(product);
+                    }, 350);
+                };
+            } else if (product.category === 'coffee') {
                 checkoutBtn.innerHTML = `<i data-lucide="coffee" style="width:18px;height:18px;"></i> <span>TRAKTIR KOPI (SUKARELA)</span>`;
                 checkoutBtn.style.background = 'linear-gradient(135deg, #980000, #c40000)';
                 checkoutBtn.style.color = '#ffffff';
@@ -3004,17 +3055,6 @@
                 checkoutBtn.onclick = () => {
                     closeDetails();
                     window.open(product.webLink, '_blank', 'noopener,noreferrer');
-                };
-            } else if (product.id === 7 || product.category === 'ebooks') {
-                checkoutBtn.innerHTML = `<i data-lucide="shopping-bag" style="width:18px;height:18px;"></i> <span>BELI DI DOKU STORE</span>`;
-                checkoutBtn.style.background = 'linear-gradient(135deg, #980000, #c40000)';
-                checkoutBtn.style.color = '#ffffff';
-                checkoutBtn.style.fontWeight = '900';
-                checkoutBtn.style.boxShadow = '0 6px 22px rgba(152, 0, 0, 0.5)';
-                checkoutBtn.style.border = 'none';
-                checkoutBtn.onclick = () => {
-                    closeDetails();
-                    window.open(product.dokuStoreUrl || product.paymentLink, '_blank', 'noopener,noreferrer');
                 };
             } else {
                 checkoutBtn.innerHTML = `<i data-lucide="shopping-bag" style="width:18px;height:18px;"></i> <span>${dict['btn_buy'] || 'BELI SEKARANG'}</span>`;
@@ -3063,9 +3103,57 @@
             const product = productsData[id];
             if (!product) return;
 
+            const isComingSoon = product.isComingSoon || product.priceNumeric > 0 || product.category === 'ebooks' || (product.priceString && (product.priceString.includes('COMING SOON') || product.priceString.includes('SEGERA HADIR')));
+            if (isComingSoon) {
+                openComingSoonModal(product);
+                return;
+            }
+
             const targetUrl = product.dokuStoreUrl || product.paymentLink || "https://dashboard.doku.com/retail/merchant/ZeifurRohmanFreelanc6206/EbookPersonalBrandingAnakMudadiEraDigital-849405b25d1d4b8f";
 
             window.open(targetUrl, '_blank', 'noopener,noreferrer');
+        };
+
+        window.openComingSoonModal = function(product) {
+            const csModal = document.getElementById('modal-coming-soon');
+            if (!csModal) return;
+
+            const currentLang = localStorage.getItem('preferred_language') || 'id';
+            const title = product ? ((currentLang === 'en' ? product.title_en : product.title_id) || product.title_id) : "";
+            const titleEl = document.getElementById('cs-product-title');
+            if (titleEl && title) {
+                titleEl.textContent = title;
+            }
+
+            if (lenis) lenis.stop();
+            document.body.style.overflow = 'hidden';
+            csModal.classList.add('active');
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+            gsap.fromTo(csModal.querySelector('.modal-box'), 
+                { scale: 0.85, y: 20, opacity: 0 }, 
+                { scale: 1, y: 0, opacity: 1, duration: 0.4, ease: 'power3.out' }
+            );
+        };
+
+        window.closeComingSoon = function() {
+            const csModal = document.getElementById('modal-coming-soon');
+            if (!csModal) return;
+            gsap.to(csModal.querySelector('.modal-box'), {
+                scale: 0.85, y: 20, opacity: 0, duration: 0.25, ease: 'power2.in',
+                onComplete: () => {
+                    csModal.classList.remove('active');
+                    const detailsModal = document.getElementById('modal-details');
+                    if (!detailsModal || !detailsModal.classList.contains('active')) {
+                        window.forceUnlockScroll();
+                    }
+                }
+            });
+        };
+
+        window.closeComingSoonOutside = function(e) {
+            if (e.target.id === 'modal-coming-soon') {
+                closeComingSoon();
+            }
         };
 
         // Scroll to Top action in footer
