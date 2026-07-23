@@ -106,7 +106,7 @@
 }
 
 html {
-    overflow-x: hidden;
+    overflow-x: clip;
     overflow-y: auto;
 }
 
@@ -115,7 +115,7 @@ body {
     color: var(--text-color);
     font-family: var(--font-body);
     line-height: 1.6;
-    overflow-x: hidden; /* Safe only on body element, doesn't block sticky child */
+    overflow-x: clip;
     overflow-y: auto;
     margin: 0; /* Ensure no body margin */
 }
