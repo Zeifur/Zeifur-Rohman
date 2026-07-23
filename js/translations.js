@@ -8,6 +8,7 @@ const translations = {
         hero_scroll: "GULIR KE BAWAH UNTUK MENJELAJAHI",
         
         // Pinned Left Vertical Titles
+        layer_hero: "BERANDA",
         layer_about: "TENTANG",
         layer_services: "LAYANAN",
         layer_skills: "KEAHLIAN",
@@ -338,6 +339,7 @@ const translations = {
         hero_scroll: "SCROLL DOWN TO DISCOVER",
         
         // Pinned Left Vertical Titles
+        layer_hero: "HOME",
         layer_about: "ABOUT",
         layer_services: "SERVICES",
         layer_skills: "SKILLS",

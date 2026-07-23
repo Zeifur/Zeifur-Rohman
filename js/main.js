@@ -237,13 +237,13 @@ const bgLayers = document.querySelectorAll('.bg-layer');
 // Select sub-links from BOTH nav variants (mobile inside hero + desktop sticky)
 const subLinks = document.querySelectorAll('.sub-links a');
 
-// Hero section trigger to update progress back to 01
+// Hero section trigger to update progress back to 01 and show hero layer
 ScrollTrigger.create({
     trigger: '#hero',
     start: 'top 50%',
     end: 'bottom 50%',
-    onEnter: () => updateProgress(1),
-    onEnterBack: () => updateProgress(1)
+    onEnter: () => switchLayer('hero'),
+    onEnterBack: () => switchLayer('hero')
 });
 
 contentSections.forEach((section) => {

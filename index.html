@@ -230,7 +230,96 @@
     <!-- Main Content -->
     <main data-scroll-container>
         
-        <!-- SECTION: HERO -->
+        
+
+        <!-- SUB NAVIGATION DESKTOP: sticky, outside hero, visible only on desktop -->
+        <nav class="sub-nav sub-nav--desktop">
+            <div class="container">
+                <div class="sub-links-wrapper">
+                    <div class="sub-links">
+                        <a href="#about" class="active"><span>02</span> <span data-translate="sub_about">TENTANG</span></a>
+                        <a href="#services"><span>03</span> <span data-translate="sub_services">LAYANAN</span></a>
+                        <a href="#process"><span>04</span> <span data-translate="sub_process">PROSES</span></a>
+                        <a href="#skills"><span>05</span> <span data-translate="sub_skills">KEAHLIAN</span></a>
+                        <a href="#resume"><span>06</span> <span data-translate="sub_resume">RIWAYAT</span></a>
+                        <a href="#clients"><span>07</span> <span data-translate="sub_clients">MITRA</span></a>
+                        <a href="#portofolio"><span>08</span> <span data-translate="sub_portfolio">PORTOFOLIO</span></a>
+                        <a href="blog" class="highlight-nav-link"><span data-translate="menu_link_blog">BLOG KREATIF</span></a>
+                        <a href="product" class="highlight-nav-link"><span data-translate="menu_link_shop">PRODUK KREATIF</span></a>
+                    </div>
+                    <div class="nav-controls-minimal">
+                        <button class="nav-arrow prev" title="Previous Section">▲</button>
+                        <span class="nav-sep">/</span>
+                        <button class="nav-arrow next" title="Next Section">▼</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- THE PINNED CONTAINER SYSTEM -->
+        <div class="pinned-layout">
+            <!-- Global Fixed Left Panel -->
+            <div class="fixed-left-panel">
+                <!-- Side Progress Indicator (01 - 08) -->
+                <div class="side-progress-indicator">
+                    <div class="progress-bar-track">
+                        <div class="progress-bar-fill" id="side-progress-fill"></div>
+                    </div>
+                    <span class="progress-text" id="side-progress-text">02 — 08</span>
+                </div>
+                <!-- Layer Hero -->
+                <div class="bg-layer active" data-layer="hero">
+                    <div class="split-bg" style="background-image: url('assets/images/my-foto-hero-web.jpg');"></div>
+                    <h2 class="split-vertical-title" data-translate="layer_hero">BERANDA</h2>
+                    <div class="split-accent-line"></div>
+                </div>
+                <!-- Layer About -->
+                <div class="bg-layer" data-layer="about">
+                    <div class="split-bg" style="background-image: url('assets/images/foto-side-panel-about.jpeg');"></div>
+                    <h2 class="split-vertical-title" data-translate="layer_about">TENTANG</h2>
+                    <div class="split-accent-line"></div>
+                </div>
+                <!-- Layer Services -->
+                <div class="bg-layer" data-layer="services">
+                    <div class="split-bg" style="background-image: url('assets/images/foto-side-panel-keahlian.jpeg');"></div>
+                    <h2 class="split-vertical-title" data-translate="layer_services">LAYANAN</h2>
+                    <div class="split-accent-line"></div>
+                </div>
+                <!-- Layer Process -->
+                <div class="bg-layer" data-layer="process">
+                    <div class="split-bg" style="background-image: url('assets/images/foto-side-panel-proses-kerja.jpeg');"></div>
+                    <h2 class="split-vertical-title" data-translate="process_title">PROSES</h2>
+                    <div class="split-accent-line"></div>
+                </div>
+                <!-- Layer Skills -->
+                <div class="bg-layer" data-layer="skills">
+                    <div class="split-bg" style="background-image: url('assets/images/foto-side-panel-keahlian.jpeg');"></div>
+                    <h2 class="split-vertical-title" data-translate="layer_skills">KEAHLIAN</h2>
+                    <div class="split-accent-line"></div>
+                </div>
+                <!-- Layer Resume -->
+                <div class="bg-layer" data-layer="resume">
+                    <div class="split-bg" style="background-image: url('assets/images/foto-side-panel-resume.jpg');"></div>
+                    <h2 class="split-vertical-title" data-translate="layer_resume">RIWAYAT</h2>
+                    <div class="split-accent-line"></div>
+                </div>
+                <!-- Layer Clients -->
+                <div class="bg-layer" data-layer="clients">
+                    <div class="split-bg" style="background-image: url('assets/images/foto-side-panel-klien.jpg');"></div>
+                    <h2 class="split-vertical-title" data-translate="layer_clients">KLIEN</h2>
+                    <div class="split-accent-line"></div>
+                </div>
+                <!-- Layer Portfolio -->
+                <div class="bg-layer" data-layer="portofolio">
+                    <div class="split-bg" style="background-image: url('assets/images/portofolio/website-ikafasya-display-1.png');"></div>
+                    <h2 class="split-vertical-title" data-translate="layer_portfolio">PORTOFOLIO</h2>
+                    <div class="split-accent-line"></div>
+                </div>
+            </div>
+
+            <!-- Scrolling Right Content -->
+            <div class="scrolling-right-panel">
+                <!-- SECTION: HERO -->
         <section id="hero" class="hero-split" data-scroll-section>
             <!-- Technical Corner Brackets -->
             <div class="hero-corner-bracket top-left"></div>
@@ -325,88 +414,6 @@
                 </div>
             </nav>
         </section>
-
-        <!-- SUB NAVIGATION DESKTOP: sticky, outside hero, visible only on desktop -->
-        <nav class="sub-nav sub-nav--desktop">
-            <div class="container">
-                <div class="sub-links-wrapper">
-                    <div class="sub-links">
-                        <a href="#about" class="active"><span>02</span> <span data-translate="sub_about">TENTANG</span></a>
-                        <a href="#services"><span>03</span> <span data-translate="sub_services">LAYANAN</span></a>
-                        <a href="#process"><span>04</span> <span data-translate="sub_process">PROSES</span></a>
-                        <a href="#skills"><span>05</span> <span data-translate="sub_skills">KEAHLIAN</span></a>
-                        <a href="#resume"><span>06</span> <span data-translate="sub_resume">RIWAYAT</span></a>
-                        <a href="#clients"><span>07</span> <span data-translate="sub_clients">MITRA</span></a>
-                        <a href="#portofolio"><span>08</span> <span data-translate="sub_portfolio">PORTOFOLIO</span></a>
-                        <a href="blog" class="highlight-nav-link"><span data-translate="menu_link_blog">BLOG KREATIF</span></a>
-                        <a href="product" class="highlight-nav-link"><span data-translate="menu_link_shop">PRODUK KREATIF</span></a>
-                    </div>
-                    <div class="nav-controls-minimal">
-                        <button class="nav-arrow prev" title="Previous Section">▲</button>
-                        <span class="nav-sep">/</span>
-                        <button class="nav-arrow next" title="Next Section">▼</button>
-                    </div>
-                </div>
-            </div>
-        </nav>
-
-        <!-- THE PINNED CONTAINER SYSTEM -->
-        <div class="pinned-layout">
-            <!-- Global Fixed Left Panel -->
-            <div class="fixed-left-panel">
-                <!-- Side Progress Indicator (01 - 08) -->
-                <div class="side-progress-indicator">
-                    <div class="progress-bar-track">
-                        <div class="progress-bar-fill" id="side-progress-fill"></div>
-                    </div>
-                    <span class="progress-text" id="side-progress-text">02 — 08</span>
-                </div>
-                <!-- Layer About -->
-                <div class="bg-layer active" data-layer="about">
-                    <div class="split-bg" style="background-image: url('assets/images/foto-side-panel-about.jpeg');"></div>
-                    <h2 class="split-vertical-title" data-translate="layer_about">TENTANG</h2>
-                    <div class="split-accent-line"></div>
-                </div>
-                <!-- Layer Services -->
-                <div class="bg-layer" data-layer="services">
-                    <div class="split-bg" style="background-image: url('assets/images/foto-side-panel-keahlian.jpeg');"></div>
-                    <h2 class="split-vertical-title" data-translate="layer_services">LAYANAN</h2>
-                    <div class="split-accent-line"></div>
-                </div>
-                <!-- Layer Process -->
-                <div class="bg-layer" data-layer="process">
-                    <div class="split-bg" style="background-image: url('assets/images/foto-side-panel-proses-kerja.jpeg');"></div>
-                    <h2 class="split-vertical-title" data-translate="process_title">PROSES</h2>
-                    <div class="split-accent-line"></div>
-                </div>
-                <!-- Layer Skills -->
-                <div class="bg-layer" data-layer="skills">
-                    <div class="split-bg" style="background-image: url('assets/images/foto-side-panel-keahlian.jpeg');"></div>
-                    <h2 class="split-vertical-title" data-translate="layer_skills">KEAHLIAN</h2>
-                    <div class="split-accent-line"></div>
-                </div>
-                <!-- Layer Resume -->
-                <div class="bg-layer" data-layer="resume">
-                    <div class="split-bg" style="background-image: url('assets/images/foto-side-panel-resume.jpg');"></div>
-                    <h2 class="split-vertical-title" data-translate="layer_resume">RIWAYAT</h2>
-                    <div class="split-accent-line"></div>
-                </div>
-                <!-- Layer Clients -->
-                <div class="bg-layer" data-layer="clients">
-                    <div class="split-bg" style="background-image: url('assets/images/foto-side-panel-klien.jpg');"></div>
-                    <h2 class="split-vertical-title" data-translate="layer_clients">KLIEN</h2>
-                    <div class="split-accent-line"></div>
-                </div>
-                <!-- Layer Portfolio -->
-                <div class="bg-layer" data-layer="portofolio">
-                    <div class="split-bg" style="background-image: url('assets/images/portofolio/website-ikafasya-display-1.png');"></div>
-                    <h2 class="split-vertical-title" data-translate="layer_portfolio">PORTOFOLIO</h2>
-                    <div class="split-accent-line"></div>
-                </div>
-            </div>
-
-            <!-- Scrolling Right Content -->
-            <div class="scrolling-right-panel">
                 <!-- ABOUT CONTENT -->
                 <section id="about" class="content-section" data-scroll-section>
                     <div class="section-number">01</div>
