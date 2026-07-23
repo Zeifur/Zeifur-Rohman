@@ -1177,112 +1177,6 @@ body.scrolled-past-hero .sub-links a.active > span:first-child {
     transform: scale(1.05);
 }
 
-/* DESKTOP STICKY TOP NAVIGATION BAR */
-.desktop-topbar {
-    position: fixed;
-    top: 0;
-    left: var(--sidebar-width);
-    width: calc(100% - var(--sidebar-width));
-    height: 65px;
-    background: rgba(6, 8, 8, 0.88);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--border-color);
-    z-index: 990;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 40px;
-    box-sizing: border-box;
-    transition: transform 0.4s ease, background-color 0.3s ease;
-}
-
-.desktop-topbar-left {
-    display: flex;
-    align-items: center;
-}
-
-.topbar-brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-decoration: none;
-    color: var(--text-color);
-}
-
-.topbar-logo {
-    height: 28px;
-    width: auto;
-    object-fit: contain;
-}
-
-.brand-name {
-    font-family: var(--font-condensed);
-    font-size: 0.9rem;
-    font-weight: 800;
-    letter-spacing: 0.12em;
-    color: var(--text-color);
-}
-
-.desktop-topbar-nav {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.topbar-link {
-    font-family: var(--font-condensed);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    color: var(--muted-text);
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: color 0.3s ease, border-color 0.3s ease;
-    padding: 6px 0;
-    position: relative;
-}
-
-.topbar-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0%;
-    height: 2px;
-    background: var(--accent-color);
-    transition: width 0.3s ease;
-}
-
-.topbar-link:hover,
-.topbar-link.active {
-    color: var(--text-color);
-}
-
-.topbar-link:hover::after,
-.topbar-link.active::after {
-    width: 100%;
-}
-
-.topbar-link.highlight-pill {
-    padding: 5px 14px;
-    border-radius: 20px;
-    border: 1px solid var(--border-color);
-    color: var(--text-color);
-    background: rgba(255, 255, 255, 0.03);
-}
-
-.topbar-link.highlight-pill::after {
-    display: none;
-}
-
-.topbar-link.highlight-pill:hover,
-.topbar-link.highlight-pill.active-pill {
-    border-color: var(--accent-color);
-    background: var(--accent-color);
-    color: #ffffff;
-}
-
 /* PINNED LAYOUT SYSTEM */
 .pinned-layout {
     display: flex;
@@ -1292,12 +1186,12 @@ body.scrolled-past-hero .sub-links a.active > span:first-child {
 
 .fixed-left-panel {
     position: sticky;
-    top: 65px;
+    top: 0;
     width: 56.25vh; /* IG Story aspect ratio (9:16) based on 100vh height */
     max-width: 450px;
     min-width: 320px;
     flex-shrink: 0; /* Locked size, no shrinking */
-    height: calc(100vh - 65px);
+    height: 100vh;
     overflow: hidden;
     background: var(--secondary-bg);
     border-right: 1px solid var(--border-color);
