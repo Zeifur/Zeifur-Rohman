@@ -652,7 +652,7 @@ body.menu-open .menu-toggle:hover .close-icon {
     display: flex;
     flex: 1;
     justify-content: center;
-    gap: 30px;
+    gap: clamp(12px, 1.6vw, 26px);
 }
 
 .sub-links a {
@@ -664,21 +664,39 @@ body.menu-open .menu-toggle:hover .close-icon {
     display: flex;
     align-items: center;
     gap: 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
     transition: all 0.3s ease;
 }
 
 .sub-links a.highlight-nav-link {
-    color: var(--text-color);
-    border: 1px solid var(--border-color);
-    padding: 4px 12px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.03);
+    color: #ffffff;
+    border: 1px solid var(--accent-color);
+    padding: 5px 14px;
+    border-radius: 20px;
+    background: rgba(255, 107, 0, 0.12);
+    white-space: nowrap;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.3, 1);
+}
+
+.sub-links a.highlight-nav-link span {
+    width: auto !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+    margin-right: 0 !important;
+    color: inherit !important;
+    letter-spacing: 0.12em;
 }
 
 .sub-links a.highlight-nav-link:hover {
     border-color: var(--accent-color);
     background: var(--accent-color);
     color: #ffffff;
+    box-shadow: 0 0 14px rgba(255, 107, 0, 0.4);
+    transform: translateY(-1px);
 }
 
 .nav-controls-minimal {
@@ -708,12 +726,12 @@ body.menu-open .menu-toggle:hover .close-icon {
 
 .nav-sep {
     color: rgba(239, 239, 239, 0.2);
-    font-size: 0.8rem;
-    font-weight: 400;
+    font-size: 0.75rem;
+    margin: 0 2px;
 }
 
 .sub-links a:hover {
-    color: var(--accent-color);
+    color: var(--text-color);
 }
 
 .sub-links a.active {
@@ -722,7 +740,7 @@ body.menu-open .menu-toggle:hover .close-icon {
 }
 
 /* Progress numbers in sub-nav on desktop are completely hidden initially */
-.sub-links a > span:first-child {
+.sub-links a:not(.highlight-nav-link) > span:first-child {
     font-family: var(--font-condensed);
     font-size: 0.72rem;
     font-weight: 900;
@@ -737,13 +755,13 @@ body.menu-open .menu-toggle:hover .close-icon {
 }
 
 /* Dynamically reveal and slide in the progress numbers once scrolled past hero section */
-body.scrolled-past-hero .sub-links a > span:first-child {
+body.scrolled-past-hero .sub-links a:not(.highlight-nav-link) > span:first-child {
     width: 20px;
     margin-right: 8px;
     opacity: 0.65;
 }
 
-body.scrolled-past-hero .sub-links a.active > span:first-child {
+body.scrolled-past-hero .sub-links a.active:not(.highlight-nav-link) > span:first-child {
     color: var(--accent-color);
     opacity: 1;
     text-shadow: 0 0 8px rgba(152, 0, 0, 0.4);

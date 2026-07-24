@@ -1539,17 +1539,22 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Footer centered style matching blog.html */
+        /* Footer layout matching blog.html */
         .footer-section {
-            padding-left: 0 !important;
             position: relative !important;
             z-index: 10 !important;
             margin-top: 80px !important;
         }
 
         @media (min-width: 1025px) {
-            .footer-bottom {
-                padding-left: calc(var(--sidebar-width) + 60px) !important;
+            .footer-section {
+                padding-left: var(--sidebar-width) !important;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .footer-section {
+                padding-left: 0 !important;
             }
         }
 
