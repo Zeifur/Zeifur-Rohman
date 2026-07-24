@@ -31,7 +31,7 @@ $crudError = '';
 $crudSuccess = '';
 
 if ($isLoggedIn && $db) {
-    // Auto-migration: Check if image_url column exists in products table, add if missing
+    // 1. Auto-migration: Products table
     $colCheck = $db->query("SHOW COLUMNS FROM `products` LIKE 'image_url'");
     if ($colCheck && $colCheck->num_rows === 0) {
         @$db->query("ALTER TABLE `products` ADD COLUMN `image_url` VARCHAR(255) NULL AFTER `payment_link`");
@@ -43,14 +43,43 @@ if ($isLoggedIn && $db) {
         @$db->query("INSERT INTO `products` (`id`, `title_id`, `title_en`, `desc_id`, `desc_en`, `features_id`, `features_en`, `price`, `price_string`, `class_name`, `icon_name`, `category_name`, `tags`, `payment_link`, `image_url`) VALUES (2, 'CapKarya by Zeifur Rohman (Web App Monogram)', 'CapKarya by Zeifur Rohman (Monogram Web App)', 'Aplikasi web generator logo monogram & identitas visual instan berbasis browser yang dirancang khusus oleh Zeifur Rohman untuk membantu UMKM, pebisnis, dan kreator menciptakan cap identitas/monogram kelas premium secara presisi.', 'Instant browser-based monogram logo & visual identity web application designed by Zeifur Rohman to empower small businesses, entrepreneurs, and creators to generate premium monogram logos in seconds.', 'Editor Monogram Presisi 320x320px | Kustomisasi Inisial 2-3 Huruf & Tagline | Kontrol Rotasi Sudut & Skala Ukuran | Simpan Desain Favorit & Ekspor Aset | 100% Gratis Digunakan', '320x320px Precision Monogram Canvas | 2-3 Letter Monogram & Tagline Builder | Rotation Angle & Scale Controls | Local Favorites Saver & Asset Export | 100% Free to Use', 0.00, 'GRATIS (FREE DEMO)', 'preview-template-1', 'globe', 'free-web', 'CapKarya,WebApp,Monogram,Generator', 'http://capkarya.great-site.net', 'assets/images/capkarya-display-1.png')");
     }
 
-    // Ensure upload directory exists
-    $uploadDir = 'uploads/products/';
-    if (!file_exists($uploadDir)) {
-        @mkdir($uploadDir, 0777, true);
+    // 2. Auto-migration: Blogs table
+    $db->query("CREATE TABLE IF NOT EXISTS `blogs` (
+      `id` INT AUTO_INCREMENT PRIMARY KEY,
+      `slug` VARCHAR(255) NOT NULL,
+      `title_id` VARCHAR(255) NOT NULL,
+      `title_en` VARCHAR(255) NOT NULL,
+      `category` VARCHAR(50) NOT NULL DEFAULT 'website',
+      `tags` VARCHAR(255) NOT NULL DEFAULT 'website,branding',
+      `author` VARCHAR(100) NOT NULL DEFAULT 'ZEIFUR ROHMAN',
+      `created_date` VARCHAR(50) NOT NULL,
+      `excerpt_id` TEXT NOT NULL,
+      `excerpt_en` TEXT NOT NULL,
+      `content_id` LONGTEXT NOT NULL,
+      `content_en` LONGTEXT NOT NULL,
+      `image_url` VARCHAR(255) NULL,
+      `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+
+    // Auto-seed default blogs if blogs table is empty
+    $blogCheck = $db->query("SELECT COUNT(*) as cnt FROM `blogs`");
+    if ($blogCheck && ($row = $blogCheck->fetch_assoc()) && intval($row['cnt']) === 0) {
+        @$db->query("INSERT INTO `blogs` (`id`, `slug`, `title_id`, `title_en`, `category`, `tags`, `author`, `created_date`, `excerpt_id`, `excerpt_en`, `content_id`, `content_en`, `image_url`) VALUES
+        (1, 'strategi-pengembangan-website-modern', 'STRATEGI PENGEMBANGAN WEBSITE MODERN YANG CEPAT DAN RESPONSIF', 'MODERN WEB DEVELOPMENT STRATEGY FOR HIGH SPEED AND RESPONSIVENESS', 'website', 'branding,website', 'ZEIFUR ROHMAN', 'JUNE 08, 2026', 'Dalam era digital saat ini, performa dan aksesibilitas website adalah kunci keberhasilan bisnis. Pelajari bagaimana memadukan vanilla JavaScript, animasi GSAP, dan optimalisasi Core Web Vitals.', 'In todays digital era, website performance and accessibility are key to business success. Learn how to blend vanilla JavaScript, GSAP animations, and Core Web Vitals optimization.', '<h3>Metodologi Clean Code & Performa Utama</h3><p>Membangun website modern tidak lagi sekadar tentang visual yang indah, melainkan tentang kecepatan muat halaman dan struktur kode yang efisien...</p>', '<h3>Clean Code Methodology & Peak Performance</h3><p>Building modern websites is no longer just about aesthetics, but page load speed and efficient code architecture...</p>', 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'),
+        (2, 'filosofi-branding-visual-identitas-logo', 'FILOSOFI BRANDING VISUAL: MENERJEMAHKAN VISI MENJADI IDENTITAS LOGO', 'VISUAL BRANDING PHILOSOPHY: TRANSLATING VISION INTO LOGO IDENTITY', 'branding', 'branding', 'ZEIFUR ROHMAN', 'JUNE 05, 2026', 'Logo bukan sekadar gambar, melainkan sebuah representasi filosofis dari visi dan misi suatu brand. Penting untuk melakukan riset audiens dan merumuskan panduan brand digital yang komprehensif.', 'A logo is not just an image, but a philosophical representation of a brands vision and mission. It is vital to perform audience research and formulate comprehensive brand guidelines.', '<h3>Eksplorasi Monogram & Identitas Visual</h3><p>Setiap garis dan warna dalam desain logo memiliki bobot emosional dan daya pikat bisnis...</p>', '<h3>Monogram Exploration & Visual Identity</h3><p>Every line and color in logo design holds emotional weight and business appeal...</p>', 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'),
+        (3, 'seni-fotografi-dokumenter-dan-penceritaan-visual', 'SENI FOTOGRAFI DOKUMENTER DAN PENCERITAAN VISUAL', 'THE ART OF DOCUMENTARY PHOTOGRAPHY AND VISUAL STORYTELLING', 'photography', 'photography', 'ZEIFUR ROHMAN', 'JUNE 01, 2026', 'Fotografi adalah seni menangkap momen berharga yang menceritakan sebuah kisah tanpa kata-kata. Pelajari teknik komposisi cahaya dan framing untuk menghasilkan karya visual bercerita.', 'Photography is the art of capturing precious moments that tell a story without words. Learn lighting composition techniques and framing to craft visual storytelling.', '<h3>Teknik Framing & Esensi Visual</h3><p>Melalui kamera, kita membekukan fragmen waktu menjadi kenangan abadi...</p>', '<h3>Framing Techniques & Visual Essence</h3><p>Through the lens, we freeze fragments of time into everlasting memories...</p>', 'https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')");
     }
 
-    // 1. ADD / EDIT PRODUCT
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+    // Ensure upload directories exist
+    $uploadDirProd = 'uploads/products/';
+    $uploadDirBlog = 'uploads/blogs/';
+    if (!file_exists($uploadDirProd)) @mkdir($uploadDirProd, 0777, true);
+    if (!file_exists($uploadDirBlog)) @mkdir($uploadDirBlog, 0777, true);
+
+    // ==========================================
+    // PRODUCT CRUD HANDLERS
+    // ==========================================
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && in_array($_POST['action'], ['add', 'edit'])) {
         $action = $_POST['action'];
         $title_id = trim($_POST['title_id'] ?? '');
         $title_en = trim($_POST['title_en'] ?? '');
@@ -67,7 +96,6 @@ if ($isLoggedIn && $db) {
         $payment_link = trim($_POST['payment_link'] ?? '');
         $image_url = trim($_POST['image_url_text'] ?? '');
         
-        // Handle File Upload if provided
         if (isset($_FILES['product_image']) && $_FILES['product_image']['error'] === UPLOAD_ERR_OK) {
             $fileTmpPath = $_FILES['product_image']['tmp_name'];
             $fileName = $_FILES['product_image']['name'];
@@ -76,7 +104,7 @@ if ($isLoggedIn && $db) {
             $allowedExtensions = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'svg'];
             if (in_array($fileExtension, $allowedExtensions)) {
                 $newFileName = 'prod_' . time() . '_' . substr(md5(uniqid()), 0, 8) . '.' . $fileExtension;
-                $destPath = $uploadDir . $newFileName;
+                $destPath = $uploadDirProd . $newFileName;
                 if (move_uploaded_file($fileTmpPath, $destPath)) {
                     $image_url = $destPath;
                 }
@@ -86,23 +114,19 @@ if ($isLoggedIn && $db) {
         }
         
         if (empty($title_id) || empty($title_en) || empty($desc_id) || empty($desc_en) || $price < 0 || empty($payment_link)) {
-            $crudError = 'Judul, deskripsi, harga, dan payment link / demo link wajib diisi.';
+            $crudError = 'Judul, deskripsi, harga, dan payment link wajib diisi.';
         } else {
             if ($action === 'add') {
                 $stmt = $db->prepare("INSERT INTO `products` (`title_id`, `title_en`, `desc_id`, `desc_en`, `features_id`, `features_en`, `price`, `price_string`, `class_name`, `icon_name`, `category_name`, `tags`, `payment_link`, `image_url`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 $stmt->bind_param("ssssssdsssssss", $title_id, $title_en, $desc_id, $desc_en, $features_id, $features_en, $price, $price_string, $class_name, $icon_name, $category_name, $tags, $payment_link, $image_url);
                 if ($stmt->execute()) {
                     $crudSuccess = 'Produk berhasil ditambahkan!';
-                    @$db->query("UPDATE `products` SET `image` = `image_url` WHERE `image_url` IS NOT NULL AND `image_url` != ''");
-                    @$db->query("UPDATE `products` SET `image_url` = `image` WHERE `image` IS NOT NULL AND `image` != '' AND (`image_url` IS NULL OR `image_url` = '')");
                 } else {
                     $crudError = 'Gagal menambahkan produk: ' . $stmt->error;
                 }
                 $stmt->close();
             } elseif ($action === 'edit') {
                 $id = intval($_POST['id']);
-                
-                // If editing and no new image upload/URL provided, keep existing image_url from DB
                 if (empty($image_url)) {
                     $existingCheck = $db->query("SELECT * FROM `products` WHERE `id` = $id");
                     if ($existingCheck && $row = $existingCheck->fetch_assoc()) {
@@ -114,9 +138,6 @@ if ($isLoggedIn && $db) {
                 $stmt->bind_param("ssssssdsssssssi", $title_id, $title_en, $desc_id, $desc_en, $features_id, $features_en, $price, $price_string, $class_name, $icon_name, $category_name, $tags, $payment_link, $image_url, $id);
                 if ($stmt->execute()) {
                     $crudSuccess = 'Produk berhasil diperbarui!';
-                    // Sync image and image_url columns if both exist in MySQL database
-                    @$db->query("UPDATE `products` SET `image` = `image_url` WHERE `image_url` IS NOT NULL AND `image_url` != ''");
-                    @$db->query("UPDATE `products` SET `image_url` = `image` WHERE `image` IS NOT NULL AND `image` != '' AND (`image_url` IS NULL OR `image_url` = '')");
                 } else {
                     $crudError = 'Gagal memperbarui produk: ' . $stmt->error;
                 }
@@ -124,8 +145,7 @@ if ($isLoggedIn && $db) {
             }
         }
     }
-    
-    // 2. DELETE PRODUCT
+
     if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['id'])) {
         $id = intval($_GET['id']);
         if ($id === 1) {
@@ -141,22 +161,114 @@ if ($isLoggedIn && $db) {
             $stmt->close();
         }
     }
+
+    // ==========================================
+    // BLOG CRUD HANDLERS
+    // ==========================================
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && in_array($_POST['action'], ['add_blog', 'edit_blog'])) {
+        $action = $_POST['action'];
+        $title_id = trim($_POST['blog_title_id'] ?? '');
+        $title_en = trim($_POST['blog_title_en'] ?? '');
+        $category = trim($_POST['blog_category'] ?? 'website');
+        $tags = trim($_POST['blog_tags'] ?? 'website,branding');
+        $author = trim($_POST['blog_author'] ?? 'ZEIFUR ROHMAN');
+        $created_date = trim($_POST['blog_date'] ?? date('F d, Y'));
+        $excerpt_id = trim($_POST['blog_excerpt_id'] ?? '');
+        $excerpt_en = trim($_POST['blog_excerpt_en'] ?? '');
+        $content_id = trim($_POST['blog_content_id'] ?? '');
+        $content_en = trim($_POST['blog_content_en'] ?? '');
+        $image_url = trim($_POST['blog_image_url_text'] ?? '');
+        
+        // Generate clean URL slug from Indonesian title
+        $slug = strtolower(preg_replace('/[^a-zA-Z0-9]+/', '-', $title_id));
+        $slug = trim($slug, '-');
+
+        if (isset($_FILES['blog_image']) && $_FILES['blog_image']['error'] === UPLOAD_ERR_OK) {
+            $fileTmpPath = $_FILES['blog_image']['tmp_name'];
+            $fileName = $_FILES['blog_image']['name'];
+            $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+            
+            $allowedExtensions = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'svg'];
+            if (in_array($fileExtension, $allowedExtensions)) {
+                $newFileName = 'blog_' . time() . '_' . substr(md5(uniqid()), 0, 8) . '.' . $fileExtension;
+                $destPath = $uploadDirBlog . $newFileName;
+                if (move_uploaded_file($fileTmpPath, $destPath)) {
+                    $image_url = $destPath;
+                }
+            } else {
+                $crudError = 'Format file gambar artikel tidak didukung. Gunakan JPG, PNG, WEBP, GIF, atau SVG.';
+            }
+        }
+
+        if (empty($title_id) || empty($title_en) || empty($excerpt_id) || empty($content_id)) {
+            $crudError = 'Judul, ringkasan, dan konten artikel wajib diisi.';
+        } else {
+            if ($action === 'add_blog') {
+                $stmt = $db->prepare("INSERT INTO `blogs` (`slug`, `title_id`, `title_en`, `category`, `tags`, `author`, `created_date`, `excerpt_id`, `excerpt_en`, `content_id`, `content_en`, `image_url`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param("ssssssssssss", $slug, $title_id, $title_en, $category, $tags, $author, $created_date, $excerpt_id, $excerpt_en, $content_id, $content_en, $image_url);
+                if ($stmt->execute()) {
+                    $crudSuccess = 'Artikel blog berhasil diterbitkan!';
+                } else {
+                    $crudError = 'Gagal menerbitkan artikel blog: ' . $stmt->error;
+                }
+                $stmt->close();
+            } elseif ($action === 'edit_blog') {
+                $id = intval($_POST['blog_id']);
+                if (empty($image_url)) {
+                    $existingCheck = $db->query("SELECT * FROM `blogs` WHERE `id` = $id");
+                    if ($existingCheck && $row = $existingCheck->fetch_assoc()) {
+                        $image_url = $row['image_url'] ?? '';
+                    }
+                }
+                $stmt = $db->prepare("UPDATE `blogs` SET `slug` = ?, `title_id` = ?, `title_en` = ?, `category` = ?, `tags` = ?, `author` = ?, `created_date` = ?, `excerpt_id` = ?, `excerpt_en` = ?, `content_id` = ?, `content_en` = ?, `image_url` = ? WHERE `id` = ?");
+                $stmt->bind_param("ssssssssssssi", $slug, $title_id, $title_en, $category, $tags, $author, $created_date, $excerpt_id, $excerpt_en, $content_id, $content_en, $image_url, $id);
+                if ($stmt->execute()) {
+                    $crudSuccess = 'Artikel blog berhasil diperbarui!';
+                } else {
+                    $crudError = 'Gagal memperbarui artikel blog: ' . $stmt->error;
+                }
+                $stmt->close();
+            }
+        }
+    }
+
+    if (isset($_GET['action']) && $_GET['action'] === 'delete_blog' && isset($_GET['id'])) {
+        $id = intval($_GET['id']);
+        $stmt = $db->prepare("DELETE FROM `blogs` WHERE `id` = ?");
+        $stmt->bind_param("i", $id);
+        if ($stmt->execute()) {
+            $crudSuccess = 'Artikel blog berhasil dihapus!';
+        } else {
+            $crudError = 'Gagal menghapus artikel blog: ' . $stmt->error;
+        }
+        $stmt->close();
+    }
 }
 
-// Fetch products list if logged in
+// Fetch products & blogs list if logged in
 $products = [];
+$blogsList = [];
 $coffeeProduct = null;
+
 if ($isLoggedIn && $db) {
-    $res = $db->query("SELECT * FROM `products` ORDER BY `id` DESC");
-    if ($res) {
-        while ($row = $res->fetch_assoc()) {
+    $resProd = $db->query("SELECT * FROM `products` ORDER BY `id` DESC");
+    if ($resProd) {
+        while ($row = $resProd->fetch_assoc()) {
             if (intval($row['id']) === 1) {
                 $coffeeProduct = $row;
             } else {
                 $products[] = $row;
             }
         }
-        $res->free();
+        $resProd->free();
+    }
+
+    $resBlog = $db->query("SELECT * FROM `blogs` ORDER BY `id` DESC");
+    if ($resBlog) {
+        while ($row = $resBlog->fetch_assoc()) {
+            $blogsList[] = $row;
+        }
+        $resBlog->free();
     }
 }
 ?>
@@ -166,11 +278,10 @@ if ($isLoggedIn && $db) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Zeifur Rohman</title>
-    <!-- Theme & Web App Colors for macOS Safari and Mobile Browser Header -->
+    <!-- Theme & Web App Colors -->
     <meta name="theme-color" content="#980000">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="msapplication-navbutton-color" content="#980000">
     <link rel="icon" type="image/x-icon" href="assets/logo.ico">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -190,12 +301,7 @@ if ($isLoggedIn && $db) {
             --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
@@ -213,425 +319,125 @@ if ($isLoggedIn && $db) {
 
         .container {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1240px;
             margin: 0 auto;
             padding: 40px 20px;
             flex-grow: 1;
         }
 
-        /* HEADER AREA */
         .admin-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 40px;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 20px 30px;
-            border-radius: 0 0 24px 0;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 25px;
         }
 
-        .header-title-box {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
+        .header-title-box { display: flex; align-items: center; gap: 15px; }
         .logo-symbol {
-            width: 40px;
-            height: 40px;
-            background: var(--accent-color);
-            border-radius: 0 0 12px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: 900;
-            font-family: 'Outfit', sans-serif;
-            color: #fff;
-            box-shadow: 0 0 15px var(--accent-color);
+            width: 44px; height: 44px; background: var(--accent-color); color: #fff;
+            font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 1.4rem;
+            display: flex; align-items: center; justify-content: center; border-radius: 0 0 12px 0;
+            box-shadow: 0 0 15px rgba(152, 0, 0, 0.5);
         }
-
-        .header-title-box h1 {
-            font-family: 'Outfit', sans-serif;
-            font-weight: 900;
-            font-size: 1.5rem;
-            letter-spacing: 1px;
-        }
-
-        .header-title-box h1 span {
-            color: var(--accent-color);
-        }
+        .header-title-box h1 { font-family: 'Outfit', sans-serif; font-size: 1.6rem; font-weight: 900; }
+        .header-title-box h1 span { color: var(--accent-color); }
 
         .btn-logout {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 8px 16px;
-            border-radius: 0 0 8px 0;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 500;
+            background: transparent; border: 1px solid var(--border-color); color: var(--text-main);
+            padding: 8px 16px; border-radius: 6px; font-weight: 600; font-size: 0.85rem;
+            cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none;
             transition: var(--transition-smooth);
         }
+        .btn-logout:hover { background: rgba(255,255,255,0.05); border-color: var(--accent-color); color: #ff6b6b; }
 
-        .btn-logout:hover {
-            background: var(--accent-color);
-            border-color: var(--accent-color);
-            box-shadow: 0 0 15px var(--accent-color);
-        }
-
-        /* LOGIN WINDOW */
-        .login-box {
-            max-width: 400px;
-            margin: 100px auto;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 40px;
-            border-radius: 0 0 32px 0;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.7);
-            text-align: center;
-        }
-
-        .login-logo {
-            font-size: 2rem;
-            font-family: 'Outfit', sans-serif;
-            font-weight: 900;
+        /* TABS SYSTEM NAVIGATION */
+        .admin-tabs-nav {
+            display: flex;
+            gap: 12px;
             margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+            flex-wrap: wrap;
         }
 
-        .login-logo span {
-            color: var(--accent-color);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.85rem;
-            color: var(--muted-text);
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .form-input {
-            width: 100%;
-            background: rgba(0,0,0,0.4);
+        .tab-nav-btn {
+            background: rgba(20, 22, 22, 0.6);
             border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 12px 16px;
-            border-radius: 0 0 12px 0;
-            outline: none;
-            font-family: 'Inter', sans-serif;
-            transition: var(--transition-smooth);
-        }
-
-        .form-input:focus {
-            border-color: var(--accent-color);
-            box-shadow: 0 0 10px rgba(152,0,0,0.2);
-        }
-
-        .btn-primary {
-            width: 100%;
-            background: var(--accent-color);
-            border: 1px solid var(--accent-color);
-            color: #fff;
-            padding: 14px;
-            border-radius: 0 0 14px 0;
-            font-weight: 700;
-            cursor: pointer;
+            color: var(--muted-text);
+            padding: 12px 24px;
+            border-radius: 8px;
             font-family: 'Outfit', sans-serif;
-            letter-spacing: 1px;
-            display: flex;
-            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: inline-flex;
             align-items: center;
             gap: 10px;
             transition: var(--transition-smooth);
+            letter-spacing: 0.05em;
         }
 
-        .btn-primary:hover {
-            background: var(--accent-hover);
-            border-color: var(--accent-hover);
-            box-shadow: 0 0 20px var(--accent-color);
+        .tab-nav-btn:hover, .tab-nav-btn.active {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #fff;
+            box-shadow: 0 0 20px rgba(152, 0, 0, 0.4);
         }
 
-        .error-message {
-            background: rgba(152,0,0,0.15);
-            border: 1px solid var(--accent-color);
-            color: #ff6b6b;
-            padding: 10px 15px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            margin-bottom: 20px;
-            text-align: left;
-        }
+        .tab-content-panel { display: none; }
+        .tab-content-panel.active { display: block; }
 
-        .success-message {
-            background: rgba(46,117,89,0.15);
-            border: 1px solid #2e7559;
-            color: #58d68d;
-            padding: 10px 15px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        /* GRID DASHBOARD */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
-        }
-
-        @media (min-width: 900px) {
-            .dashboard-grid {
-                grid-template-columns: 2fr 1fr;
-            }
-        }
+        .dashboard-grid { display: grid; grid-template-columns: 1fr; gap: 30px; }
+        @media (min-width: 992px) { .dashboard-grid { grid-template-columns: 1.4fr 1fr; } }
 
         .dashboard-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 0 0 24px 0;
-            padding: 30px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            margin-bottom: 30px;
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 0 0 20px 0; padding: 25px; margin-bottom: 30px; backdrop-filter: blur(10px);
         }
-
         .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 15px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding-bottom: 15px; border-bottom: 1px solid var(--border-color); margin-bottom: 20px;
         }
+        .card-title { font-family: 'Outfit', sans-serif; font-size: 1.1rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
 
-        .card-title {
-            font-family: 'Outfit', sans-serif;
-            font-weight: 700;
-            font-size: 1.25rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--muted-text); margin-bottom: 8px; }
+        .form-input {
+            width: 100%; background: rgba(0, 0, 0, 0.5); border: 1px solid var(--border-color);
+            color: var(--text-main); padding: 12px 15px; border-radius: 6px; font-family: inherit; font-size: 0.9rem;
+            transition: var(--transition-smooth); outline: none;
         }
+        .form-input:focus { border-color: var(--accent-color); box-shadow: 0 0 10px rgba(152, 0, 0, 0.3); }
 
-        .card-title span {
-            color: var(--accent-color);
+        .btn-primary {
+            background: var(--accent-color); border: none; color: #fff; padding: 12px 24px; border-radius: 6px;
+            font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 0.9rem; cursor: pointer;
+            width: 100%; display: flex; justify-content: center; align-items: center; gap: 8px;
+            transition: var(--transition-smooth); box-shadow: 0 0 15px rgba(152, 0, 0, 0.4);
         }
+        .btn-primary:hover { background: var(--accent-hover); box-shadow: 0 0 25px rgba(152, 0, 0, 0.7); }
 
-        /* STATS COMPONENT */
-        .stats-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
+        .product-table-wrapper { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.85rem; }
+        th { padding: 12px 15px; background: rgba(0, 0, 0, 0.4); color: var(--muted-text); font-weight: 600; border-bottom: 1px solid var(--border-color); }
+        td { padding: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.04); vertical-align: middle; }
+        tr:hover td { background: rgba(255, 255, 255, 0.02); }
 
-        .stat-item {
-            background: rgba(0,0,0,0.3);
-            border: 1px solid var(--border-color);
-            border-radius: 0 0 12px 0;
-            padding: 20px;
-            text-align: center;
-        }
+        .tbl-product-meta { display: flex; align-items: center; gap: 12px; }
+        .tbl-badge { display: inline-block; font-size: 0.7rem; padding: 3px 8px; border-radius: 4px; font-weight: 700; text-transform: uppercase; background: rgba(255,255,255,0.05); color: var(--muted-text); }
+        .action-cell { display: flex; gap: 8px; }
+        .btn-tbl-action { background: transparent; border: 1px solid var(--border-color); color: var(--text-main); width: 32px; height: 32px; border-radius: 6px; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: var(--transition-smooth); }
+        .btn-tbl-action:hover { background: var(--accent-color); border-color: var(--accent-color); }
+        .btn-tbl-action.btn-del:hover { background: #d93838; border-color: #d93838; }
 
-        .stat-val {
-            font-size: 2rem;
-            font-weight: 900;
-            font-family: 'Outfit', sans-serif;
-            color: var(--accent-color);
-            text-shadow: 0 0 10px rgba(152,0,0,0.3);
-        }
+        .error-message { background: rgba(217, 56, 56, 0.15); border: 1px solid #d93838; color: #ff6b6b; padding: 15px; border-radius: 6px; margin-bottom: 25px; font-size: 0.9rem; }
+        .success-message { background: rgba(46, 204, 113, 0.15); border: 1px solid #2ecc71; color: #2ecc71; padding: 15px; border-radius: 6px; margin-bottom: 25px; font-size: 0.9rem; }
 
-        .stat-lbl {
-            font-size: 0.75rem;
-            color: var(--muted-text);
-            text-transform: uppercase;
-            font-weight: 700;
-            margin-top: 5px;
-        }
-
-        /* PRODUCTS TABLE */
-        .product-table-wrapper {
-            width: 100%;
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 0.9rem;
-        }
-
-        th {
-            color: var(--muted-text);
-            font-weight: 700;
-            padding: 12px 15px;
-            border-bottom: 1px solid var(--border-color);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-        }
-
-        td {
-            padding: 15px;
-            border-bottom: 1px solid var(--border-color);
-            vertical-align: middle;
-        }
-
-        tr:hover td {
-            background: rgba(255,255,255,0.01);
-        }
-
-        .tbl-product-meta {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .tbl-product-icon {
-            width: 32px;
-            height: 32px;
-            background: rgba(152,0,0,0.1);
-            border: 1px solid rgba(152,0,0,0.3);
-            border-radius: 0 0 8px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--accent-color);
-        }
-
-        .tbl-price {
-            font-weight: 700;
-            color: #fff;
-        }
-
-        .tbl-badge {
-            display: inline-block;
-            font-size: 0.7rem;
-            padding: 3px 8px;
-            border-radius: 0 0 6px 0;
-            font-weight: 700;
-            text-transform: uppercase;
-            background: rgba(255,255,255,0.05);
-            color: var(--muted-text);
-        }
-
-        .tbl-badge.active-badge {
-            background: rgba(152,0,0,0.15);
-            color: #ff6b6b;
-            border: 1px solid rgba(152,0,0,0.2);
-        }
-
-        .action-cell {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn-tbl-action {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            width: 32px;
-            height: 32px;
-            border-radius: 0 0 8px 0;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: var(--transition-smooth);
-        }
-
-        .btn-tbl-action:hover {
-            background: var(--accent-color);
-            border-color: var(--accent-color);
-            box-shadow: 0 0 10px var(--accent-color);
-        }
-
-        .btn-tbl-action.btn-del:hover {
-            background: #d93838;
-            border-color: #d93838;
-            box-shadow: 0 0 10px #d93838;
-        }
-
-        /* CRUD FORM WIDGETS */
-        .form-grid-2 {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
-
-        @media (min-width: 700px) {
-            .form-grid-2 {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        textarea.form-input {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        /* INSTRUCTION PANEL */
-        .instruction-box {
-            background: rgba(152,0,0,0.05);
-            border-left: 4px solid var(--accent-color);
-            padding: 20px;
-            border-radius: 0 8px 8px 0;
-            margin-bottom: 25px;
-            font-size: 0.85rem;
-        }
-
-        .instruction-box h4 {
-            font-family: 'Outfit', sans-serif;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .code-snippet-box {
-            background: #000;
-            border: 1px solid var(--border-color);
-            font-family: monospace;
-            padding: 10px 15px;
-            border-radius: 6px;
-            margin-top: 10px;
-            overflow-x: auto;
-            font-size: 0.8rem;
-            color: #58d68d;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .btn-copy {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-        }
-
-        .btn-copy:hover {
-            background: var(--accent-color);
-            border-color: var(--accent-color);
-        }
+        .login-box { max-width: 400px; margin: 80px auto; background: var(--card-bg); border: 1px solid var(--border-color); padding: 40px; border-radius: 0 0 24px 0; text-align: center; backdrop-filter: blur(10px); }
+        .login-logo { font-family: 'Outfit', sans-serif; font-size: 2rem; font-weight: 900; margin-bottom: 10px; }
+        .login-logo span { color: var(--accent-color); }
     </style>
 </head>
 <body>
@@ -659,13 +465,13 @@ if ($isLoggedIn && $db) {
             </div>
             
         <?php else: ?>
-            <!-- Dashboard Block -->
+            <!-- Dashboard Header Block -->
             <header class="admin-header">
                 <div class="header-title-box">
                     <div class="logo-symbol">Z</div>
                     <div>
                         <h1>Dashboard <span>Admin</span></h1>
-                        <p style="font-size: 0.8rem; color: var(--muted-text);">Kelola katalog toko & integrasi pembayaran DOKU</p>
+                        <p style="font-size: 0.8rem; color: var(--muted-text);">Kelola katalog toko & artikel blog Zeifur Rohman secara langsung</p>
                     </div>
                 </div>
                 <a href="admin.php?action=logout" class="btn-logout">
@@ -673,290 +479,291 @@ if ($isLoggedIn && $db) {
                 </a>
             </header>
 
-            <?php if ($crudSuccess): ?>
-                <div class="success-message"><?php echo $crudSuccess; ?></div>
-            <?php endif; ?>
-            <?php if ($crudError): ?>
-                <div class="error-message"><?php echo $crudError; ?></div>
-            <?php endif; ?>
+            <?php if ($crudSuccess): ?><div class="success-message"><?php echo $crudSuccess; ?></div><?php endif; ?>
+            <?php if ($crudError): ?><div class="error-message"><?php echo $crudError; ?></div><?php endif; ?>
 
-            <div class="stats-row">
-                <div class="stat-item">
-                    <div class="stat-val"><?php echo count($products); ?></div>
-                    <div class="stat-lbl">Total Item</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-val">
-                        <?php 
-                        $karyaWeb = array_filter($products, function($p) { return $p['category_name'] === 'free-web'; });
-                        echo count($karyaWeb);
-                        ?>
-                    </div>
-                    <div class="stat-lbl">Karya Web</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-val">
-                        <?php 
-                        $temps = array_filter($products, function($p) { return $p['category_name'] === 'templates'; });
-                        echo count($temps);
-                        ?>
-                    </div>
-                    <div class="stat-lbl">Templates</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-val">
-                        <?php 
-                        $presets = array_filter($products, function($p) { return $p['category_name'] === 'presets'; });
-                        echo count($presets);
-                        ?>
-                    </div>
-                    <div class="stat-lbl">Presets</div>
-                </div>
+            <!-- Navigation Tabs: Products vs Blogs -->
+            <div class="admin-tabs-nav">
+                <button type="button" class="tab-nav-btn active" id="btn-tab-products" onclick="switchAdminTab('products')">
+                    <i data-lucide="package" style="width:18px;height:18px;"></i> PRODUK DIGITAL & WEBSITES
+                </button>
+                <button type="button" class="tab-nav-btn" id="btn-tab-blogs" onclick="switchAdminTab('blogs')">
+                    <i data-lucide="file-text" style="width:18px;height:18px;"></i> MANAJEMEN BLOG ARTIKEL
+                </button>
             </div>
 
-            <div class="dashboard-grid">
-                <!-- Left: Catalog List & Integrations Guide -->
-                <div>
-                    <!-- Special Coffee Treat Settings Card -->
-                    <?php if ($coffeeProduct): ?>
-                        <div class="dashboard-card" style="border-left: 4px solid #d97706; background: rgba(217, 119, 6, 0.03);">
-                            <div class="card-header" style="border-bottom-color: rgba(217, 119, 6, 0.15); margin-bottom: 20px; padding-bottom: 12px;">
-                                <h3 class="card-title" style="color: #f59e0b;"><i data-lucide="coffee"></i> Pengaturan Donasi Traktir Kopi</h3>
-                                <span class="tbl-badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.25);">Produk Donasi / Sistem</span>
-                            </div>
-                            <div style="display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
-                                <div style="flex-grow: 1; min-width: 250px;">
-                                    <h4 style="color: #fff; font-size: 1rem; margin-bottom: 6px; font-weight: 700;"><?php echo htmlspecialchars($coffeeProduct['title_id']); ?> / <?php echo htmlspecialchars($coffeeProduct['title_en']); ?></h4>
-                                    <p style="font-size: 0.85rem; color: var(--muted-text); line-height: 1.5; margin-bottom: 12px;"><?php echo htmlspecialchars($coffeeProduct['desc_id']); ?></p>
-                                    <div style="display: flex; gap: 20px; font-size: 0.8rem; color: var(--muted-text); flex-wrap: wrap;">
-                                        <span><strong>Harga:</strong> <span style="color: #fff; font-weight: 600;"><?php echo htmlspecialchars($coffeeProduct['price_string']); ?></span></span>
-                                        <span><strong>Ikon:</strong> <code style="color: #f59e0b;"><?php echo htmlspecialchars($coffeeProduct['icon_name']); ?></code></span>
-                                        <span><strong>Link DOKU:</strong> <a href="<?php echo htmlspecialchars($coffeeProduct['payment_link']); ?>" target="_blank" style="color: #f59e0b; text-decoration: none; border-bottom: 1px dotted #f59e0b;"><?php echo htmlspecialchars($coffeeProduct['payment_link']); ?></a></span>
-                                    </div>
+            <!-- TAB SECTION 1: PRODUCTS MANAGEMENT -->
+            <div class="tab-content-panel active" id="tab-panel-products">
+                <div class="dashboard-grid">
+                    <!-- Left: Catalog List -->
+                    <div>
+                        <!-- Special Coffee Treat Settings Card -->
+                        <?php if ($coffeeProduct): ?>
+                            <div class="dashboard-card" style="border-left: 4px solid #d97706; background: rgba(217, 119, 6, 0.03);">
+                                <div class="card-header" style="border-bottom-color: rgba(217, 119, 6, 0.15); margin-bottom: 15px; padding-bottom: 10px;">
+                                    <h3 class="card-title" style="color: #f59e0b;"><i data-lucide="coffee"></i> Donasi Traktir Kopi</h3>
+                                    <span class="tbl-badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24;">Donasi DOKU</span>
                                 </div>
-                                <div style="flex-shrink: 0;">
-                                    <button class="btn-primary" onclick="editProduct(<?php echo htmlspecialchars(json_encode($coffeeProduct)); ?>)" style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); color: #fbbf24; padding: 10px 18px; border-radius: 4px; font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; gap: 8px; cursor: pointer; width: auto; box-shadow: none;">
-                                        <i data-lucide="edit-3" style="width:14px;height:14px;"></i> EDIT TRAKTIR KOPI
+                                <div style="display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+                                    <div style="flex-grow: 1;">
+                                        <h4 style="color: #fff; font-size: 0.95rem; margin-bottom: 4px; font-weight: 700;"><?php echo htmlspecialchars($coffeeProduct['title_id']); ?></h4>
+                                        <div style="font-size: 0.8rem; color: var(--muted-text);">Harga: <strong style="color:#fff;"><?php echo htmlspecialchars($coffeeProduct['price_string']); ?></strong> | Link DOKU: <a href="<?php echo htmlspecialchars($coffeeProduct['payment_link']); ?>" target="_blank" style="color:#f59e0b;"><?php echo htmlspecialchars($coffeeProduct['payment_link']); ?></a></div>
+                                    </div>
+                                    <button class="btn-primary" onclick="editProduct(<?php echo htmlspecialchars(json_encode($coffeeProduct)); ?>)" style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); color: #fbbf24; width: auto; padding: 8px 16px;">
+                                        <i data-lucide="edit-3" style="width:14px;height:14px;"></i> EDIT KOPI
                                     </button>
                                 </div>
                             </div>
-                        </div>
-                    <?php endif; ?>
+                        <?php endif; ?>
 
-                    <!-- Product Catalog List -->
-                    <div class="dashboard-card">
-                        <div class="card-header">
-                            <h3 class="card-title"><i data-lucide="package" style="color:var(--accent-color);"></i> Daftar Produk Jualan Aktif</h3>
-                        </div>
-                        <div class="product-table-wrapper">
-                            <?php if (empty($products)): ?>
-                                <p style="color: var(--muted-text); text-align: center; padding: 20px;">Belum ada produk. Silakan tambahkan menggunakan form di sebelah kanan.</p>
-                            <?php else: ?>
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Produk</th>
-                                            <th>Kategori</th>
-                                            <th>Harga</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($products as $prod): ?>
+                        <!-- Product List Table -->
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i data-lucide="package" style="color:var(--accent-color);"></i> Daftar Produk & Karya Web</h3>
+                            </div>
+                            <div class="product-table-wrapper">
+                                <?php if (empty($products)): ?>
+                                    <p style="color: var(--muted-text); text-align: center; padding: 20px;">Belum ada produk. Silakan tambahkan dari form di kanan.</p>
+                                <?php else: ?>
+                                    <table>
+                                        <thead>
                                             <tr>
-                                                <td>
-                                                    <div class="tbl-product-meta">
-                                                        <div class="tbl-product-icon" style="overflow:hidden; border-radius:6px; background:#111; width:40px; height:40px;">
-                                                            <?php if (!empty($prod['image_url'])): ?>
-                                                                <img src="<?php echo htmlspecialchars($prod['image_url']); ?>" alt="Thumb" style="width:100%;height:100%;object-fit:cover;">
-                                                            <?php else: ?>
-                                                                <i data-lucide="<?php echo htmlspecialchars($prod['icon_name']); ?>" style="width:18px;height:18px;"></i>
-                                                            <?php endif; ?>
-                                                        </div>
-                                                        <div>
-                                                            <strong style="color:#fff;"><?php echo htmlspecialchars($prod['title_id']); ?></strong>
-                                                            <div style="font-size:0.75rem;color:var(--muted-text);"><?php echo htmlspecialchars($prod['tags']); ?></div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <span class="tbl-badge"><?php echo htmlspecialchars($prod['category_name']); ?></span>
-                                                </td>
-                                                <td class="tbl-price"><?php echo htmlspecialchars($prod['price_string']); ?></td>
-                                                <td>
-                                                    <div class="action-cell">
-                                                        <button class="btn-tbl-action" onclick="editProduct(<?php echo htmlspecialchars(json_encode($prod)); ?>)">
-                                                            <i data-lucide="edit-2" style="width:14px;height:14px;"></i>
-                                                        </button>
-                                                        <a href="admin.php?action=delete&id=<?php echo $prod['id']; ?>" class="btn-tbl-action btn-del" onclick="return confirm('Apakah Anda yakin ingin menghapus produk ini?')">
-                                                            <i data-lucide="trash-2" style="width:14px;height:14px;"></i>
-                                                        </a>
-                                                    </div>
-                                                </td>
+                                                <th>Item</th>
+                                                <th>Kategori</th>
+                                                <th>Harga</th>
+                                                <th>Aksi</th>
                                             </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-                            <?php endif; ?>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($products as $prod): ?>
+                                                <tr>
+                                                    <td>
+                                                        <div class="tbl-product-meta">
+                                                            <div style="overflow:hidden; border-radius:6px; background:#111; width:36px; height:36px; display:flex; align-items:center; justify-content:center;">
+                                                                <?php if (!empty($prod['image_url'])): ?>
+                                                                    <img src="<?php echo htmlspecialchars($prod['image_url']); ?>" alt="Thumb" style="width:100%;height:100%;object-fit:cover;">
+                                                                <?php else: ?>
+                                                                    <i data-lucide="<?php echo htmlspecialchars($prod['icon_name']); ?>" style="width:18px;height:18px;"></i>
+                                                                <?php endif; ?>
+                                                            </div>
+                                                            <div>
+                                                                <strong style="color:#fff; display:block;"><?php echo htmlspecialchars($prod['title_id']); ?></strong>
+                                                                <span style="font-size:0.75rem;color:var(--muted-text);"><?php echo htmlspecialchars($prod['tags']); ?></span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="tbl-badge"><?php echo htmlspecialchars($prod['category_name']); ?></span></td>
+                                                    <td style="font-weight:700; color:#fff;"><?php echo htmlspecialchars($prod['price_string']); ?></td>
+                                                    <td>
+                                                        <div class="action-cell">
+                                                            <button class="btn-tbl-action" onclick="editProduct(<?php echo htmlspecialchars(json_encode($prod)); ?>)"><i data-lucide="edit-2" style="width:14px;height:14px;"></i></button>
+                                                            <a href="admin.php?action=delete&id=<?php echo $prod['id']; ?>" class="btn-tbl-action btn-del" onclick="return confirm('Hapus produk ini?')"><i data-lucide="trash-2" style="width:14px;height:14px;"></i></a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                <?php endif; ?>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Integration Instructions widget -->
-                    <div class="dashboard-card">
-                        <div class="card-header">
-                            <h3 class="card-title"><i data-lucide="help-circle" style="color:var(--accent-color);"></i> Panduan Integrasi DOKU</h3>
-                        </div>
-                        <div class="instruction-box" style="margin-bottom:0; background:rgba(255,255,255,0.01); border-left-color:var(--muted-text);">
-                            <h4><i data-lucide="check-circle-2" style="width:16px;height:16px;"></i> Cara Integrasi Produk Baru</h4>
-                            <p style="margin-bottom:8px;">1. Masuk ke dashboard merchant DOKU Anda, lalu buat link pembayaran untuk produk baru Anda.</p>
-                            <p style="margin-bottom:8px;">2. Isi data produk baru tersebut pada form **Kelola Produk** di dashboard ini.</p>
-                            <p>3. Tempelkan link pembayaran DOKU tersebut ke input **DOKU Payment Link** di samping dan simpan. Produk akan langsung tayang secara otomatis!</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right: CRUD Form Card -->
-                <div>
-                    <div class="dashboard-card">
-                        <div class="card-header">
-                            <h3 class="card-title" id="form-card-title"><i data-lucide="plus-circle" style="color:var(--accent-color);"></i> Tambah Produk Baru</h3>
-                        </div>
-                        <form method="POST" action="admin.php" id="crud-product-form" enctype="multipart/form-data">
-                            <input type="hidden" name="action" id="form-action" value="add">
-                            <input type="hidden" name="id" id="form-product-id" value="">
-
-                            <!-- Indonesian Title -->
-                            <div class="form-group">
-                                <label for="title_id">Nama Produk (Bahasa Indonesia)</label>
-                                <input type="text" id="title_id" name="title_id" class="form-input" required placeholder="Contoh: Template Website Personal">
+                    <!-- Right: Product CRUD Form -->
+                    <div>
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3 class="card-title" id="form-product-title"><i data-lucide="plus-circle" style="color:var(--accent-color);"></i> Tambah Produk Baru</h3>
                             </div>
+                            <form method="POST" action="admin.php" id="crud-product-form" enctype="multipart/form-data">
+                                <input type="hidden" name="action" id="form-action-prod" value="add">
+                                <input type="hidden" name="id" id="form-prod-id" value="">
 
-                            <!-- English Title -->
-                            <div class="form-group">
-                                <label for="title_en">Nama Produk (Bahasa Inggris)</label>
-                                <input type="text" id="title_en" name="title_en" class="form-input" required placeholder="Contoh: Personal Website Template">
-                            </div>
-
-                            <!-- Indonesian Description -->
-                            <div class="form-group">
-                                <label for="desc_id">Deskripsi Produk (Bahasa Indonesia)</label>
-                                <textarea id="desc_id" name="desc_id" class="form-input" required placeholder="Tuliskan deskripsi lengkap dalam Bahasa Indonesia..."></textarea>
-                            </div>
-
-                            <!-- English Description -->
-                            <div class="form-group">
-                                <label for="desc_en">Deskripsi Produk (Bahasa Inggris)</label>
-                                <textarea id="desc_en" name="desc_en" class="form-input" required placeholder="Tuliskan deskripsi lengkap dalam Bahasa Inggris..."></textarea>
-                            </div>
-
-                            <!-- Features ID (Separated by |) -->
-                            <div class="form-group">
-                                <label for="features_id">Fitur Utama (Bahasa Indonesia, Pisahkan dengan tanda "|")</label>
-                                <input type="text" id="features_id" name="features_id" class="form-input" placeholder="Desain Sinematik | Navigasi Sidebar | SEO Ramah">
-                            </div>
-
-                            <!-- Features EN (Separated by |) -->
-                            <div class="form-group">
-                                <label for="features_en">Fitur Utama (Bahasa Inggris, Pisahkan dengan tanda "|")</label>
-                                <input type="text" id="features_en" name="features_en" class="form-input" placeholder="Cinematic Layout | Sidebar Nav | SEO Friendly">
-                            </div>
-
-                            <div class="form-grid-2">
-                                <!-- Price Numeric -->
                                 <div class="form-group">
-                                    <label for="price">Harga (Rupiah, Tanpa Titik/Koma)</label>
-                                    <input type="number" id="price" name="price" class="form-input" required placeholder="10000">
+                                    <label>Nama Produk (Bahasa Indonesia)</label>
+                                    <input type="text" id="title_id" name="title_id" class="form-input" required placeholder="Contoh: Template Website Personal">
                                 </div>
-
-                                <!-- Category Selection -->
                                 <div class="form-group">
-                                    <label for="category_name">Kategori Item</label>
-                                    <select id="category_name" name="category_name" class="form-input" style="background:#000;">
-                                        <option value="free-web">KARYA WEB (WEB APP / DEMO GRATIS)</option>
+                                    <label>Nama Produk (Bahasa Inggris)</label>
+                                    <input type="text" id="title_en" name="title_en" class="form-input" required placeholder="Contoh: Personal Website Template">
+                                </div>
+                                <div class="form-group">
+                                    <label>Deskripsi (Bahasa Indonesia)</label>
+                                    <textarea id="desc_id" name="desc_id" class="form-input" required rows="3"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Deskripsi (Bahasa Inggris)</label>
+                                    <textarea id="desc_en" name="desc_en" class="form-input" required rows="3"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Harga (Rupiah, 0 untuk Gratis)</label>
+                                    <input type="number" id="price" name="price" class="form-input" required placeholder="0">
+                                </div>
+                                <div class="form-group">
+                                    <label>Kategori Item</label>
+                                    <select id="category_name" name="category_name" class="form-input">
+                                        <option value="free-web">KARYA WEB (DEMO GRATIS)</option>
                                         <option value="templates">TEMPLATE WEB</option>
                                         <option value="branding">ASET BRANDING</option>
                                         <option value="presets">PRESET & UI KIT</option>
                                     </select>
                                 </div>
-                            </div>
-
-                            <div class="form-grid-2">
-                                <!-- Icon Lucide name -->
                                 <div class="form-group">
-                                    <label for="icon_name">Nama Ikon Lucide</label>
-                                    <select id="icon_name" name="icon_name" class="form-input" style="background:#000;">
-                                        <option value="globe">globe (Web / Global)</option>
-                                        <option value="external-link">external-link (Tautan Demo)</option>
-                                        <option value="code-2">code-2 (Kode Program)</option>
-                                        <option value="layout">layout (Tampilan Layout)</option>
-                                        <option value="monitor">monitor (Layar Desktop)</option>
-                                        <option value="smartphone">smartphone (Mobile App)</option>
-                                        <option value="sparkles">sparkles (Fitur Inovatif)</option>
-                                        <option value="coffee">coffee (Kopi / Donasi)</option>
-                                        <option value="sliders">sliders (Presets)</option>
-                                        <option value="figma">figma (Design Asset)</option>
-                                        <option value="shield-check">shield-check (Tameng Sukses)</option>
-                                    </select>
+                                    <label>Tags / Label (Pisah Koma)</label>
+                                    <input type="text" id="tags" name="tags" class="form-input" placeholder="CapKarya,WebApp,Monogram">
                                 </div>
-
-                                <!-- Custom CSS Preview Card Class -->
                                 <div class="form-group">
-                                    <label for="class_name">Gaya Warna Preview</label>
-                                    <select id="class_name" name="class_name" class="form-input" style="background:#000;">
-                                        <option value="preview-template-1">Warna Merah (Indo Red)</option>
-                                        <option value="preview-template-2">Warna Hitam (Signature Dark)</option>
-                                        <option value="preview-presets">Warna Abu (Warm Gray)</option>
-                                        <option value="preview-branding">Warna Ungu (Purple Accent)</option>
-                                    </select>
+                                    <label>Upload File Gambar Display</label>
+                                    <input type="file" id="product_image" name="product_image" accept="image/*" class="form-input">
+                                    <input type="text" id="image_url_text" name="image_url_text" class="form-input" placeholder="Atau URL gambar..." style="margin-top:8px;">
                                 </div>
-                            </div>
+                                <div class="form-group">
+                                    <label>Link Website Demo / DOKU Payment</label>
+                                    <input type="url" id="payment_link" name="payment_link" class="form-input" required placeholder="http://capkarya.great-site.net">
+                                </div>
 
-                            <!-- Product tags -->
-                            <div class="form-group">
-                                <label for="tags">Tags / Label (Pisahkan dengan Koma)</label>
-                                <input type="text" id="tags" name="tags" class="form-input" placeholder="CapKarya,WebApp,Monogram,React">
-                            </div>
+                                <div style="display:flex;gap:12px;">
+                                    <button type="submit" class="btn-primary" id="btn-submit-prod"><i data-lucide="save" style="width:16px;height:16px;"></i> SIMPAN PRODUK</button>
+                                    <button type="button" class="btn-logout" id="btn-cancel-prod" style="display:none;" onclick="resetProductForm()">Batal</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                            <!-- Product Image Upload & URL -->
-                            <div class="form-group" style="background: rgba(0,0,0,0.35); border: 1px dashed var(--border-color); padding: 18px; border-radius: 0 0 14px 0; margin-bottom: 25px;">
-                                <label style="color:#fff; font-weight:700; display:flex; align-items:center; gap:8px; margin-bottom:12px;">
-                                    <i data-lucide="image" style="width:16px;height:16px;color:var(--accent-color);"></i> Gambar Display Produk / Screenshot Website Karya
-                                </label>
-                                <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap;">
-                                    <div id="image-preview-container" style="width:80px; height:80px; background:rgba(0,0,0,0.6); border:1px solid var(--border-color); border-radius:10px; display:flex; justify-content:center; align-items:center; overflow:hidden; flex-shrink:0; position:relative;">
-                                        <img id="img-preview" src="" alt="Preview" style="width:100%; height:100%; object-fit:cover; display:none;">
-                                        <div id="img-placeholder-box" style="text-align:center;">
-                                            <i data-lucide="image" style="width:24px; height:24px; color:var(--muted-text);"></i>
-                                            <div style="font-size:0.65rem; color:var(--muted-text); margin-top:2px;">No Image</div>
-                                        </div>
+            <!-- TAB SECTION 2: BLOGS MANAGEMENT -->
+            <div class="tab-content-panel" id="tab-panel-blogs">
+                <div class="dashboard-grid">
+                    <!-- Left: Blog List -->
+                    <div>
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3 class="card-title"><i data-lucide="file-text" style="color:var(--accent-color);"></i> Daftar Artikel Blog Terbit</h3>
+                            </div>
+                            <div class="product-table-wrapper">
+                                <?php if (empty($blogsList)): ?>
+                                    <p style="color: var(--muted-text); text-align: center; padding: 20px;">Belum ada artikel blog. Silakan unggah dari form di sebelah kanan.</p>
+                                <?php else: ?>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Artikel Blog</th>
+                                                <th>Kategori</th>
+                                                <th>Tanggal</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($blogsList as $b): ?>
+                                                <tr>
+                                                    <td>
+                                                        <div class="tbl-product-meta">
+                                                            <div style="overflow:hidden; border-radius:6px; background:#111; width:44px; height:44px; flex-shrink:0;">
+                                                                <?php if (!empty($b['image_url'])): ?>
+                                                                    <img src="<?php echo htmlspecialchars($b['image_url']); ?>" alt="Thumb" style="width:100%;height:100%;object-fit:cover;">
+                                                                <?php else: ?>
+                                                                    <i data-lucide="file-text" style="width:20px;height:20px;margin:12px auto;display:block;"></i>
+                                                                <?php endif; ?>
+                                                            </div>
+                                                            <div>
+                                                                <strong style="color:#fff; display:block; line-height:1.3; font-size:0.88rem;"><?php echo htmlspecialchars($b['title_id']); ?></strong>
+                                                                <span style="font-size:0.75rem;color:var(--muted-text);">By: <?php echo htmlspecialchars($b['author']); ?> | Slug: <?php echo htmlspecialchars($b['slug']); ?></span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="tbl-badge"><?php echo htmlspecialchars($b['category']); ?></span></td>
+                                                    <td style="font-size:0.8rem; color:var(--muted-text);"><?php echo htmlspecialchars($b['created_date']); ?></td>
+                                                    <td>
+                                                        <div class="action-cell">
+                                                            <button class="btn-tbl-action" onclick="editBlog(<?php echo htmlspecialchars(json_encode($b)); ?>)"><i data-lucide="edit-2" style="width:14px;height:14px;"></i></button>
+                                                            <a href="admin.php?action=delete_blog&id=<?php echo $b['id']; ?>" class="btn-tbl-action btn-del" onclick="return confirm('Hapus artikel blog ini?')"><i data-lucide="trash-2" style="width:14px;height:14px;"></i></a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Blog CRUD Form -->
+                    <div>
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3 class="card-title" id="form-blog-title"><i data-lucide="plus-circle" style="color:var(--accent-color);"></i> Unggah Artikel Blog Baru</h3>
+                            </div>
+                            <form method="POST" action="admin.php" id="crud-blog-form" enctype="multipart/form-data">
+                                <input type="hidden" name="action" id="form-action-blog" value="add_blog">
+                                <input type="hidden" name="blog_id" id="form-blog-id" value="">
+
+                                <div class="form-group">
+                                    <label>Judul Artikel (Bahasa Indonesia)</label>
+                                    <input type="text" id="blog_title_id" name="blog_title_id" class="form-input" required placeholder="Contoh: Strategi Pengembangan Web Modern">
+                                </div>
+                                <div class="form-group">
+                                    <label>Judul Artikel (Bahasa Inggris)</label>
+                                    <input type="text" id="blog_title_en" name="blog_title_en" class="form-input" required placeholder="Contoh: Modern Web Development Strategy">
+                                </div>
+
+                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+                                    <div class="form-group">
+                                        <label>Kategori Blog</label>
+                                        <select id="blog_category" name="blog_category" class="form-input">
+                                            <option value="website">WEBSITE & CODING</option>
+                                            <option value="branding">BRANDING & DESAIN</option>
+                                            <option value="photography">FOTOGRAFI</option>
+                                            <option value="tutorial">TUTORIAL & TIPS</option>
+                                        </select>
                                     </div>
-                                    <div style="flex-grow:1; min-width:200px;">
-                                        <label for="product_image" style="font-size:0.78rem; color:var(--text-main); font-weight:500;">Upload File Gambar / Screenshot Baru</label>
-                                        <input type="file" id="product_image" name="product_image" accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml" class="form-input" style="padding:8px 12px; font-size:0.8rem; margin-top:4px;" onchange="previewSelectedImage(this)">
-                                        <div style="font-size:0.7rem; color:var(--muted-text); margin-top:3px;">Format: JPG, PNG, WEBP, SVG (Otomatis disimpan di server)</div>
-
-                                        <label for="image_url_text" style="font-size:0.78rem; color:var(--text-main); font-weight:500; margin-top:12px; display:block;">Atau URL / Path Asset Gambar</label>
-                                        <input type="text" id="image_url_text" name="image_url_text" class="form-input" placeholder="Contoh: assets/images/capkarya-display-1.png" style="margin-top:4px;" oninput="previewUrlImage(this.value)">
+                                    <div class="form-group">
+                                        <label>Penulis / Author</label>
+                                        <input type="text" id="blog_author" name="blog_author" class="form-input" value="ZEIFUR ROHMAN">
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Link URL / DOKU Payment URL -->
-                            <div class="form-group" style="margin-bottom: 30px;">
-                                <label for="payment_link" style="color:#ff6b6b;font-weight:700;">Link URL Website / Demo Karya ATAU Link DOKU Payment</label>
-                                <input type="url" id="payment_link" name="payment_link" class="form-input" required placeholder="Contoh: http://capkarya.great-site.net atau https://pay.doku.com/p-link/p/...">
-                                <div style="font-size:0.72rem; color:var(--muted-text); margin-top:4px;">* Untuk Karya Web, isi dengan URL website karya Anda (misal: <code>http://capkarya.great-site.net</code>). Untuk produk jualan, isi link DOKU Payment.</div>
-                            </div>
+                                <div class="form-group">
+                                    <label>Tags Artikel (Pisahkan Koma)</label>
+                                    <input type="text" id="blog_tags" name="blog_tags" class="form-input" placeholder="website,branding,design">
+                                </div>
 
-                            <div style="display:flex;gap:15px;">
-                                <button type="submit" class="btn-primary" style="flex-grow:1;" id="btn-submit-form">
-                                    <i data-lucide="save" style="width:16px;height:16px;"></i> SIMPAN PRODUK
-                                </button>
-                                <button type="button" class="btn-logout" style="display:none;" id="btn-cancel-edit" onclick="resetForm()">
-                                    Batal
-                                </button>
-                            </div>
-                        </form>
+                                <div class="form-group">
+                                    <label>Tanggal Rilis (Tampil)</label>
+                                    <input type="text" id="blog_date" name="blog_date" class="form-input" value="<?php echo strtoupper(date('F d, Y')); ?>">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Upload Gambar Utama Artikel</label>
+                                    <input type="file" id="blog_image" name="blog_image" accept="image/*" class="form-input">
+                                    <input type="text" id="blog_image_url_text" name="blog_image_url_text" class="form-input" placeholder="Atau URL Gambar Unsplash / Cloud..." style="margin-top:6px;">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Ringkasan Singkat (Bahasa Indonesia)</label>
+                                    <textarea id="blog_excerpt_id" name="blog_excerpt_id" class="form-input" rows="2" required placeholder="Tuliskan rangkuman artikel..."></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Ringkasan Singkat (Bahasa Inggris)</label>
+                                    <textarea id="blog_excerpt_en" name="blog_excerpt_en" class="form-input" rows="2" required placeholder="Write summary in English..."></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Isi Lengkap Artikel HTML (Bahasa Indonesia)</label>
+                                    <textarea id="blog_content_id" name="blog_content_id" class="form-input" rows="6" required placeholder="<p>Isi paragraf pertama...</p><h3>Sub Judul</h3><p>Paragraf kedua...</p>"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Isi Lengkap Artikel HTML (Bahasa Inggris)</label>
+                                    <textarea id="blog_content_en" name="blog_content_en" class="form-input" rows="6" required placeholder="<p>First paragraph in English...</p><h3>Heading</h3><p>Second paragraph...</p>"></textarea>
+                                </div>
+
+                                <div style="display:flex;gap:12px;">
+                                    <button type="submit" class="btn-primary" id="btn-submit-blog"><i data-lucide="upload-cloud" style="width:16px;height:16px;"></i> TERBITKAN ARTIKEL</button>
+                                    <button type="button" class="btn-logout" id="btn-cancel-blog" style="display:none;" onclick="resetBlogForm()">Batal</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -966,98 +773,78 @@ if ($isLoggedIn && $db) {
     <script>
         lucide.createIcons();
 
-        function updateImagePreview(src) {
-            const imgPreview = document.getElementById('img-preview');
-            const placeholderBox = document.getElementById('img-placeholder-box');
-            if (src && src.trim() !== '') {
-                imgPreview.src = src;
-                imgPreview.style.display = 'block';
-                if (placeholderBox) placeholderBox.style.display = 'none';
-            } else {
-                imgPreview.src = '';
-                imgPreview.style.display = 'none';
-                if (placeholderBox) placeholderBox.style.display = 'block';
-            }
+        function switchAdminTab(tabName) {
+            document.querySelectorAll('.tab-nav-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content-panel').forEach(p => p.classList.remove('active'));
+
+            document.getElementById('btn-tab-' + tabName).classList.add('active');
+            document.getElementById('tab-panel-' + tabName).classList.add('active');
         }
 
-        function previewSelectedImage(input) {
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    updateImagePreview(e.target.result);
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        function previewUrlImage(url) {
-            if (url && url.trim() !== '') {
-                updateImagePreview(url);
-            } else {
-                const fileInput = document.getElementById('product_image');
-                if (fileInput && fileInput.files && fileInput.files[0]) {
-                    previewSelectedImage(fileInput);
-                } else {
-                    updateImagePreview('');
-                }
-            }
-        }
-
-        // Edit mode configuration
+        // Product edit handler
         function editProduct(product) {
-            document.getElementById('form-card-title').innerHTML = '<i data-lucide="edit-3" style="color:var(--accent-color);"></i> Edit Produk: ' + product.title_id;
-            document.getElementById('form-action').value = 'edit';
-            document.getElementById('form-product-id').value = product.id;
+            switchAdminTab('products');
+            document.getElementById('form-product-title').innerHTML = '<i data-lucide="edit-3" style="color:var(--accent-color);"></i> Edit Produk: ' + product.title_id;
+            document.getElementById('form-action-prod').value = 'edit';
+            document.getElementById('form-prod-id').value = product.id;
             
             document.getElementById('title_id').value = product.title_id;
             document.getElementById('title_en').value = product.title_en;
             document.getElementById('desc_id').value = product.desc_id;
             document.getElementById('desc_en').value = product.desc_en;
-            
-            // Re-join pipe separated lists for text inputs
-            document.getElementById('features_id').value = product.features_id ? product.features_id.replace(/ \| /g, ' | ') : '';
-            document.getElementById('features_en').value = product.features_en ? product.features_en.replace(/ \| /g, ' | ') : '';
-            
             document.getElementById('price').value = parseInt(product.price);
             document.getElementById('category_name').value = product.category_name;
-            document.getElementById('icon_name').value = product.icon_name;
-            document.getElementById('class_name').value = product.class_name;
             document.getElementById('tags').value = product.tags;
             document.getElementById('payment_link').value = product.payment_link;
+            document.getElementById('image_url_text').value = product.image_url || '';
             
-            const imageUrl = product.image_url || '';
-            document.getElementById('image_url_text').value = imageUrl;
-            document.getElementById('product_image').value = '';
-            updateImagePreview(imageUrl);
-            
-            document.getElementById('btn-submit-form').innerHTML = '<i data-lucide="refresh-cw" style="width:16px;height:16px;"></i> UPDATE PRODUK';
-            document.getElementById('btn-cancel-edit').style.display = 'block';
-            
+            document.getElementById('btn-submit-prod').innerHTML = '<i data-lucide="refresh-cw" style="width:16px;height:16px;"></i> UPDATE PRODUK';
+            document.getElementById('btn-cancel-prod').style.display = 'block';
             lucide.createIcons();
             window.scrollTo({ top: document.getElementById('crud-product-form').offsetTop - 50, behavior: 'smooth' });
         }
 
-        function resetForm() {
-            document.getElementById('form-card-title').innerHTML = '<i data-lucide="plus-circle" style="color:var(--accent-color);"></i> Tambah Produk Baru';
-            document.getElementById('form-action').value = 'add';
-            document.getElementById('form-product-id').value = '';
+        function resetProductForm() {
+            document.getElementById('form-product-title').innerHTML = '<i data-lucide="plus-circle" style="color:var(--accent-color);"></i> Tambah Produk Baru';
+            document.getElementById('form-action-prod').value = 'add';
+            document.getElementById('form-prod-id').value = '';
             document.getElementById('crud-product-form').reset();
-            updateImagePreview('');
-            
-            document.getElementById('btn-submit-form').innerHTML = '<i data-lucide="save" style="width:16px;height:16px;"></i> SIMPAN PRODUK';
-            document.getElementById('btn-cancel-edit').style.display = 'none';
-            
-            lucide.createIcons();
+            document.getElementById('btn-submit-prod').innerHTML = '<i data-lucide="save" style="width:16px;height:16px;"></i> SIMPAN PRODUK';
+            document.getElementById('btn-cancel-prod').style.display = 'none';
         }
 
-        // Copy Text Helper
-        function copyText(id) {
-            const text = document.getElementById(id).textContent;
-            navigator.clipboard.writeText(text).then(() => {
-                alert('Tautan sukses berhasil disalin ke clipboard!');
-            }).catch(err => {
-                console.error('Failed to copy text: ', err);
-            });
+        // Blog edit handler
+        function editBlog(blog) {
+            switchAdminTab('blogs');
+            document.getElementById('form-blog-title').innerHTML = '<i data-lucide="edit-3" style="color:var(--accent-color);"></i> Edit Artikel: ' + blog.title_id;
+            document.getElementById('form-action-blog').value = 'edit_blog';
+            document.getElementById('form-blog-id').value = blog.id;
+            
+            document.getElementById('blog_title_id').value = blog.title_id;
+            document.getElementById('blog_title_en').value = blog.title_en;
+            document.getElementById('blog_category').value = blog.category;
+            document.getElementById('blog_author').value = blog.author;
+            document.getElementById('blog_tags').value = blog.tags;
+            document.getElementById('blog_date').value = blog.created_date;
+            document.getElementById('blog_excerpt_id').value = blog.excerpt_id;
+            document.getElementById('blog_excerpt_en').value = blog.excerpt_en;
+            document.getElementById('blog_content_id').value = blog.content_id;
+            document.getElementById('blog_content_en').value = blog.content_en;
+            document.getElementById('blog_image_url_text').value = blog.image_url || '';
+            
+            document.getElementById('btn-submit-blog').innerHTML = '<i data-lucide="refresh-cw" style="width:16px;height:16px;"></i> UPDATE ARTIKEL';
+            document.getElementById('btn-cancel-blog').style.display = 'block';
+            lucide.createIcons();
+            window.scrollTo({ top: document.getElementById('crud-blog-form').offsetTop - 50, behavior: 'smooth' });
+        }
+
+        function resetBlogForm() {
+            document.getElementById('form-blog-title').innerHTML = '<i data-lucide="plus-circle" style="color:var(--accent-color);"></i> Unggah Artikel Blog Baru';
+            document.getElementById('form-action-blog').value = 'add_blog';
+            document.getElementById('form-blog-id').value = '';
+            document.getElementById('crud-blog-form').reset();
+            document.getElementById('btn-submit-blog').innerHTML = '<i data-lucide="upload-cloud" style="width:16px;height:16px;"></i> TERBITKAN ARTIKEL';
+            document.getElementById('btn-cancel-blog').style.display = 'none';
         }
     </script>
 </body>

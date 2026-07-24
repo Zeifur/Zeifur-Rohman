@@ -315,6 +315,16 @@ const translations = {
         p4_features: "25+ Elemen UI Kreatif • Vektor Logo Dapat Diedit • Panduan Tipografi Lengkap • Aset Siap Ekspor",
 
         // Store Widgets & UI Elements
+        store_sec2_title: "PRODUK YANG SAYA JUAL",
+        store_sec2_subtitle: "EBOOK, TEMPLATE WEB, ASET BRANDING & PRESET KIT",
+        store_sec2_empty_title: "BELUM ADA PRODUK DIJUAL",
+        store_sec2_empty_desc: "Katalog produk digital premium (Ebook, Template Web, Aset Branding, dan Preset Kit) sedang dalam persiapan. Nantikan peluncuran resminya segera!",
+        coffee_sec_title: "TRAKTIR SAYA KOPI",
+        coffee_sec_sub: "DUKUNGAN KARYA DIGITAL & EXPERIMENT WEB",
+        coffee_sec_desc: "Dukung kontinuitas karya digital, eksperimen website, dan konten edukatif Zeifur Rohman dengan mentraktir secangkir kopi hangat. Tentukan nominal apresiasi sukarela Anda tanpa batas secara instan via DOKU / QRIS.",
+        coffee_quick_nominal: "PILIH NOMINAL APRESIASI :",
+        coffee_custom_nominal: "ATAU MASUKKAN NOMINAL BEBAS (RP) :",
+        coffee_btn_treat: "TRAKTIR KOPI SEKARANG",
         widget_cart: "KERANJANG BELANJA",
         widget_cart_empty: "Belum ada produk di keranjang.",
         widget_price_filter: "FILTER HARGA",
@@ -647,6 +657,17 @@ const translations = {
 
         // Store Widgets & UI Elements
         widget_cart: "SHOPPING CART",
+        // Store Widgets & UI Elements
+        store_sec2_title: "PRODUCTS FOR SALE",
+        store_sec2_subtitle: "EBOOKS, WEB TEMPLATES, BRANDING ASSETS & PRESETS",
+        store_sec2_empty_title: "NO PRODUCTS CURRENTLY FOR SALE",
+        store_sec2_empty_desc: "The premium digital product catalog (Ebooks, Web Templates, Branding Assets, and Preset Kits) is currently being curated. Stay tuned for upcoming releases!",
+        coffee_sec_title: "BUY ME A COFFEE",
+        coffee_sec_sub: "DIGITAL CREATIONS & WEB EXPERIMENTS SUPPORT",
+        coffee_sec_desc: "Support Zeifur Rohman's ongoing digital creations, open web experiments, and educational content by treating him to a warm cup of coffee! Choose any voluntary appreciation amount without limits via DOKU / QRIS.",
+        coffee_quick_nominal: "CHOOSE PRESET AMOUNT :",
+        coffee_custom_nominal: "OR ENTER ANY CUSTOM AMOUNT (IDR) :",
+        coffee_btn_treat: "TREAT A COFFEE NOW",
         widget_cart_empty: "No products in the cart.",
         widget_price_filter: "FILTER BY PRICE",
         widget_popular_products: "POPULAR PRODUCTS",

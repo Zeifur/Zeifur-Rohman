@@ -141,15 +141,15 @@
             background: rgba(152, 0, 0, 0.03);
         }
 
-        /* Cover Hero Banner */
+        /* Cover Hero Banner (Clean Dark Design Without Background Image) */
         .blog-cover-banner {
             position: relative;
             width: 100%;
-            height: 45vh;
-            min-height: 320px;
-            background-image: url('https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-            background-size: cover;
-            background-position: center 65%;
+            padding: 60px 0 40px 0;
+            background: radial-gradient(circle at 10% 20%, rgba(152, 0, 0, 0.12) 0%, transparent 50%),
+                        radial-gradient(circle at 90% 80%, rgba(20, 24, 32, 0.8) 0%, transparent 60%),
+                        #08090c;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
             display: flex;
             align-items: center;
             justify-content: flex-start;
@@ -163,9 +163,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, rgba(6, 8, 8, 0.95) 0%, rgba(6, 8, 8, 0.65) 45%, rgba(6, 8, 8, 0.1) 100%),
-                        linear-gradient(180deg, rgba(6, 8, 8, 0) 50%, rgba(6, 8, 8, 0.9) 100%);
+            background: radial-gradient(var(--accent-color) 1px, transparent 1px);
+            background-size: 24px 24px;
+            opacity: 0.05;
             z-index: 1;
+            pointer-events: none;
         }
 
         .blog-cover-content {
@@ -425,7 +427,7 @@
             transform: scale(1.25);
         }
 
-        /* Post Details (Views / Comments) */
+        /* Post Details (Author display only) */
         .post-details {
             display: flex;
             gap: 25px;
@@ -441,6 +443,11 @@
             display: flex;
             align-items: center;
             gap: 6px;
+        }
+
+        /* Hide comments and views items strictly */
+        .post-details-item:nth-child(n+2) {
+            display: none !important;
         }
 
         .post-details-item i {

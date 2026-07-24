@@ -1673,3 +1673,57 @@
                 align-items: stretch;
             }
         }
+
+        /* SECTION 2: TRAKTIR SAYA KOPI STYLES */
+        .coffee-bg-pattern {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            opacity: 0.04;
+            background-image: radial-gradient(var(--accent-color) 1.5px, transparent 1.5px);
+            background-size: 18px 18px;
+            pointer-events: none;
+        }
+        .coffee-card-title {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .coffee-card-desc {
+            font-family: var(--font-body);
+            font-size: 0.92rem;
+            color: var(--muted-text);
+            line-height: 1.65;
+        }
+        .btn-coffee-submit {
+            background: linear-gradient(135deg, #980000, #c40000);
+            border: none;
+            color: #fff;
+            font-family: var(--font-condensed);
+            font-size: 0.95rem;
+            font-weight: 900;
+            padding: 14px 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            box-shadow: 0 0 25px rgba(152, 0, 0, 0.4);
+            transition: var(--transition-smooth);
+        }
+        .btn-coffee-submit:hover {
+            background: linear-gradient(135deg, #b00000, #e00000);
+            box-shadow: 0 0 35px rgba(152, 0, 0, 0.7);
+            transform: translateY(-2px);
+        }
+        @media (max-width: 768px) {
+            .btn-coffee-submit {
+                width: 100%;
+                justify-content: center;
+            }
+        }

@@ -70,7 +70,7 @@
             }
         };
 
-        // Store Product Database
+        // Store Product Database (CapKarya Web App & Coffee Treat Config)
         const productsData = {
             1: {
                 id: 1,
@@ -81,32 +81,30 @@
                 features_id: "Apresiasi Sukarela Bebas Nominal | Mendukung Karya Digital & Web Development | DOKU / QRIS / VA / E-Wallet Gateway | Ucapan Terima Kasih Spesial dari Kreator",
                 features_en: "Flexible Voluntary Contribution | Supports Digital Work & Web Development | Live DOKU / QRIS / E-Wallet Gateway | Heartfelt Creator Appreciation",
                 priceNumeric: 0,
-                priceString: "Rp ∞ (Nominal Sukarela)",
+                priceString: "Rp ∞",
                 class: "preview-presets",
                 icon: "coffee",
                 category: "coffee",
                 tags: ["Coffee", "Support", "Donation"],
                 paymentLink: "https://pay.doku.com/p-link/p/TraktirKopi"
             },
-            7: {
-                id: 7,
-                title_id: "Ebook: Personal Branding Anak Muda di Era Digital",
-                title_en: "Ebook: Youth Personal Branding in the Digital Era",
-                desc_id: "Buku panduan praktis 43+ halaman format PDF HD karya Zeifur Rohman yang mengupas tuntas rahasia dan strategi membangun personal branding yang kuat, otentik, dan berdaya saing tinggi bagi anak muda, mahasiswa, serta profesional di era digital.",
-                desc_en: "A comprehensive 43+ page HD PDF guidebook written by Zeifur Rohman detailing end-to-end strategies to build a strong, authentic, and competitive personal brand for young people and professionals in the digital era.",
-                features_id: "Chapter 1: Kenali Dirimu Sebelum Branding ke Dunia | Chapter 2: Optimasi Profil LinkedIn yang Bikin Recruiter Kepincut | Chapter 3: Konten LinkedIn & IG yang Bikin Kamu Dikenal Ahli | Chapter 4: Bangun Jaringan & Dapat Peluang dari Personal Brand | Chapter 5: Jaga Konsistensi & Terus Tumbuh Sebagai Brand | Format PDF HD 43+ Halaman | Akses Download Langsung & Update Selamanya",
-                features_en: "Chapter 1: Know Yourself Before Branding to the World | Chapter 2: LinkedIn Profile Optimization for Recruiters | Chapter 3: LinkedIn & IG Content Strategy to Stand Out | Chapter 4: Build Network & Unlock Career Opportunities | Chapter 5: Consistency & Long-Term Growth | 43+ Pages HD PDF Format | Lifetime Download Access",
-                priceNumeric: 49000,
-                priceString: "Rp 49.000",
-                class: "preview-presets",
-                icon: "book-open",
-                category: "ebooks",
-                tags: ["Ebook", "PDF", "Branding", "Personal Brand"],
-                image: "assets/images/ebook/ebook-cover-1.png",
-                tocImage: "assets/images/ebook/ebook-cover-2.png",
-                dokuStoreUrl: "https://dashboard.doku.com/retail/merchant/ZeifurRohmanFreelanc6206/EbookPersonalBrandingAnakMudadiEraDigital-849405b25d1d4b8f",
-                paymentLink: "https://dashboard.doku.com/retail/merchant/ZeifurRohmanFreelanc6206/EbookPersonalBrandingAnakMudadiEraDigital-849405b25d1d4b8f",
-                downloadUrl: "assets/ebooks/personal-branding-anak-muda-di-digital.pdf"
+            2: {
+                id: 2,
+                title_id: "CapKarya by Zeifur Rohman (Web App Monogram)",
+                title_en: "CapKarya by Zeifur Rohman (Monogram Web App)",
+                desc_id: "Aplikasi web generator logo monogram & identitas visual instan berbasis browser yang dirancang khusus oleh Zeifur Rohman untuk membantu UMKM, pebisnis, dan kreator menciptakan cap identitas/monogram kelas premium secara presisi.",
+                desc_en: "Instant browser-based monogram logo & visual identity web application designed by Zeifur Rohman to empower small businesses, entrepreneurs, and creators to generate premium monogram logos in seconds.",
+                features_id: "Editor Monogram Presisi 320x320px | Kustomisasi Inisial 2-3 Huruf & Tagline | Kontrol Rotasi Sudut & Skala Ukuran | Simpan Desain Favorit & Ekspor Aset | 100% Gratis Digunakan",
+                features_en: "320x320px Precision Monogram Canvas | 2-3 Letter Monogram & Tagline Builder | Rotation Angle & Scale Controls | Local Favorites Saver & Asset Export | 100% Free to Use",
+                priceNumeric: 0,
+                priceString: "GRATIS (FREE DEMO)",
+                class: "preview-template-1",
+                icon: "globe",
+                category: "free-web",
+                tags: ["CapKarya", "WebApp", "Monogram", "Generator"],
+                webLink: "http://capkarya.great-site.net",
+                paymentLink: "http://capkarya.great-site.net",
+                image: "assets/images/capkarya-display-1.png"
             }
         };
 
@@ -236,9 +234,9 @@
             const currentLang = localStorage.getItem('preferred_language') || 'id';
             const dict = translations[currentLang] || translations['id'];
 
-            // 1. Filter products
+            // 1. Filter products (Exclude Section 1 Web Works & Section 3 Coffee Treat from Section 2 sale grid)
             let filteredList = Object.values(productsData).filter(prod => {
-                if (prod.id === 1) return false; // Exclude Traktir Kopi from storefront grid
+                if (prod.id === 1 || prod.category === 'coffee' || prod.category === 'free-web') return false;
                 // Category match
                 if (selectedCategory !== 'all' && prod.category !== selectedCategory) return false;
                 // Tag match
@@ -254,12 +252,7 @@
             } else if (activeSorting === 'high-low') {
                 filteredList.sort((a, b) => b.priceNumeric - a.priceNumeric);
             } else {
-                // Default sorting: Ebook (Product 7) featured FIRST!
-                filteredList.sort((a, b) => {
-                    if (a.id === 7) return -1;
-                    if (b.id === 7) return 1;
-                    return a.id - b.id;
-                });
+                filteredList.sort((a, b) => b.id - a.id);
             }
 
             // 3. Paginate
@@ -275,7 +268,7 @@
             const resultsCounter = document.getElementById('toolbar-results-count');
             if (resultsCounter) {
                 if (totalProducts === 0) {
-                    resultsCounter.textContent = currentLang === 'en' ? "Showing 0 of 0 results" : "Menampilkan 0 hasil";
+                    resultsCounter.textContent = currentLang === 'en' ? "Showing 0 results" : "Menampilkan 0 hasil";
                 } else {
                     const startCount = startIdx + 1;
                     const endCount = Math.min(endIdx, totalProducts);
@@ -288,16 +281,22 @@
             // Render HTML
             gridContainer.innerHTML = "";
             if (paginatedList.length === 0) {
-                gridContainer.innerHTML = `<div style="grid-column: 1/-1; padding: 40px; text-align: center; color: var(--muted-text); font-family: var(--font-condensed); letter-spacing: 0.05em;">${currentLang === 'en' ? 'NO PRODUCTS MATCH THIS FILTER' : 'TIDAK ADA PRODUK YANG COCOK'}</div>`;
+                gridContainer.innerHTML = `
+                    <div class="empty-products-card" style="grid-column: 1/-1; background: rgba(15, 18, 24, 0.5); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 60px 25px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; margin: 10px 0;">
+                        <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(152, 0, 0, 0.15); border: 1px solid rgba(152, 0, 0, 0.35); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 30px rgba(152, 0, 0, 0.35);">
+                            <i data-lucide="package-open" style="width: 32px; height: 32px; color: var(--accent-color);"></i>
+                        </div>
+                        <h3 style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 900; color: #fff; letter-spacing: 0.05em; margin: 0; text-transform: uppercase;">${dict['store_sec2_empty_title'] || 'BELUM ADA PRODUK DIJUAL'}</h3>
+                        <p style="font-family: var(--font-body); font-size: 0.88rem; color: var(--muted-text); max-width: 480px; line-height: 1.6; margin: 0;">${dict['store_sec2_empty_desc'] || 'Katalog produk digital premium (Ebook, Template Web, Aset Branding, dan Preset Kit) sedang dalam persiapan. Nantikan peluncuran resminya segera!'}</p>
+                    </div>
+                `;
             } else {
                 paginatedList.forEach(prod => {
                     const card = document.createElement('div');
                     card.className = "product-card";
                     
                     let badgeText = "";
-                    if (prod.id === 7) {
-                        badgeText = 'EBOOK UTAMA';
-                    } else if (prod.priceNumeric === 0 || prod.category === 'free-web') {
+                    if (prod.priceNumeric === 0 || prod.category === 'free-web') {
                         badgeText = dict['badge_karya_web'] || 'KARYA WEB';
                     } else if (prod.id === 4) {
                         badgeText = dict['badge_premium'] || 'PREMIUM';
@@ -318,8 +317,8 @@
                     if (isFree && prod.webLink) {
                         buyBtnText = dict['btn_visit_website'] || 'AKSES WEBSITE';
                         buyAction = `window.open('${prod.webLink}', '_blank', 'noopener,noreferrer')`;
-                    } else if (prod.id === 7 || prod.dokuStoreUrl) {
-                        buyBtnText = 'BELI DI DOKU STORE';
+                    } else if (prod.dokuStoreUrl || prod.paymentLink) {
+                        buyBtnText = 'BELI SEKARANG';
                         buyAction = `window.open('${prod.dokuStoreUrl || prod.paymentLink}', '_blank', 'noopener,noreferrer')`;
                     }
 
@@ -353,65 +352,22 @@
 
             // Render Pagination Buttons
             renderPagination(totalPages);
-
-            // Render Coffee Treat & Update Categories dynamically
-            renderCoffeeTreat();
             updateCategoryCounts();
 
-            lucide.createIcons();
+            if (typeof lucide !== 'undefined') lucide.createIcons();
         }
 
-        // Render special coffee treat banner dynamically at the bottom
-        function renderCoffeeTreat() {
-            const coffeeSection = document.getElementById('coffee-treat-section');
-            if (!coffeeSection) return;
+        // Section 2: Coffee Treat Direct Action Handler
+        window.executeCoffeeTreat = function() {
+            const dokuCoffeeUrl = "https://pay.doku.com/p-link/p/TraktirKopi";
+            window.open(dokuCoffeeUrl, '_blank', 'noopener,noreferrer');
+        };
 
-            const prod = productsData[1];
-            if (!prod) {
-                coffeeSection.style.display = 'none';
-                return;
-            }
-
-            const currentLang = localStorage.getItem('preferred_language') || 'id';
-            const dict = translations[currentLang] || translations['id'];
-
-            const title = (currentLang === 'en' ? prod.title_en : prod.title_id) || prod.title_id;
-            const desc = (currentLang === 'en' ? prod.desc_en : prod.desc_id) || prod.desc_id;
-            
-            document.getElementById('coffee-title').textContent = title;
-            document.getElementById('coffee-desc').textContent = desc;
-            document.getElementById('coffee-price').textContent = prod.priceString;
-
-            // Load features list
-            const list = document.getElementById('coffee-features');
-            list.innerHTML = "";
-            const rawFeatures = (currentLang === 'en' ? prod.features_en : prod.features_id) || "";
-            const featuresArr = rawFeatures.split(/[•|]/).map(f => f.trim()).filter(f => f);
-            
-            featuresArr.forEach(feature => {
-                const li = document.createElement('li');
-                li.innerHTML = `<i data-lucide="check-circle" style="width:14px;height:14px;vertical-align:middle;display:inline-block;"></i> <span>${feature}</span>`;
-                list.appendChild(li);
-            });
-
-            // Set button texts
-            const btnDetail = coffeeSection.querySelector('.coffee-treat-actions button[onclick="openDetails(1)"]');
-            if (btnDetail) {
-                btnDetail.textContent = dict['btn_details'] || 'DETAIL';
-            }
-            const btnBuy = coffeeSection.querySelector('.coffee-treat-actions button[onclick="triggerDirectBuy(1)"]');
-            if (btnBuy) {
-                btnBuy.textContent = currentLang === 'en' ? 'TREAT COFFEE' : 'TRAKTIR KOPI';
-            }
-
-            coffeeSection.style.display = 'block';
-        }
-
-        // Dynamic category count calculation
+        // Dynamic category count calculation for Section 2 Digital Sale Products
         function updateCategoryCounts() {
-            let counts = { all: 0, 'free-web': 0, ebooks: 0, templates: 0, branding: 0, presets: 0 };
+            let counts = { all: 0, ebooks: 0, templates: 0, branding: 0, presets: 0 };
             Object.values(productsData).forEach(prod => {
-                if (prod.id === 1) return; // Exclude Traktir Kopi from counts
+                if (prod.id === 1 || prod.category === 'coffee' || prod.category === 'free-web') return;
                 counts.all++;
                 if (counts[prod.category] !== undefined) {
                     counts[prod.category]++;
@@ -421,9 +377,6 @@
             // Update DOM
             const allEl = document.getElementById('cat-count-all');
             if (allEl) allEl.textContent = `(${counts.all})`;
-
-            const freeWebEl = document.getElementById('cat-count-free-web');
-            if (freeWebEl) freeWebEl.textContent = `(${counts['free-web']})`;
 
             const ebookEl = document.getElementById('cat-count-ebooks');
             if (ebookEl) ebookEl.textContent = `(${counts.ebooks})`;

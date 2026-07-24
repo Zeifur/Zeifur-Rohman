@@ -57,22 +57,75 @@ VALUES
   'CapKarya,WebApp,Monogram,Generator',
   'http://capkarya.great-site.net',
   'assets/images/capkarya-display-1.png'
+)
+ON DUPLICATE KEY UPDATE `id` = `id`;
+
+-- ========================================================
+-- BLOGS TABLE DEFINITION & SEEDS
+-- ========================================================
+
+CREATE TABLE IF NOT EXISTS `blogs` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `slug` VARCHAR(255) NOT NULL UNIQUE,
+  `title_id` VARCHAR(255) NOT NULL,
+  `title_en` VARCHAR(255) NOT NULL,
+  `category` VARCHAR(50) NOT NULL DEFAULT 'website',
+  `tags` VARCHAR(255) NOT NULL DEFAULT 'website,branding',
+  `author` VARCHAR(100) NOT NULL DEFAULT 'ZEIFUR ROHMAN',
+  `created_date` VARCHAR(50) NOT NULL,
+  `excerpt_id` TEXT NOT NULL,
+  `excerpt_en` TEXT NOT NULL,
+  `content_id` LONGTEXT NOT NULL,
+  `content_en` LONGTEXT NOT NULL,
+  `image_url` VARCHAR(255) NULL,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO `blogs` (`id`, `slug`, `title_id`, `title_en`, `category`, `tags`, `author`, `created_date`, `excerpt_id`, `excerpt_en`, `content_id`, `content_en`, `image_url`)
+VALUES
+(
+  1,
+  'strategi-pengembangan-website-modern',
+  'STRATEGI PENGEMBANGAN WEBSITE MODERN YANG CEPAT DAN RESPONSIF',
+  'MODERN WEB DEVELOPMENT STRATEGY FOR HIGH SPEED AND RESPONSIVENESS',
+  'website',
+  'branding,website',
+  'ZEIFUR ROHMAN',
+  'JUNE 08, 2026',
+  'Dalam era digital saat ini, performa dan aksesibilitas website adalah kunci keberhasilan bisnis. Pelajari bagaimana memadukan vanilla JavaScript, animasi GSAP, dan optimalisasi Core Web Vitals.',
+  'In todays digital era, website performance and accessibility are key to business success. Learn how to blend vanilla JavaScript, GSAP animations, and Core Web Vitals optimization.',
+  '<h3>Metodologi Clean Code & Performa Utama</h3><p>Membangun website modern tidak lagi sekadar tentang visual yang indah, melainkan tentang kecepatan muat halaman dan struktur kode yang efisien...</p>',
+  '<h3>Clean Code Methodology & Peak Performance</h3><p>Building modern websites is no longer just about aesthetics, but page load speed and efficient code architecture...</p>',
+  'https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'
 ),
 (
-  7,
-  'Ebook: Personal Branding Anak Muda di Era Digital',
-  'Ebook: Youth Personal Branding in the Digital Era',
-  'Buku panduan praktis format PDF HD karya Zeifur Rohman yang mengupas tuntas rahasia dan strategi membangun personal branding yang kuat, otentik, dan berdaya saing tinggi bagi anak muda, mahasiswa, serta profesional di era digital.',
-  'A comprehensive HD PDF guidebook written by Zeifur Rohman detailing end-to-end strategies to build a strong, authentic, and competitive personal brand for young people and professionals in the digital era.',
-  'Chapter 1: Kenali Dirimu Sebelum Branding ke Dunia | Chapter 2: Optimasi Profil LinkedIn yang Bikin Recruiter Kepincut | Chapter 3: Konten LinkedIn & IG yang Bikin Kamu Dikenal Ahli | Chapter 4: Bangun Jaringan & Dapat Peluang dari Personal Brand | Chapter 5: Jaga Konsistensi & Terus Tumbuh Sebagai Brand | Format PDF HD 43+ Halaman | Akses Download Langsung & Update Selamanya',
-  'Chapter 1: Know Yourself Before Branding to the World | Chapter 2: LinkedIn Profile Optimization for Recruiters | Chapter 3: LinkedIn & IG Content Strategy to Stand Out | Chapter 4: Build Network & Unlock Career Opportunities | Chapter 5: Consistency & Long-Term Growth | 43+ Pages HD PDF Format | Lifetime Download Access',
-  49000.00,
-  'Rp 49.000',
-  'preview-presets',
-  'book-open',
-  'ebooks',
-  'Ebook,PDF,Branding,Personal Brand',
-  'https://dashboard.doku.com/retail/merchant/ZeifurRohmanFreelanc6206/EbookPersonalBrandingAnakMudadiEraDigital-849405b25d1d4b8f',
-  'assets/images/ebook/ebook-cover-1.png'
+  2,
+  'filosofi-branding-visual-identitas-logo',
+  'FILOSOFI BRANDING VISUAL: MENERJEMAHKAN VISI MENJADI IDENTITAS LOGO',
+  'VISUAL BRANDING PHILOSOPHY: TRANSLATING VISION INTO LOGO IDENTITY',
+  'branding',
+  'branding',
+  'ZEIFUR ROHMAN',
+  'JUNE 05, 2026',
+  'Logo bukan sekadar gambar, melainkan sebuah representasi filosofis dari visi dan misi suatu brand. Penting untuk melakukan riset audiens dan merumuskan panduan brand digital yang komprehensif.',
+  'A logo is not just an image, but a philosophical representation of a brands vision and mission. It is vital to perform audience research and formulate comprehensive brand guidelines.',
+  '<h3>Eksplorasi Monogram & Identitas Visual</h3><p>Setiap garis dan warna dalam desain logo memiliki bobot emosional dan daya pikat bisnis...</p>',
+  '<h3>Monogram Exploration & Visual Identity</h3><p>Every line and color in logo design holds emotional weight and business appeal...</p>',
+  'https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'
+),
+(
+  3,
+  'seni-fotografi-dokumenter-dan-penceritaan-visual',
+  'SENI FOTOGRAFI DOKUMENTER DAN PENCERITAAN VISUAL',
+  'THE ART OF DOCUMENTARY PHOTOGRAPHY AND VISUAL STORYTELLING',
+  'photography',
+  'photography',
+  'ZEIFUR ROHMAN',
+  'JUNE 01, 2026',
+  'Fotografi adalah seni menangkap momen berharga yang menceritakan sebuah kisah tanpa kata-kata. Pelajari teknik komposisi cahaya dan framing untuk menghasilkan karya visual bercerita.',
+  'Photography is the art of capturing precious moments that tell a story without words. Learn lighting composition techniques and framing to craft visual storytelling.',
+  '<h3>Teknik Framing & Esensi Visual</h3><p>Melalui kamera, kita membekukan fragmen waktu menjadi kenangan abadi...</p>',
+  '<h3>Framing Techniques & Visual Essence</h3><p>Through the lens, we freeze fragments of time into everlasting memories...</p>',
+  'https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'
 )
 ON DUPLICATE KEY UPDATE `id` = `id`;

@@ -299,109 +299,36 @@
             </div>
         </section>
 
-        <!-- SECTION 2: PRODUK DIGITAL UTAMA (Products for Sale) -->
+        <!-- SECTION 2: PRODUK YANG SAYA JUAL (Digital Products Container with Sidebar) -->
+        <div class="section-header-box" style="padding-top: 50px; padding-left: max(5vw, 20px); padding-right: max(5vw, 20px); margin-bottom: 15px;">
+            <span class="section-sub" data-translate="store_sec2_subtitle">EBOOK, TEMPLATE WEB, ASET BRANDING & PRESET KIT</span>
+            <h2 class="section-main-title" data-translate="store_sec2_title">PRODUK YANG SAYA JUAL<span>.</span></h2>
+        </div>
+
         <section class="shop-layout-container">
-            <!-- Left Main Column (70%) -->
+            <!-- Left Main Column (70%): Professional Empty State Banner -->
             <div class="shop-main-column">
-                <!-- Toolbar for sorting and result counts -->
-                <div class="shop-toolbar">
-                    <div class="toolbar-results" id="toolbar-results-count" data-translate="showing_results">Menampilkan 1-4 dari 4 hasil</div>
-                    <div class="toolbar-sorting">
-                        <label for="sort-products" data-translate="sort_by">Urutkan</label>
-                        <select id="sort-products" class="sort-select" onchange="handleSort(this.value)">
-                            <option value="latest" data-translate="sort_latest">Terbaru</option>
-                            <option value="low-high" data-translate="sort_price_low">Harga: Rendah ke Tinggi</option>
-                            <option value="high-low" data-translate="sort_price_high">Harga: Tinggi ke Rendah</option>
-                        </select>
+                <div class="empty-products-card" style="background: rgba(15, 18, 24, 0.5); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 16px; padding: 60px 30px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; min-height: 340px;">
+                    <div style="width: 68px; height: 68px; border-radius: 50%; background: rgba(152, 0, 0, 0.15); border: 1px solid rgba(152, 0, 0, 0.35); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 30px rgba(152, 0, 0, 0.35);">
+                        <i data-lucide="package-open" style="width: 34px; height: 34px; color: var(--accent-color);"></i>
                     </div>
-                </div>
-
-                <!-- Products Grid -->
-                <div class="store-grid" id="products-grid-container">
-                    <!-- Product items dynamically rendered via Javascript to support filter/sorting -->
-                </div>
-
-                <!-- Pagination Widget -->
-                <div class="shop-pagination" id="shop-pagination-box">
-                    <!-- Paginations dynamically created -->
+                    <h3 style="font-family: var(--font-heading); font-size: 1.25rem; font-weight: 900; color: #fff; letter-spacing: 0.05em; margin: 0; text-transform: uppercase;" data-translate="store_sec2_empty_title">BELUM ADA PRODUK DIJUAL</h3>
+                    <p style="font-family: var(--font-body); font-size: 0.9rem; color: var(--muted-text); max-width: 500px; line-height: 1.6; margin: 0;" data-translate="store_sec2_empty_desc">Katalog produk digital premium (Ebook, Template Web, Aset Branding, dan Preset Kit) sedang dalam persiapan. Perilisan resmi produk digital Zeifur Rohman akan hadir dalam waktu dekat!</p>
                 </div>
             </div>
 
             <!-- Right Sidebar Widgets Column (30%) -->
             <aside class="shop-sidebar-column">
-                <!-- Widget 01: Filter by Price -->
-                <div class="sidebar-widget">
-                    <div class="widget-header">
-                        <h3 class="widget-title" data-translate="widget_price_filter">FILTER HARGA</h3>
-                        <span class="widget-number">01.</span>
-                    </div>
-                    <div class="price-filter-box">
-                        <input type="range" min="50000" max="300000" step="10000" value="300000" class="price-slider" id="price-range-slider" oninput="updatePriceSliderVal(this.value)">
-                        <div class="price-label-row">
-                            <span data-translate="btn_filter">FILTER</span>
-                            <span id="price-slider-label">Price: Rp 50k — Rp 300k</span>
-                        </div>
-                        <button class="btn-filter-action" onclick="applyPriceFilter()" data-translate="btn_filter">FILTER</button>
-                    </div>
-                </div>
-
-                <!-- Widget 02: Popular Products (Sidebar rows) -->
-                <div class="sidebar-widget">
-                    <div class="widget-header">
-                        <h3 class="widget-title" data-translate="widget_popular_products">PRODUK POPULER</h3>
-                        <span class="widget-number">02.</span>
-                    </div>
-                    <div class="popular-list">
-                        <div class="popular-item" onclick="openDetails(7)">
-                            <div class="popular-preview">
-                                <i data-lucide="book-open" style="width:18px;height:18px;"></i>
-                            </div>
-                            <div class="popular-meta">
-                                <h4 class="popular-name">Ebook Personal Branding</h4>
-                                <span class="popular-price" style="color:var(--accent-color);font-weight:700;">Rp 49.000</span>
-                            </div>
-                        </div>
-                        <div class="popular-item" onclick="openDetails(1)">
-                            <div class="popular-preview">
-                                <i data-lucide="coffee" style="width:18px;height:18px;"></i>
-                            </div>
-                            <div class="popular-meta">
-                                <h4 class="popular-name">Traktir Kopi Kreatif</h4>
-                                <span class="popular-price">Rp ∞</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Widget 03: Product Tags -->
-                <div class="sidebar-widget">
-                    <div class="widget-header">
-                        <h3 class="widget-title" data-translate="widget_tags">TAG POPULER</h3>
-                        <span class="widget-number">03.</span>
-                    </div>
-                    <div class="tags-cloud" id="tags-cloud-container">
-                        <button class="tag-btn active" data-tag="all" data-translate="tag_all">Semua</button>
-                        <button class="tag-btn" data-tag="Ebook">Ebook</button>
-                        <button class="tag-btn" data-tag="PDF">PDF</button>
-                        <button class="tag-btn" data-tag="Branding">Branding</button>
-                        <button class="tag-btn" data-tag="Personal Brand">Personal Brand</button>
-                    </div>
-                </div>
-
-                <!-- Widget 04: Product Categories list -->
+                <!-- Widget 01: Product Categories list -->
                 <div class="sidebar-widget" id="categories-sidebar-widget">
                     <div class="widget-header">
                         <h3 class="widget-title" data-translate="widget_categories">KATEGORI PRODUK</h3>
-                        <span class="widget-number">04.</span>
+                        <span class="widget-number">01.</span>
                     </div>
                     <div class="categories-list" id="categories-list-container">
                         <a href="#" class="category-link active" data-category="all">
                             <span data-translate="filter_all">SEMUA PRODUK</span>
                             <span id="cat-count-all">(0)</span>
-                        </a>
-                        <a href="#" class="category-link" data-category="free-web">
-                            <span data-translate="filter_free_web">KARYA WEB (FREE)</span>
-                            <span id="cat-count-free-web">(0)</span>
                         </a>
                         <a href="#" class="category-link" data-category="ebooks">
                             <span data-translate="filter_ebooks">EBOOK & PANDUAN</span>
@@ -421,30 +348,56 @@
                         </a>
                     </div>
                 </div>
+
+                <!-- Widget 02: Product Tags -->
+                <div class="sidebar-widget">
+                    <div class="widget-header">
+                        <h3 class="widget-title" data-translate="widget_tags">TAG POPULER</h3>
+                        <span class="widget-number">02.</span>
+                    </div>
+                    <div class="tags-cloud" id="tags-cloud-container">
+                        <button class="tag-btn active" data-tag="all" data-translate="tag_all">Semua</button>
+                        <button class="tag-btn" data-tag="Ebook">Ebook</button>
+                        <button class="tag-btn" data-tag="Template">Template</button>
+                        <button class="tag-btn" data-tag="Branding">Branding</button>
+                        <button class="tag-btn" data-tag="Preset">Preset</button>
+                    </div>
+                </div>
             </aside>
         </section>
 
-        <!-- SECTION: COFFEE TREAT (Traktir Kopi) -->
-        <section class="coffee-treat-section" id="coffee-treat-section" style="display: none;">
-            <div class="coffee-treat-card">
-                <div style="position:absolute; width:100%; height:100%; opacity:0.05; background-image:radial-gradient(var(--accent-color) 1px, transparent 1px); background-size:15px 15px; top: 0; left: 0; pointer-events: none;"></div>
-                <div style="display: flex; align-items: center; gap: 25px; z-index: 2; flex-wrap: wrap;">
+        <!-- SECTION 3: TRAKTIR KOPI KREATIF (Matching Screenshot Design) -->
+        <section class="coffee-treat-section" id="coffee-treat-section" style="padding-top: 50px;">
+            <div class="coffee-treat-card" style="margin: 0 max(5vw, 20px);">
+                <div class="coffee-bg-pattern"></div>
+                
+                <div style="display: flex; align-items: center; gap: 25px; z-index: 2; flex-wrap: wrap; flex: 1;">
                     <div class="coffee-treat-icon-box">
-                        <i data-lucide="coffee" style="width:36px; height:36px;"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#ff0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 8px rgba(255,0,0,0.5));">
+                            <path d="M10 2v2"/>
+                            <path d="M14 2v2"/>
+                            <path d="M6 2v2"/>
+                            <path d="M17 8h1a4 4 0 1 1 0 8h-1"/>
+                            <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/>
+                        </svg>
                     </div>
-                    <div>
-                        <h2 style="font-family: var(--font-heading); font-size: 1.3rem; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;" id="coffee-title">TRAKTIR KOPI KREATIF</h2>
-                        <p style="font-family: var(--font-body); font-size: 0.95rem; color: var(--muted-text); line-height: 1.6; max-width: 700px;" id="coffee-desc">Dukung karya dan kreativitas saya dengan mentraktir secangkir kopi hangat senilai Rp 10.000 melalui gerbang pembayaran DOKU.</p>
+                    <div style="flex: 1; min-width: 260px;">
+                        <h2 style="font-family: var(--font-heading); font-size: 1.35rem; font-weight: 900; color: #fff; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;" id="coffee-title">TRAKTIR KOPI KREATIF</h2>
+                        <p style="font-family: var(--font-body); font-size: 0.92rem; color: var(--muted-text); line-height: 1.6; max-width: 680px;" id="coffee-desc">Dukung karya dan kreativitas saya dengan mentraktir secangkir kopi hangat senilai Rp ∞ melalui gerbang pembayaran DOKU.</p>
                         <ul class="coffee-treat-features" id="coffee-features">
-                            <!-- Features will be loaded here dynamically -->
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c40000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> <span>Secangkir Kopi Hangat</span></li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c40000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> <span>Dukungan Kreator</span></li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c40000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> <span>DOKU Gateway Aktif</span></li>
+                            <li><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c40000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> <span>Ucapan Terima Kasih</span></li>
                         </ul>
                     </div>
                 </div>
-                <div class="coffee-treat-actions" style="z-index: 2;">
-                    <span style="font-family: var(--font-condensed); font-size: 1.4rem; font-weight: 900; color: #c40000; text-shadow: 0 0 10px rgba(152,0,0,0.4);" id="coffee-price">Rp ∞</span>
+
+                <div class="coffee-treat-actions" style="z-index: 2; display: flex; flex-direction: column; align-items: flex-end; gap: 14px;">
+                    <span style="font-family: var(--font-heading); font-size: 1.6rem; font-weight: 900; color: #ff0000; letter-spacing: 0.05em; text-shadow: 0 0 15px rgba(255,0,0,0.4);" id="coffee-price">Rp ∞</span>
                     <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                        <button class="btn-store-detail" onclick="openDetails(1)" style="min-width: 100px; padding: 12px 20px;">DETAIL</button>
-                        <button class="btn-store-buy" onclick="triggerDirectBuy(1)" style="min-width: 100px; padding: 12px 20px;">TRAKTIR KOPI</button>
+                        <button class="btn-store-detail" onclick="openDetails(1)" style="min-width: 110px; padding: 10px 18px; font-weight: 800; font-size: 0.78rem;">DETAIL PRODUK</button>
+                        <button class="btn-store-buy" onclick="window.open('https://pay.doku.com/p-link/p/TraktirKopi', '_blank', 'noopener,noreferrer')" style="min-width: 110px; padding: 10px 18px; font-weight: 900; font-size: 0.78rem;">TRAKTIR KOPI</button>
                     </div>
                 </div>
             </div>
