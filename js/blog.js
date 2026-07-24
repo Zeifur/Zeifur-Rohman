@@ -145,6 +145,10 @@ if (menuToggle && menuPanel && menuOverlay) {
             const isDesktop = window.innerWidth > 1024;
             gsap.to(menuPanel, { left: isDesktop ? 80 : 0, duration: 0.6, ease: 'power4.out' });
             gsap.to(menuOverlay, { opacity: 1, visibility: 'visible', duration: 0.4 });
+            gsap.fromTo('.menu-panel-link', 
+                { y: 30, opacity: 0 }, 
+                { y: 0, opacity: 1, duration: 0.5, stagger: 0.06, ease: 'power3.out', delay: 0.2 }
+            );
         } else {
             closeMenu();
         }

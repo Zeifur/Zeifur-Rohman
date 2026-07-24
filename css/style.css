@@ -432,6 +432,10 @@ body.menu-open .menu-toggle:hover .close-icon {
     opacity: 0; /* Stagger animated by GSAP */
 }
 
+body.menu-open .menu-panel-link {
+    opacity: 1;
+}
+
 .menu-panel-link span:first-child {
     font-family: var(--font-condensed);
     font-size: 0.85rem;
